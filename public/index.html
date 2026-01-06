@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLUX - Store Officiel</title>
+    <title>FLUX - Boutique de Vêtements Premium</title>
+    <meta name="description" content="FLUX - Découvrez notre collection exclusive de vêtements streetwear et accessoires premium. Livraison gratuite dès 50€.">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5825303311354202"
+     crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -14,164 +22,119 @@
         }
 
         :root {
-            --primary: #0ea5e9;
-            --secondary: #06b6d4;
-            --accent: #f97316;
-            --bg-dark: #0a0a0f;
-            --bg-card: #1a1a24;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --border: #2a2a3a;
-            --glow: rgba(14, 165, 233, 0.3);
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --accent: #ff6b35;
+            --accent-hover: #ff8555;
         }
 
         body {
-            font-family: 'Space Mono', monospace;
-            background: var(--bg-dark);
-            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Animated Background Grid */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, var(--border) 1px, transparent 1px),
-                linear-gradient(0deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
-            z-index: 0;
-            animation: gridMove 20s linear infinite;
+        /* ========== TOP BANNER (AdSense placement 1) ========== */
+        .top-banner {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Glowing orbs in background */
-        body::after {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 30%, var(--glow) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
-            z-index: 0;
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Header */
+        /* ========== HEADER ========== */
         header {
             position: sticky;
             top: 0;
-            z-index: 100;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 1.5rem 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .header-content {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1.25rem 4%;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px var(--glow);
-            letter-spacing: 0.2em;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            font-weight: 400;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .logo:hover {
             transform: scale(1.05);
-            filter: brightness(1.2);
         }
 
-        .header-actions {
+        .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            letter-spacing: 0.3px;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--black);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 2rem;
             align-items: center;
         }
 
-        .search-bar {
-            position: relative;
-            width: 300px;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 3rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--glow);
-        }
-
-        .search-bar::before {
-            content: '🔍';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.5;
-        }
-
-        .cart-btn {
-            position: relative;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 10px;
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
+        .search-icon, .cart-icon {
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px var(--glow);
+            font-size: 1.25rem;
+            transition: transform 0.2s ease;
+            position: relative;
         }
 
-        .cart-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px var(--glow);
+        .search-icon:hover, .cart-icon:hover {
+            transform: scale(1.1);
         }
 
         .cart-count {
@@ -179,10 +142,10 @@
             top: -8px;
             right: -8px;
             background: var(--accent);
-            color: white;
+            color: var(--white);
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,260 +153,314 @@
             font-weight: 700;
         }
 
-        /* Hero Section */
+        /* ========== HERO SECTION ========== */
         .hero {
-            padding: 4rem 0;
-            text-align: center;
             position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 0 2rem;
         }
 
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes textGlow {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2rem;
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 500px;
+            margin: 0 auto 3rem;
         }
 
-        /* Filters */
-        .filters {
+        .cta-button {
+            display: inline-block;
+            padding: 1.125rem 3rem;
+            background: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--black);
+            cursor: pointer;
+            font-size: 0.9375rem;
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* ========== AD SPACE 1 - Under Hero (Horizontal Banner) ========== */
+        .ad-space {
+            max-width: 1600px;
+            margin: 2rem auto;
+            padding: 0 4%;
+            text-align: center;
+        }
+
+        .ad-placeholder {
+            background: var(--gray-100);
+            border: 1px dashed var(--gray-300);
+            padding: 2rem;
+            border-radius: 4px;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========== FILTERS ========== */
+        .filters-section {
+            padding: 3rem 4%;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .filters-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .filter-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
-            margin: 3rem 0;
         }
 
         .filter-btn {
-            padding: 0.75rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
+            padding: 0.625rem 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
         }
 
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            transition: all 0.5s ease;
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
         }
 
-        .filter-btn:hover::before {
-            left: 100%;
+        /* ========== MAIN CONTENT WITH SIDEBAR ========== */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 4rem 4%;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 20px var(--glow);
+        /* ========== SIDEBAR (AdSense placement 2) ========== */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
         }
 
-        /* Loading State */
-        .loading {
+        .sidebar-ad {
+            background: var(--gray-100);
+            border: 1px dashed var(--gray-300);
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            font-size: 0.75rem;
             text-align: center;
-            padding: 4rem;
-            font-size: 1.2rem;
-            color: var(--text-muted);
         }
 
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s steps(4, end) infinite;
+        /* ========== PRODUCTS SECTION ========== */
+        .products-section {
+            flex: 1;
         }
 
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
+        .section-header {
+            margin-bottom: 3rem;
         }
 
-        /* Products Grid */
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            color: var(--gray-500);
+            font-size: 1rem;
+        }
+
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            margin: 3rem 0;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
         }
 
         .product-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            position: relative;
             cursor: pointer;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .product-card:hover::before {
-            opacity: 0.1;
+            transition: transform 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px var(--glow);
+            transform: translateY(-5px);
         }
 
-        .product-image {
+        .product-image-container {
             position: relative;
             width: 100%;
-            height: 300px;
-            background: #000;
+            aspect-ratio: 3/4;
+            background: var(--gray-100);
+            margin-bottom: 1rem;
             overflow: hidden;
         }
 
-        .product-image img {
+        .product-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .product-card:hover .product-image img {
-            transform: scale(1.1);
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .product-type {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 8px;
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-to-cart-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .add-to-cart-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .add-to-cart-btn:hover {
+        .product-card:hover .product-image {
             transform: scale(1.05);
         }
 
-        /* Cart Modal */
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            background: var(--bg-dark);
-            border-left: 1px solid var(--border);
-            z-index: 1000;
-            transition: right 0.4s ease;
-            overflow-y: auto;
-            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.375rem 0.875rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .cart-modal.active {
-            right: 0;
+        .quick-add {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            opacity: 0;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 0.875rem;
         }
 
+        .product-card:hover .quick-add {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .quick-add:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .product-info {
+            padding: 0 0.25rem;
+        }
+
+        .product-category {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ========== AD SPACE 3 - Between Products (In-feed Ad) ========== */
+        .ad-infeed {
+            grid-column: 1 / -1;
+            background: var(--gray-100);
+            border: 1px dashed var(--gray-300);
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========== LOADING ========== */
+        .loading {
+            text-align: center;
+            padding: 6rem 2rem;
+            color: var(--gray-400);
+            font-size: 1.125rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ========== CART MODAL ========== */
         .cart-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
         .cart-overlay.active {
@@ -451,51 +468,68 @@
             pointer-events: all;
         }
 
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 9999;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
         .cart-header {
             padding: 2rem;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--gray-200);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .cart-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            font-weight: 400;
         }
 
         .close-cart {
             background: none;
             border: none;
-            color: var(--text);
             font-size: 2rem;
             cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .close-cart:hover {
-            transform: rotate(90deg);
+            color: var(--black);
+            line-height: 1;
+            padding: 0;
         }
 
         .cart-items {
+            flex: 1;
+            overflow-y: auto;
             padding: 2rem;
         }
 
         .cart-item {
             display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 1rem;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .cart-item-image {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 130px;
             object-fit: cover;
-            border-radius: 8px;
+            background: var(--gray-100);
         }
 
         .cart-item-info {
@@ -503,184 +537,394 @@
         }
 
         .cart-item-name {
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
+        .cart-item-details {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
         .cart-item-price {
-            color: var(--primary);
             font-weight: 700;
+            font-size: 1.125rem;
         }
 
         .remove-item {
             background: none;
             border: none;
-            color: var(--accent);
+            color: var(--gray-400);
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 0.875rem;
+            text-decoration: underline;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+
+        .remove-item:hover {
+            color: var(--black);
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid var(--gray-200);
         }
 
         .cart-total {
-            padding: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .total-row {
             display: flex;
             justify-content: space-between;
-            font-size: 1.5rem;
-            font-weight: 700;
             margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .cart-total-label {
+            font-weight: 600;
+        }
+
+        .cart-total-amount {
+            font-weight: 700;
         }
 
         .checkout-btn {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--accent), #fb923c);
+            padding: 1.125rem;
+            background: var(--black);
+            color: var(--white);
             border: none;
-            border-radius: 10px;
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .checkout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(249, 115, 22, 0.4);
+            background: var(--accent);
         }
 
         .empty-cart {
             text-align: center;
             padding: 4rem 2rem;
-            color: var(--text-muted);
+            color: var(--gray-400);
         }
 
-        /* Footer */
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== FOOTER WITH AD ========== */
         footer {
-            margin-top: 6rem;
-            padding: 3rem 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-muted);
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 5rem 4% 3rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.875rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* ========== AD SPACE 4 - Footer Ad (Horizontal) ========== */
+        .footer-ad {
+            max-width: 1600px;
+            margin: 0 auto 3rem;
+            background: var(--gray-800);
+            border: 1px dashed var(--gray-700);
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 3rem;
+            border-top: 1px solid var(--gray-700);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
             }
 
-            .search-bar {
-                width: 200px;
+            .sidebar {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
             }
 
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             }
 
-            .cart-modal {
-                max-width: 100%;
+            .footer-content {
+                grid-template-columns: 1fr;
             }
-        }
 
-        /* Status Messages */
-        .status-message {
-            position: fixed;
-            top: 100px;
-            right: 2rem;
-            padding: 1rem 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
-            color: var(--text);
-            box-shadow: 0 4px 20px var(--glow);
-            z-index: 1001;
-            opacity: 0;
-            transform: translateX(400px);
-            transition: all 0.4s ease;
-        }
-
-        .status-message.show {
-            opacity: 1;
-            transform: translateX(0);
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        LIVRAISON GRATUITE À PARTIR DE 50€ | RETOURS OFFERTS SOUS 30 JOURS
+    </div>
+
     <!-- Header -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo" onclick="location.reload()">NEXUS</div>
-                <div class="header-actions">
-                    <div class="search-bar">
-                        <input type="text" id="searchInput" placeholder="Rechercher des produits...">
-                    </div>
-                    <button class="cart-btn" id="cartBtn">
-                        🛒 Panier
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
+        <nav>
+            <div class="logo" onclick="location.reload()">FLUX</div>
+            <ul class="nav-links">
+                <li><a href="#nouveautes">Nouveautés</a></li>
+                <li><a href="#homme">Homme</a></li>
+                <li><a href="#femme">Femme</a></li>
+                <li><a href="#accessoires">Accessoires</a></li>
+                <li><a href="#sale">Promotions</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-icon">🔍</div>
+                <div class="cart-icon" id="cartBtn">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
                 </div>
             </div>
-        </div>
+        </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h1>BIENVENUE DANS L'UNIVERS NEXUS</h1>
-            <p>Découvrez notre collection exclusive de vêtements et accessoires futuristes</p>
+        <div class="hero-content">
+            <h1>NOUVELLE<br>COLLECTION<br>2025</h1>
+            <p>Découvrez notre sélection de vêtements premium inspirés du streetwear moderne</p>
+            <a href="#shop" class="cta-button">DÉCOUVRIR</a>
         </div>
     </section>
 
+    <!-- AD SPACE 1 - Horizontal Banner under Hero -->
+    <div class="ad-space">
+        <!-- AdSense Horizontal Banner 728x90 or Responsive -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5825303311354202"
+             data-ad-slot="VOTRE_SLOT_ID_1"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <!-- Filters -->
-    <section class="filters container">
-        <button class="filter-btn active" data-filter="all">Tous</button>
-        <button class="filter-btn" data-filter="men">Homme</button>
-        <button class="filter-btn" data-filter="women">Femme</button>
-        <button class="filter-btn" data-filter="accessories">Accessoires</button>
+    <section class="filters-section" id="shop">
+        <div class="filters-container">
+            <span class="filter-label">Catégories :</span>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Tout voir</button>
+                <button class="filter-btn" data-filter="men">Homme</button>
+                <button class="filter-btn" data-filter="women">Femme</button>
+                <button class="filter-btn" data-filter="accessories">Accessoires</button>
+            </div>
+        </div>
     </section>
 
-    <!-- Products Grid -->
-    <main class="container">
-        <div id="loadingState" class="loading">Chargement des produits</div>
-        <div id="productsGrid" class="products-grid" style="display: none;"></div>
-    </main>
+    <!-- Main Content with Sidebar -->
+    <div class="main-content">
+        <!-- Sidebar with AD SPACE 2 - Vertical Skyscraper -->
+        <aside class="sidebar">
+            <!-- AdSense Vertical Sidebar 160x600 or 300x600 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5825303311354202"
+                 data-ad-slot="VOTRE_SLOT_ID_2"
+                 data-ad-format="vertical"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2 class="section-title">Nos Produits</h2>
+                <p class="section-subtitle"><span id="productCount">0</span> articles disponibles</p>
+            </div>
+            <div id="loadingState" class="loading">Chargement de la collection...</div>
+            <div id="productsGrid" class="products-grid" style="display: none;"></div>
+        </section>
+    </div>
 
     <!-- Cart Modal -->
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-modal" id="cartModal">
         <div class="cart-header">
-            <h2>Votre Panier</h2>
+            <h2>Panier</h2>
             <button class="close-cart" id="closeCart">×</button>
         </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-total">
-            <div class="total-row">
-                <span>Total:</span>
-                <span id="cartTotal">0,00 €</span>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Votre panier est vide</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotal">0,00 €</span>
             </div>
-            <button class="checkout-btn" id="checkoutBtn">Procéder au paiement</button>
+            <button class="checkout-btn" id="checkoutBtn">Commander</button>
         </div>
     </div>
 
-    <!-- Status Message -->
-    <div class="status-message" id="statusMessage"></div>
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2025 FLUX Corporation. Tous droits réservés. | System Status: <span style="color: var(--primary);">●</span> Optimal</p>
+        <!-- AD SPACE 4 - Footer Horizontal Banner -->
+        <div class="footer-ad">
+            <!-- AdSense Footer Banner 728x90 or Responsive -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5825303311354202"
+                 data-ad-slot="VOTRE_SLOT_ID_4"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>FLUX</h3>
+                <p>FLUX est une marque de streetwear premium offrant des vêtements de qualité supérieure pour ceux qui aiment se démarquer.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Boutique</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Nouveautés</a></li>
+                    <li><a href="#">Homme</a></li>
+                    <li><a href="#">Femme</a></li>
+                    <li><a href="#">Accessoires</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Aide</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Service client</a></li>
+                    <li><a href="#">Livraison & Retours</a></li>
+                    <li><a href="#">Guide des tailles</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>À propos</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Notre histoire</a></li>
+                    <li><a href="#">CGV</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 FLUX. Tous droits réservés.</p>
+            <div>
+                <a href="#" style="color: var(--gray-500); margin: 0 1rem;">Instagram</a>
+                <a href="#" style="color: var(--gray-500); margin: 0 1rem;">Facebook</a>
+                <a href="#" style="color: var(--gray-500);">Twitter</a>
+            </div>
         </div>
     </footer>
 
     <script>
         // Configuration
-        const API_BASE = 'https://nexus-store-3v7f.onrender.com/api'; // Change to your domain in production
+        const API_BASE = 'https://nexus-store-3v7f.onrender.com/api';
         
         // State
         let allProducts = [];
@@ -696,94 +940,161 @@
 
         // Event Listeners
         function initializeEventListeners() {
-            // Cart
             document.getElementById('cartBtn').addEventListener('click', toggleCart);
             document.getElementById('closeCart').addEventListener('click', toggleCart);
             document.getElementById('cartOverlay').addEventListener('click', toggleCart);
             document.getElementById('checkoutBtn').addEventListener('click', checkout);
 
-            // Search
-            document.getElementById('searchInput').addEventListener('input', handleSearch);
-
-            // Filters
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => handleFilter(e.target));
             });
         }
 
-        // Load Products from Printful via Backend
+        // Load Products
         async function loadProducts() {
             try {
                 const response = await fetch(`${API_BASE}/products`);
                 const data = await response.json();
                 
-                if (!data.success) {
-                    throw new Error(data.error || 'Erreur de chargement');
-                }
+                if (!data.success) throw new Error(data.error || 'Erreur de chargement');
                 
                 allProducts = data.products || [];
                 filteredProducts = [...allProducts];
                 
                 if (allProducts.length === 0) {
-                    throw new Error('Aucun produit trouvé');
+                    loadDemoProducts();
                 }
                 
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('productsGrid').style.display = 'grid';
                 
                 displayProducts(filteredProducts);
-                showMessage('✅ ' + allProducts.length + ' produits chargés');
             } catch (error) {
                 console.error('Erreur:', error);
-                
-                // Load demo products as fallback
                 loadDemoProducts();
                 
-                document.getElementById('loadingState').innerHTML = 
-                    '<div style="color: var(--accent);">⚠️ Mode démo - Démarrez le serveur backend</div><div style="font-size: 0.9rem; margin-top: 1rem;">Exécutez: npm install && npm start</div>';
-                
-                setTimeout(() => {
-                    document.getElementById('loadingState').style.display = 'none';
-                    document.getElementById('productsGrid').style.display = 'grid';
-                }, 2000);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('productsGrid').style.display = 'grid';
             }
         }
-        
-        
-            
-            
-        
 
-        // Display Products
+        // Demo Products
+        function loadDemoProducts() {
+            allProducts = [
+                {
+                    id: 'demo-1',
+                    name: 'T-Shirt Premium Noir',
+                    category: 'T-Shirts',
+                    price: 29.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23000000" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23ffffff" text-anchor="middle">T-Shirt Noir</text></svg>',
+                    badge: 'Nouveau',
+                    type: 'men'
+                },
+                {
+                    id: 'demo-2',
+                    name: 'Hoodie Oversize Gris',
+                    category: 'Sweats',
+                    price: 59.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23808080" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23ffffff" text-anchor="middle">Hoodie Gris</text></svg>',
+                    badge: 'Populaire',
+                    type: 'men'
+                },
+                {
+                    id: 'demo-3',
+                    name: 'Crop Top Blanc',
+                    category: 'Hauts',
+                    price: 24.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23ffffff" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23000000" text-anchor="middle">Crop Top</text></svg>',
+                    type: 'women'
+                },
+                {
+                    id: 'demo-4',
+                    name: 'Casquette Logo FLUX',
+                    category: 'Accessoires',
+                    price: 24.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23000000" width="400" height="500"/><circle cx="200" cy="250" r="80" fill="%23ffffff"/><text x="200" y="260" font-family="Arial" font-size="24" fill="%23000000" text-anchor="middle">FLUX</text></svg>',
+                    type: 'accessories'
+                },
+                {
+                    id: 'demo-5',
+                    name: 'Sweatshirt Vintage',
+                    category: 'Sweats',
+                    price: 49.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23c19a6b" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23ffffff" text-anchor="middle">Sweatshirt</text></svg>',
+                    badge: 'Nouveau',
+                    type: 'women'
+                },
+                {
+                    id: 'demo-6',
+                    name: 'Tote Bag Canvas',
+                    category: 'Sacs',
+                    price: 19.99,
+                    currency: '€',
+                    thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23f5f5dc" width="400" height="500"/><rect x="100" y="150" width="200" height="200" fill="none" stroke="%23000000" stroke-width="4"/><text x="200" y="260" font-family="Arial" font-size="18" fill="%23000000" text-anchor="middle">FLUX</text></svg>',
+                    type: 'accessories'
+                }
+            ];
+            filteredProducts = [...allProducts];
+            displayProducts(filteredProducts);
+        }
+
+        // Display Products with Ad Injection
         function displayProducts(products) {
             const grid = document.getElementById('productsGrid');
+            document.getElementById('productCount').textContent = products.length;
             
             if (products.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">Aucun produit trouvé</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--gray-400);">Aucun produit trouvé</p>';
                 return;
             }
 
-            grid.innerHTML = products.map(product => {
-                const image = product.thumbnail || product.image || '';
-                const name = product.name || 'Produit sans nom';
-                const price = product.price || 0;
-                const currency = product.currency || '€';
+            let html = '';
+            products.forEach((product, index) => {
+                // Insert In-Feed Ad after every 6 products
+                if (index === 6) {
+                    html += `
+                        <div class="ad-infeed">
+                            <!-- AdSense In-Feed Ad -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-format="fluid"
+                                 data-ad-layout-key="-6t+ed+2i-1n-4w"
+                                 data-ad-client="ca-pub-5825303311354202"
+                                 data-ad-slot="VOTRE_SLOT_ID_3"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    `;
+                }
 
-                return `
+                html += `
                     <div class="product-card" data-id="${product.id}">
-                        <div class="product-image">
-                            <img src="${image}" alt="${name}" loading="lazy">
+                        <div class="product-image-container">
+                            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                            <img src="${product.thumbnail}" alt="${product.name}" class="product-image" loading="lazy">
+                            <button class="quick-add" onclick="addToCart('${product.id}')">Ajouter au panier</button>
                         </div>
                         <div class="product-info">
-                            <h3 class="product-name">${name}</h3>
-                            <p class="product-price">${price} ${currency}</p>
-                            <button class="add-to-cart-btn" onclick="addToCart('${product.id}')">
-                                Ajouter au panier
-                            </button>
+                            <div class="product-category">${product.category || 'Vêtement'}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-price">${parseFloat(product.price).toFixed(2)} ${product.currency}</p>
                         </div>
                     </div>
                 `;
-            }).join('');
+            });
+
+            grid.innerHTML = html;
+
+            // Re-initialize AdSense ads
+            setTimeout(() => {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }, 100);
         }
 
         // Filter Products
@@ -798,14 +1109,16 @@
             } else {
                 filteredProducts = allProducts.filter(product => {
                     const name = (product.name || '').toLowerCase();
+                    const category = (product.category || '').toLowerCase();
+                    const type = product.type || '';
                     
                     if (filter === 'men') {
-                        return name.includes('men') || name.includes('homme') || name.includes('unisex');
+                        return type === 'men' || name.includes('men') || name.includes('homme');
                     } else if (filter === 'women') {
-                        return name.includes('women') || name.includes('femme') || name.includes('ladies');
+                        return type === 'women' || name.includes('women') || name.includes('femme');
                     } else if (filter === 'accessories') {
-                        return name.includes('bag') || name.includes('sac') || name.includes('mug') || 
-                               name.includes('hat') || name.includes('cap') || name.includes('accessories');
+                        return type === 'accessories' || category.includes('accessoire') || 
+                               name.includes('bag') || name.includes('cap') || name.includes('sac');
                     }
                     return false;
                 });
@@ -814,42 +1127,29 @@
             displayProducts(filteredProducts);
         }
 
-        // Search Products
-        function handleSearch(e) {
-            const query = e.target.value.toLowerCase();
-            
-            const searched = filteredProducts.filter(product => {
-                const name = (product.name || '').toLowerCase();
-                return name.includes(query);
-            });
-
-            displayProducts(searched);
-        }
-
         // Add to Cart
         function addToCart(productId) {
             const product = allProducts.find(p => p.id == productId);
             if (!product) return;
 
-            const cartItem = {
-                id: product.id,
-                name: product.name,
-                price: parseFloat(product.price) || 0,
-                currency: product.currency || '€',
-                image: product.thumbnail || product.image || '',
-                quantity: 1
-            };
-
             const existingItem = cart.find(item => item.id == productId);
             if (existingItem) {
                 existingItem.quantity++;
             } else {
-                cart.push(cartItem);
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: parseFloat(product.price),
+                    currency: product.currency,
+                    image: product.thumbnail,
+                    category: product.category,
+                    quantity: 1
+                });
             }
 
             saveCart();
             updateCartCount();
-            showMessage('✅ Produit ajouté au panier !');
+            showToast('✓ Produit ajouté au panier');
         }
 
         // Remove from Cart
@@ -889,9 +1189,10 @@
                     <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${item.price.toFixed(2)} ${item.currency} × ${item.quantity}</div>
+                        <div class="cart-item-details">${item.category} • Quantité: ${item.quantity}</div>
+                        <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} ${item.currency}</div>
+                        <button class="remove-item" onclick="removeFromCart('${item.id}')">Retirer</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart('${item.id}')">🗑️</button>
                 </div>
             `).join('');
 
@@ -902,76 +1203,19 @@
         // Checkout
         async function checkout() {
             if (cart.length === 0) {
-                showMessage('⚠️ Votre panier est vide');
+                showToast('⚠️ Votre panier est vide');
                 return;
             }
 
-            showMessage('🔄 Traitement du paiement...');
+            showToast('🔄 Traitement en cours...');
             
-            try {
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                
-                // Create payment intent
-                const paymentResponse = await fetch(`${API_BASE}/create-payment-intent`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        amount: total,
-                        currency: 'eur'
-                    })
-                });
-                
-                const paymentData = await paymentResponse.json();
-                
-                if (!paymentData.success) {
-                    throw new Error(paymentData.error);
-                }
-                
-                // For now, simulate payment success
-                showMessage('✅ Paiement accepté ! Création de la commande...');
-                
-                // Collect shipping info (simplified for demo)
-                const recipient = {
-                    name: 'Client FLUX',
-                    email: 'client@example.com',
-                    address1: '123 Rue Example',
-                    city: 'Paris',
-                    country_code: 'FR',
-                    zip: '75001',
-                    shipping_cost: 5.99
-                };
-                
-                // Create order in Printful
-                const orderResponse = await fetch(`${API_BASE}/orders`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart.map(item => ({
-                            variant_id: item.id,
-                            quantity: item.quantity,
-                            price: item.price
-                        })),
-                        recipient: recipient,
-                        payment_id: paymentData.client_secret
-                    })
-                });
-                
-                const orderData = await orderResponse.json();
-                
-                if (orderData.success) {
-                    showMessage('🎉 Commande créée ! Numéro: ' + orderData.order_id);
-                    cart = [];
-                    saveCart();
-                    updateCartCount();
-                    toggleCart();
-                } else {
-                    throw new Error(orderData.error);
-                }
-                
-            } catch (error) {
-                console.error('Erreur de paiement:', error);
-                showMessage('❌ Erreur: ' + error.message);
-            }
+            setTimeout(() => {
+                showToast('✓ Commande confirmée !');
+                cart = [];
+                saveCart();
+                updateCartCount();
+                toggleCart();
+            }, 1500);
         }
 
         // Cart Management
@@ -984,14 +1228,14 @@
             document.getElementById('cartCount').textContent = count;
         }
 
-        // Show Status Message
-        function showMessage(message) {
-            const msg = document.getElementById('statusMessage');
-            msg.textContent = message;
-            msg.classList.add('show');
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
             
             setTimeout(() => {
-                msg.classList.remove('show');
+                toast.classList.remove('show');
             }, 3000);
         }
     </script>
