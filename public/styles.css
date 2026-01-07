@@ -137,8 +137,14 @@ ul {
 }
 
 .cookie-icon {
-    font-size: 2.5rem;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookie-icon svg {
+    color: var(--accent);
 }
 
 .cookie-text {
@@ -305,10 +311,17 @@ ul {
 
 .search-btn,
 .cart-btn {
-    font-size: 1.25rem;
     padding: 0.5rem;
     position: relative;
     transition: transform var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn svg,
+.cart-btn svg {
+    display: block;
 }
 
 .search-btn:hover,
@@ -714,8 +727,14 @@ section {
 }
 
 .value-icon {
-    font-size: 3rem;
     margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-icon svg {
+    color: var(--accent);
 }
 
 .value-card h3 {
@@ -906,12 +925,20 @@ section {
 }
 
 .social-links a {
-    font-size: 1.5rem;
-    transition: transform var(--transition-base);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
 }
 
 .social-links a:hover {
     transform: scale(1.2);
+    color: var(--accent);
+}
+
+.social-links svg {
+    display: block;
 }
 
 .footer-bottom {
@@ -935,6 +962,11 @@ section {
     align-items: center;
     color: var(--gray-500);
     font-size: 0.875rem;
+}
+
+.payment-methods svg {
+    display: block;
+    flex-shrink: 0;
 }
 
 /* ===== CART MODAL ===== */
