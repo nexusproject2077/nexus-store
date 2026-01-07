@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLUX - Boutique de Vêtements Premium</title>
-    <meta name="description" content="FLUX - Découvrez notre collection exclusive de vêtements streetwear et accessoires premium. Livraison gratuite dès 50€.">
+    <title>FLUX - Vêtements Streetwear Premium | Collection 2025</title>
+    <meta name="description" content="Découvrez FLUX, votre boutique de streetwear premium en ligne. Collection exclusive de t-shirts, hoodies et accessoires. Livraison gratuite dès 50€. Qualité supérieure garantie.">
+    <meta name="keywords" content="streetwear, vêtements premium, t-shirt, hoodie, mode urbaine, FLUX, boutique en ligne">
     
-    <!-- Google Consent Mode v2 - DOIT être avant AdSense -->
+    <!-- Google Consent Mode v2 -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        
-        // Configuration par défaut (refus)
         gtag('consent', 'default', {
             'ad_storage': 'denied',
             'ad_user_data': 'denied',
             'ad_personalization': 'denied',
             'analytics_storage': 'denied'
         });
-        
-        // Fonction pour accepter les cookies
         window.acceptCookies = function() {
             gtag('consent', 'update', {
                 'ad_storage': 'granted',
@@ -30,8 +27,6 @@
             localStorage.setItem('cookieConsent', 'accepted');
             document.getElementById('cookieConsent').style.display = 'none';
         };
-        
-        // Fonction pour refuser les cookies
         window.refuseCookies = function() {
             gtag('consent', 'update', {
                 'ad_storage': 'denied',
@@ -42,8 +37,6 @@
             localStorage.setItem('cookieConsent', 'refused');
             document.getElementById('cookieConsent').style.display = 'none';
         };
-        
-        // Vérifier si l'utilisateur a déjà fait un choix
         window.addEventListener('DOMContentLoaded', function() {
             const consent = localStorage.getItem('cookieConsent');
             if (consent === 'accepted') {
@@ -51,7 +44,6 @@
             } else if (consent === 'refused') {
                 refuseCookies();
             } else {
-                // Afficher la bannière après 1 seconde
                 setTimeout(function() {
                     document.getElementById('cookieConsent').style.display = 'block';
                 }, 1000);
@@ -65,816 +57,64 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --black: #0a0a0a;
-            --white: #ffffff;
-            --gray-50: #fafafa;
-            --gray-100: #f5f5f5;
-            --gray-200: #e5e5e5;
-            --gray-300: #d4d4d4;
-            --gray-400: #a3a3a3;
-            --gray-500: #737373;
-            --gray-600: #525252;
-            --gray-700: #404040;
-            --gray-800: #262626;
-            --gray-900: #171717;
-            --accent: #ff6b35;
-            --accent-hover: #ff8555;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ========== COOKIE CONSENT BANNER ========== */
-        .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-            z-index: 10000;
-            display: none;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .cookie-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .cookie-icon {
-            font-size: 2.5rem;
-        }
-
-        .cookie-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .cookie-text h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .cookie-text p {
-            font-size: 0.9375rem;
-            color: var(--gray-600);
-            line-height: 1.6;
-        }
-
-        .cookie-text a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .cookie-text a:hover {
-            text-decoration: underline;
-        }
-
-        .cookie-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cookie-btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            font-weight: 600;
-            font-size: 0.9375rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .cookie-accept {
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .cookie-accept:hover {
-            background: var(--accent);
-        }
-
-        .cookie-refuse {
-            background: var(--gray-200);
-            color: var(--gray-700);
-        }
-
-        .cookie-refuse:hover {
-            background: var(--gray-300);
-        }
-
-        .cookie-settings {
-            background: transparent;
-            color: var(--gray-700);
-            text-decoration: underline;
-        }
-
-        /* ========== TOP BANNER ========== */
-        .top-banner {
-            background: var(--black);
-            color: var(--white);
-            text-align: center;
-            padding: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        /* ========== HEADER ========== */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 4%;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 3px;
-            font-weight: 400;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--black);
-            font-weight: 500;
-            font-size: 0.9375rem;
-            letter-spacing: 0.3px;
-            position: relative;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--black);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .search-icon, .cart-icon {
-            cursor: pointer;
-            font-size: 1.25rem;
-            transition: transform 0.2s ease;
-            position: relative;
-        }
-
-        .search-icon:hover, .cart-icon:hover {
-            transform: scale(1.1);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--accent);
-            color: var(--white);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        /* ========== HERO SECTION ========== */
-        .hero {
-            position: relative;
-            height: 70vh;
-            min-height: 500px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 0.9;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-        }
-
-        .hero p {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-            max-width: 500px;
-            margin: 0 auto 3rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1.125rem 3rem;
-            background: var(--black);
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--black);
-            cursor: pointer;
-            font-size: 0.9375rem;
-        }
-
-        .cta-button:hover {
-            background: var(--white);
-            color: var(--black);
-        }
-
-        /* ========== AD SPACE ========== */
-        .ad-space {
-            max-width: 1600px;
-            margin: 2rem auto;
-            padding: 0 4%;
-            text-align: center;
-        }
-
-        /* ========== FILTERS ========== */
-        .filters-section {
-            padding: 3rem 4%;
-            background: var(--gray-50);
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .filters-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .filter-label {
-            font-weight: 600;
-            font-size: 0.875rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.625rem 1.5rem;
-            background: var(--white);
-            border: 1px solid var(--gray-300);
-            color: var(--gray-700);
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            letter-spacing: 0.3px;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--black);
-            color: var(--white);
-            border-color: var(--black);
-        }
-
-        /* ========== MAIN CONTENT ========== */
-        .main-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 4rem 4%;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 3rem;
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-        }
-
-        /* ========== PRODUCTS ========== */
-        .products-section {
-            flex: 1;
-        }
-
-        .section-header {
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-
-        .section-subtitle {
-            color: var(--gray-500);
-            font-size: 1rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 3/4;
-            background: var(--gray-100);
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--accent);
-            color: var(--white);
-            padding: 0.375rem 0.875rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .quick-add {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            opacity: 0;
-            padding: 0.75rem 1.5rem;
-            background: var(--white);
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-size: 0.875rem;
-        }
-
-        .product-card:hover .quick-add {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        .quick-add:hover {
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .product-info {
-            padding: 0 0.25rem;
-        }
-
-        .product-category {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-            margin-bottom: 0.5rem;
-        }
-
-        .product-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.3px;
-        }
-
-        .product-price {
-            font-weight: 700;
-            font-size: 1.125rem;
-            letter-spacing: 0.3px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 6rem 2rem;
-            color: var(--gray-400);
-            font-size: 1.125rem;
-            grid-column: 1 / -1;
-        }
-
-        /* ========== CART MODAL ========== */
-        .cart-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 9998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .cart-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            right: -500px;
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            background: var(--white);
-            z-index: 9999;
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-modal.active {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 2rem;
-            border-bottom: 1px solid var(--gray-200);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-header h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            letter-spacing: 1px;
-            font-weight: 400;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--black);
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1.5rem;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .cart-item-image {
-            width: 100px;
-            height: 130px;
-            object-fit: cover;
-            background: var(--gray-100);
-        }
-
-        .cart-item-info {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .cart-item-details {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-            margin-bottom: 1rem;
-        }
-
-        .cart-item-price {
-            font-weight: 700;
-            font-size: 1.125rem;
-        }
-
-        .remove-item {
-            background: none;
-            border: none;
-            color: var(--gray-400);
-            cursor: pointer;
-            font-size: 0.875rem;
-            text-decoration: underline;
-            padding: 0;
-            margin-top: 0.5rem;
-        }
-
-        .cart-footer {
-            padding: 2rem;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            font-size: 1.25rem;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            padding: 1.125rem;
-            background: var(--black);
-            color: var(--white);
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .checkout-btn:hover {
-            background: var(--accent);
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--gray-400);
-        }
-
-        /* ========== TOAST ========== */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--black);
-            color: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            z-index: 10000;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ========== FOOTER ========== */
-        footer {
-            background: var(--gray-900);
-            color: var(--white);
-            padding: 5rem 4% 3rem;
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            font-weight: 400;
-        }
-
-        .footer-brand p {
-            color: var(--gray-400);
-            line-height: 1.8;
-        }
-
-        .footer-section h4 {
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.875rem;
-        }
-
-        .footer-links a {
-            color: var(--gray-400);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--white);
-        }
-
-        .footer-bottom {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding-top: 3rem;
-            border-top: 1px solid var(--gray-700);
-            text-align: center;
-            color: var(--gray-500);
-            font-size: 0.875rem;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .cookie-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .cookie-actions {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .cookie-btn {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Cookie Consent Banner (RGPD) -->
+    <!-- Cookie Consent Banner -->
     <div id="cookieConsent" class="cookie-consent">
         <div class="cookie-content">
             <div class="cookie-icon">🍪</div>
             <div class="cookie-text">
-                <h3>Gestion des cookies</h3>
-                <p>Nous utilisons des cookies pour améliorer votre expérience et afficher des publicités personnalisées. En cliquant sur "Accepter", vous acceptez l'utilisation de tous les cookies. <a href="#privacy">En savoir plus</a></p>
+                <h3>Nous respectons votre vie privée</h3>
+                <p>Ce site utilise des cookies pour améliorer votre expérience de navigation, analyser le trafic et afficher des publicités personnalisées. En cliquant sur "Accepter tout", vous consentez à l'utilisation de TOUS les cookies. <a href="politique-cookies.html">En savoir plus sur nos cookies</a></p>
             </div>
             <div class="cookie-actions">
-                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accepter</button>
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accepter tout</button>
                 <button class="cookie-btn cookie-refuse" onclick="refuseCookies()">Refuser</button>
+                <a href="politique-cookies.html" class="cookie-settings">Paramètres des cookies</a>
             </div>
         </div>
     </div>
 
-    <!-- Top Banner -->
-    <div class="top-banner">
-        LIVRAISON GRATUITE À PARTIR DE 50€ | RETOURS OFFERTS SOUS 30 JOURS
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="announcement-slider">
+            <p>🎉 NOUVELLE COLLECTION 2025 DISPONIBLE</p>
+            <p>📦 LIVRAISON GRATUITE DÈS 50€</p>
+            <p>🔄 RETOURS GRATUITS SOUS 30 JOURS</p>
+        </div>
     </div>
 
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo" onclick="location.reload()">FLUX</div>
-            <ul class="nav-links">
-                <li><a href="#nouveautes">Nouveautés</a></li>
-                <li><a href="#homme">Homme</a></li>
-                <li><a href="#femme">Femme</a></li>
-                <li><a href="#accessoires">Accessoires</a></li>
-                <li><a href="#sale">Promotions</a></li>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html">FLUX</a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="collections.html">Collections</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
+            
             <div class="nav-actions">
-                <div class="search-icon">🔍</div>
-                <div class="cart-icon" id="cartBtn">
+                <button class="search-btn" aria-label="Rechercher">🔍</button>
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
                     🛒
                     <span class="cart-count" id="cartCount">0</span>
-                </div>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
     </header>
@@ -882,296 +122,282 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>NOUVELLE<br>COLLECTION<br>2025</h1>
-            <p>Découvrez notre sélection de vêtements premium inspirés du streetwear moderne</p>
-            <a href="#shop" class="cta-button">DÉCOUVRIR</a>
+            <h1 class="hero-title">NOUVELLE COLLECTION<br>STREETWEAR 2025</h1>
+            <p class="hero-subtitle">Découvrez notre collection exclusive de vêtements premium, conçue pour ceux qui osent se démarquer. Qualité supérieure, design unique, style urbain.</p>
+            <div class="hero-cta">
+                <a href="boutique.html" class="btn btn-primary">Découvrir la boutique</a>
+                <a href="nouveautes.html" class="btn btn-secondary">Voir les nouveautés</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-badge">NOUVELLE COLLECTION</div>
         </div>
     </section>
 
-    <!-- AD SPACE 1 -->
-    <div class="ad-space">
+    <!-- AdSense - Banner 1 -->
+    <div class="ad-container">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-5825303311354202"
-             data-ad-slot="VOTRE_SLOT_ID_1"
+             data-ad-slot="SLOT_1"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <!-- Filters -->
-    <section class="filters-section" id="shop">
-        <div class="filters-container">
-            <span class="filter-label">Catégories :</span>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">Tout voir</button>
-                <button class="filter-btn" data-filter="men">Homme</button>
-                <button class="filter-btn" data-filter="women">Femme</button>
-                <button class="filter-btn" data-filter="accessories">Accessoires</button>
+    <!-- Featured Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Nos Catégories</h2>
+            <div class="categories-grid">
+                <a href="boutique.html?cat=tshirts" class="category-card">
+                    <div class="category-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23000' width='400' height='300'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' fill='%23fff' text-anchor='middle'%3ET-SHIRTS%3C/text%3E%3C/svg%3E" alt="T-Shirts FLUX">
+                    </div>
+                    <h3>T-Shirts Premium</h3>
+                    <p>Coton bio, coupe moderne</p>
+                </a>
+                
+                <a href="boutique.html?cat=hoodies" class="category-card">
+                    <div class="category-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23333' width='400' height='300'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' fill='%23fff' text-anchor='middle'%3EHOODIES%3C/text%3E%3C/svg%3E" alt="Hoodies FLUX">
+                    </div>
+                    <h3>Hoodies & Sweats</h3>
+                    <p>Confort et style</p>
+                </a>
+                
+                <a href="boutique.html?cat=accessoires" class="category-card">
+                    <div class="category-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23666' width='400' height='300'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='20' fill='%23fff' text-anchor='middle'%3EACCESSOIRES%3C/text%3E%3C/svg%3E" alt="Accessoires FLUX">
+                    </div>
+                    <h3>Accessoires</h3>
+                    <p>Complétez votre look</p>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Sidebar AD -->
-        <aside class="sidebar">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5825303311354202"
-                 data-ad-slot="VOTRE_SLOT_ID_2"
-                 data-ad-format="auto"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </aside>
-
-        <!-- Products -->
-        <section class="products-section">
-            <div class="section-header">
-                <h2 class="section-title">Nos Produits</h2>
-                <p class="section-subtitle"><span id="productCount">0</span> articles disponibles</p>
+    <!-- About Brand Section -->
+    <section class="about-brand">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>L'esprit FLUX</h2>
+                    <p class="lead">FLUX est bien plus qu'une marque de vêtements. C'est un mouvement, une philosophie de vie pour ceux qui refusent de se fondre dans la masse.</p>
+                    <p>Depuis notre création en 2020, nous nous engageons à créer des pièces uniques qui allient confort, qualité et style urbain. Chaque vêtement FLUX est pensé pour vous accompagner dans votre quotidien, tout en affirmant votre personnalité.</p>
+                    <p>Nos matériaux sont soigneusement sélectionnés : coton bio, tissus techniques respirants, teintures écologiques. Nous croyons qu'il est possible de créer une mode durable sans compromis sur le style.</p>
+                    <a href="a-propos.html" class="btn btn-primary">En savoir plus sur FLUX</a>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <svg viewBox="0 0 500 600">
+                            <rect fill="#f5f5f5" width="500" height="600"/>
+                            <text x="250" y="300" font-family="Arial" font-size="20" fill="#999" text-anchor="middle">Image de la marque FLUX</text>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <div id="loadingState" class="loading">Chargement...</div>
-            <div id="productsGrid" class="products-grid" style="display: none;"></div>
-        </section>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Produits Populaires</h2>
+                <a href="boutique.html" class="view-all">Voir tout →</a>
+            </div>
+            <div id="featuredProducts" class="products-grid">
+                <div class="loading">Chargement des produits...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AdSense - In-content -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5825303311354202"
+             data-ad-slot="SLOT_2"
+             data-ad-format="fluid"
+             data-ad-layout-key="-6t+ed+2i-1n-4w"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Nos Engagements</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h3>Éco-responsable</h3>
+                    <p>Coton biologique certifié, emballages recyclables et production éthique. Nous nous engageons pour une mode plus respectueuse de l'environnement.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h3>Qualité Premium</h3>
+                    <p>Tissus haute qualité, coutures renforcées et finitions soignées. Chaque pièce est conçue pour durer dans le temps.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🚚</div>
+                    <h3>Livraison Rapide</h3>
+                    <p>Livraison gratuite dès 50€ d'achat. Expédition sous 24-48h partout en France et en Europe.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💯</div>
+                    <h3>Satisfait ou Remboursé</h3>
+                    <p>30 jours pour changer d'avis. Retours gratuits et remboursement intégral si vous n'êtes pas satisfait.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview -->
+    <section class="blog-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Blog FLUX</h2>
+                <a href="blog.html" class="view-all">Tous les articles →</a>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect fill='%23e5e5e5' width='600' height='400'/%3E%3Ctext x='300' y='200' font-family='Arial' font-size='18' fill='%23666' text-anchor='middle'%3EArticle Blog%3C/text%3E%3C/svg%3E" alt="Comment porter le streetwear">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">15 Janvier 2025</span>
+                        <h3><a href="blog-article.html">Guide complet : Comment porter le streetwear avec style</a></h3>
+                        <p>Le streetwear est bien plus qu'une simple tendance mode. Découvrez nos conseils pour créer des looks urbains qui vous ressemblent...</p>
+                        <a href="blog-article.html" class="read-more">Lire la suite →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect fill='%23d4d4d4' width='600' height='400'/%3E%3Ctext x='300' y='200' font-family='Arial' font-size='18' fill='%23666' text-anchor='middle'%3EArticle Blog%3C/text%3E%3C/svg%3E" alt="Tendances streetwear 2025">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">10 Janvier 2025</span>
+                        <h3><a href="blog-article.html">Les tendances streetwear incontournables en 2025</a></h3>
+                        <p>Découvrez les pièces essentielles qui domineront le streetwear cette année : oversized, couleurs neutres, matières techniques...</p>
+                        <a href="blog-article.html" class="read-more">Lire la suite →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect fill='%23c4c4c4' width='600' height='400'/%3E%3Ctext x='300' y='200' font-family='Arial' font-size='18' fill='%23666' text-anchor='middle'%3EArticle Blog%3C/text%3E%3C/svg%3E" alt="Entretien vêtements">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">5 Janvier 2025</span>
+                        <h3><a href="blog-article.html">Comment entretenir vos vêtements streetwear pour qu'ils durent</a></h3>
+                        <p>Nos conseils d'experts pour laver, sécher et ranger vos pièces FLUX afin de préserver leur qualité et leurs couleurs...</p>
+                        <a href="blog-article.html" class="read-more">Lire la suite →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Rejoignez la communauté FLUX</h2>
+                <p>Recevez en exclusivité nos nouveautés, offres spéciales et conseils mode directement dans votre boîte mail.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </form>
+                <p class="newsletter-note">En vous inscrivant, vous acceptez notre <a href="politique-confidentialite.html">politique de confidentialité</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FLUX</h3>
+                    <p>Streetwear premium pour ceux qui osent se démarquer. Qualité supérieure, design unique, engagement éco-responsable.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="TikTok">🎵</a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Boutique</h4>
+                    <ul>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                        <li><a href="boutique.html">Tous les produits</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                        <li><a href="boutique.html?promo=true">Promotions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Aide & Infos</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="livraison.html">Livraison</a></li>
+                        <li><a href="retours.html">Retours & Échanges</a></li>
+                        <li><a href="guide-tailles.html">Guide des tailles</a></li>
+                        <li><a href="contact.html">Nous contacter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="cgv.html">Conditions générales de vente</a></li>
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+                        <li><a href="politique-cookies.html">Politique des cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FLUX. Tous droits réservés. Site créé avec passion pour le streetwear.</p>
+                <div class="payment-methods">
+                    <span>💳</span>
+                    <span>🔒</span>
+                    <span>Paiement sécurisé</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Cart Modal -->
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-modal" id="cartModal">
         <div class="cart-header">
-            <h2>Panier</h2>
-            <button class="close-cart" id="closeCart">×</button>
+            <h2>Votre Panier</h2>
+            <button class="close-cart" id="closeCart" aria-label="Fermer">×</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <div class="empty-cart">Votre panier est vide</div>
+            <div class="empty-cart">
+                <p>Votre panier est vide</p>
+                <a href="boutique.html" class="btn btn-primary">Découvrir la boutique</a>
+            </div>
         </div>
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total</span>
                 <span id="cartTotal">0,00 €</span>
             </div>
-            <button class="checkout-btn" id="checkoutBtn">Commander</button>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Procéder au paiement</button>
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>FLUX</h3>
-                <p>Marque de streetwear premium offrant des vêtements de qualité supérieure.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Boutique</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Nouveautés</a></li>
-                    <li><a href="#">Homme</a></li>
-                    <li><a href="#">Femme</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Aide</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Service client</a></li>
-                    <li><a href="#">Livraison</a></li>
-                    <li><a href="#">Retours</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Légal</h4>
-                <ul class="footer-links">
-                    <li><a href="#" id="privacy">Politique de confidentialité</a></li>
-                    <li><a href="#">CGV</a></li>
-                    <li><a href="#">Mentions légales</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 FLUX. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script>
-        const API_BASE = 'https://nexus-store-3v7f.onrender.com/api';
-        let allProducts = [];
-        let filteredProducts = [];
-        let cart = JSON.parse(localStorage.getItem('fluxCart')) || [];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            updateCartCount();
-            initializeEventListeners();
-        });
-
-        function initializeEventListeners() {
-            document.getElementById('cartBtn').addEventListener('click', toggleCart);
-            document.getElementById('closeCart').addEventListener('click', toggleCart);
-            document.getElementById('cartOverlay').addEventListener('click', toggleCart);
-            document.getElementById('checkoutBtn').addEventListener('click', checkout);
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => handleFilter(e.target));
-            });
-        }
-
-        async function loadProducts() {
-            try {
-                const response = await fetch(`${API_BASE}/products`);
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error || 'Erreur');
-                allProducts = data.products || [];
-                filteredProducts = [...allProducts];
-                if (allProducts.length === 0) loadDemoProducts();
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('productsGrid').style.display = 'grid';
-                displayProducts(filteredProducts);
-            } catch (error) {
-                console.error('Erreur:', error);
-                loadDemoProducts();
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('productsGrid').style.display = 'grid';
-            }
-        }
-
-        function loadDemoProducts() {
-            allProducts = [
-                {id: 'demo-1', name: 'T-Shirt Premium', category: 'T-Shirts', price: 29.99, currency: '€', thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23000" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle">T-Shirt</text></svg>', badge: 'Nouveau', type: 'men'},
-                {id: 'demo-2', name: 'Hoodie Oversize', category: 'Sweats', price: 59.99, currency: '€', thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23808080" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle">Hoodie</text></svg>', badge: 'Populaire', type: 'men'},
-                {id: 'demo-3', name: 'Crop Top', category: 'Hauts', price: 24.99, currency: '€', thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23fff" width="400" height="500"/><text x="200" y="250" font-family="Arial" font-size="20" fill="%23000" text-anchor="middle">Crop Top</text></svg>', type: 'women'},
-                {id: 'demo-4', name: 'Casquette FLUX', category: 'Accessoires', price: 24.99, currency: '€', thumbnail: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect fill="%23000" width="400" height="500"/><circle cx="200" cy="250" r="80" fill="%23fff"/></svg>', type: 'accessories'}
-            ];
-            filteredProducts = [...allProducts];
-            displayProducts(filteredProducts);
-        }
-
-        function displayProducts(products) {
-            const grid = document.getElementById('productsGrid');
-            document.getElementById('productCount').textContent = products.length;
-            if (products.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Aucun produit</p>';
-                return;
-            }
-            grid.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <div class="product-image-container">
-                        ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                        <img src="${product.thumbnail}" alt="${product.name}" class="product-image">
-                        <button class="quick-add" onclick="addToCart('${product.id}')">Ajouter</button>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${product.category}</div>
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-price">${parseFloat(product.price).toFixed(2)} ${product.currency}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function handleFilter(button) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const filter = button.dataset.filter;
-            if (filter === 'all') {
-                filteredProducts = [...allProducts];
-            } else {
-                filteredProducts = allProducts.filter(product => {
-                    const name = (product.name || '').toLowerCase();
-                    const type = product.type || '';
-                    if (filter === 'men') return type === 'men' || name.includes('homme');
-                    if (filter === 'women') return type === 'women' || name.includes('femme');
-                    if (filter === 'accessories') return type === 'accessories';
-                    return false;
-                });
-            }
-            displayProducts(filteredProducts);
-        }
-
-        function addToCart(productId) {
-            const product = allProducts.find(p => p.id == productId);
-            if (!product) return;
-            const existingItem = cart.find(item => item.id == productId);
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({id: product.id, name: product.name, price: parseFloat(product.price), currency: product.currency, image: product.thumbnail, category: product.category, quantity: 1});
-            }
-            saveCart();
-            updateCartCount();
-            showToast('✓ Ajouté au panier');
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            saveCart();
-            updateCartCount();
-            displayCart();
-        }
-
-        function toggleCart() {
-            document.getElementById('cartModal').classList.toggle('active');
-            document.getElementById('cartOverlay').classList.toggle('active');
-            if (document.getElementById('cartModal').classList.contains('active')) displayCart();
-        }
-
-        function displayCart() {
-            const cartItemsDiv = document.getElementById('cartItems');
-            const cartTotalDiv = document.getElementById('cartTotal');
-            if (cart.length === 0) {
-                cartItemsDiv.innerHTML = '<div class="empty-cart">Panier vide</div>';
-                cartTotalDiv.textContent = '0,00 €';
-                return;
-            }
-            cartItemsDiv.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-details">${item.category} • Qty: ${item.quantity}</div>
-                        <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} ${item.currency}</div>
-                        <button class="remove-item" onclick="removeFromCart('${item.id}')">Retirer</button>
-                    </div>
-                </div>
-            `).join('');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            cartTotalDiv.textContent = `${total.toFixed(2)} €`;
-        }
-
-        async function checkout() {
-            if (cart.length === 0) {
-                showToast('⚠️ Panier vide');
-                return;
-            }
-            showToast('🔄 Traitement...');
-            setTimeout(() => {
-                showToast('✓ Commande OK');
-                cart = [];
-                saveCart();
-                updateCartCount();
-                toggleCart();
-            }, 1500);
-        }
-
-        function saveCart() {
-            localStorage.setItem('fluxCart', JSON.stringify(cart));
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
