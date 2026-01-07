@@ -39,6 +39,133 @@ function initializeApp() {
     initializeNewsletter();
 }
 
+// ===== SEARCH FUNCTIONALITY =====
+function toggleSearch() {
+    const searchBar = document.getElementById('searchBar');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchBar) return;
+    
+    const isVisible = searchBar.style.display !== 'none';
+    searchBar.style.display = isVisible ? 'none' : 'block';
+    
+    if (!isVisible) {
+        setTimeout(() => searchInput && searchInput.focus(), 100);
+    } else {
+        searchInput.value = '';
+        if (searchResults) searchResults.style.display = 'none';
+    }
+}
+
+function handleSearchInput(event) {
+    const query = event.target.value.toLowerCase().trim();
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchResults) return;
+    
+    // Redirect to boutique on Enter
+    if (event.key === 'Enter' && query) {
+        window.location.href = `boutique.html?search=${encodeURIComponent(query)}`;
+        return;
+    }
+    
+    if (query.length < 2) {
+        searchResults.style.display = 'none';
+        return;
+    }
+    
+    // Search in products
+    const products = state.products.length > 0 ? state.products : getAllDemoProducts();
+    const results = products.filter(p => {
+        const name = (p.name || '').toLowerCase();
+        const category = (p.category || '').toLowerCase();
+        return name.includes(query) || category.includes(query);
+    }).slice(0, 5);
+    
+    if (results.length === 0) {
+        searchResults.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--gray-500);">Aucun résultat trouvé</div>';
+        searchResults.style.display = 'block';
+        return;
+    }
+    
+    searchResults.innerHTML = results.map(product => `
+        <div class="search-result-item" onclick="window.location.href='boutique.html?product=${product.id}'">
+            <img src="${product.thumbnail || product.image}" alt="${product.name}">
+            <div class="search-result-info">
+                <h4>${product.name}</h4>
+                <p>${product.category || 'Produit'}</p>
+                <div class="price">${parseFloat(product.price).toFixed(2)} ${product.currency || '€'}</div>
+            </div>
+        </div>
+    `).join('');
+    
+    searchResults.style.display = 'block';
+}
+
+function getAllDemoProducts() {
+    return [
+        {
+            id: 'demo-1',
+            name: 'T-Shirt Premium Noir',
+            category: 'T-Shirts',
+            price: 29.99,
+            currency: '€',
+            thumbnail: createProductImage('T-SHIRT', '#000000'),
+            type: 'men'
+        },
+        {
+            id: 'demo-2',
+            name: 'Hoodie Oversize Gris',
+            category: 'Hoodies',
+            price: 59.99,
+            currency: '€',
+            thumbnail: createProductImage('HOODIE', '#808080'),
+            type: 'men'
+        },
+        {
+            id: 'demo-3',
+            name: 'Crop Top Blanc',
+            category: 'Hauts',
+            price: 24.99,
+            currency: '€',
+            thumbnail: createProductImage('CROP TOP', '#ffffff', '#000000'),
+            type: 'women'
+        },
+        {
+            id: 'demo-4',
+            name: 'Casquette Logo FLUX',
+            category: 'Accessoires',
+            price: 24.99,
+            currency: '€',
+            thumbnail: createProductImage('CAP', '#000000'),
+            type: 'accessories'
+        },
+        {
+            id: 'demo-5',
+            name: 'Sweatshirt Vintage',
+            category: 'Sweats',
+            price: 49.99,
+            currency: '€',
+            thumbnail: createProductImage('SWEAT', '#c19a6b'),
+            type: 'women'
+        },
+        {
+            id: 'demo-6',
+            name: 'Tote Bag Canvas',
+            category: 'Sacs',
+            price: 19.99,
+            currency: '€',
+            thumbnail: createProductImage('BAG', '#f5f5dc', '#333333'),
+            type: 'accessories'
+        }
+    ];
+}
+
+// Expose globally
+window.toggleSearch = toggleSearch;
+window.handleSearchInput = handleSearchInput;
+
 // ===== GESTION DES ÉVÉNEMENTS =====
 function initializeEventListeners() {
     // Panier
@@ -52,16 +179,15 @@ function initializeEventListeners() {
     if (cartOverlay) cartOverlay.addEventListener('click', toggleCart);
     if (checkoutBtn) checkoutBtn.addEventListener('click', checkout);
     
-    // Recherche
-    const searchBtn = document.querySelector('.search-btn');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', () => {
-            const query = prompt('Que recherchez-vous ?');
-            if (query) {
-                window.location.href = `boutique.html?search=${encodeURIComponent(query)}`;
+    // Close search on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar && searchBar.style.display !== 'none') {
+                toggleSearch();
             }
-        });
-    }
+        }
+    });
 }
 
 // ===== MENU MOBILE =====
@@ -108,9 +234,9 @@ function loadDemoProducts(container) {
             id: 'demo-1',
             name: 'T-Shirt Premium Noir',
             category: 'T-Shirts',
-            price: 29.99,
+            price: '29.99',
             currency: '€',
-            thumbnail: createProductImage('T-SHIRT', '#000000'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23fff" text-anchor="middle" font-weight="bold"%3ET-SHIRT%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
             badge: 'Nouveau',
             type: 'men'
         },
@@ -118,9 +244,9 @@ function loadDemoProducts(container) {
             id: 'demo-2',
             name: 'Hoodie Oversize Gris',
             category: 'Hoodies',
-            price: 59.99,
+            price: '59.99',
             currency: '€',
-            thumbnail: createProductImage('HOODIE', '#808080'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23808080" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23fff" text-anchor="middle" font-weight="bold"%3EHOODIE%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
             badge: 'Best-seller',
             type: 'men'
         },
@@ -128,27 +254,27 @@ function loadDemoProducts(container) {
             id: 'demo-3',
             name: 'Crop Top Blanc',
             category: 'Hauts',
-            price: 24.99,
+            price: '24.99',
             currency: '€',
-            thumbnail: createProductImage('CROP TOP', '#ffffff', '#000000'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23ffffff" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="28" fill="%23000" text-anchor="middle" font-weight="bold"%3ECROP TOP%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
             type: 'women'
         },
         {
             id: 'demo-4',
             name: 'Casquette Logo FLUX',
             category: 'Accessoires',
-            price: 24.99,
+            price: '24.99',
             currency: '€',
-            thumbnail: createProductImage('CAP', '#000000'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ccircle cx="200" cy="220" r="80" fill="%23fff"/%3E%3Ctext x="200" y="235" font-family="Arial" font-size="28" fill="%23000" text-anchor="middle" font-weight="bold"%3EFLUX%3C/text%3E%3Ctext x="200" y="320" font-family="Arial" font-size="24" fill="%23fff" text-anchor="middle"%3ECAP%3C/text%3E%3C/svg%3E',
             type: 'accessories'
         },
         {
             id: 'demo-5',
             name: 'Sweatshirt Vintage',
             category: 'Sweats',
-            price: 49.99,
+            price: '49.99',
             currency: '€',
-            thumbnail: createProductImage('SWEAT', '#c19a6b'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23c19a6b" width="400" height="500"/%3E%3Ctext x="200" y="230" font-family="Arial" font-size="26" fill="%23fff" text-anchor="middle" font-weight="bold"%3ESWEATSHIRT%3C/text%3E%3Ctext x="200" y="270" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EVINTAGE%3C/text%3E%3Ctext x="200" y="300" font-family="Arial" font-size="18" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
             badge: 'Nouveau',
             type: 'women'
         },
@@ -156,16 +282,37 @@ function loadDemoProducts(container) {
             id: 'demo-6',
             name: 'Tote Bag Canvas',
             category: 'Sacs',
-            price: 19.99,
+            price: '19.99',
             currency: '€',
-            thumbnail: createProductImage('BAG', '#f5f5dc', '#333333'),
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23f5f5dc" width="400" height="500"/%3E%3Crect x="100" y="150" width="200" height="200" fill="none" stroke="%23000" stroke-width="4"/%3E%3Ctext x="200" y="270" font-family="Arial" font-size="24" fill="%23000" text-anchor="middle" font-weight="bold"%3EFLUX%3C/text%3E%3Ctext x="200" y="300" font-family="Arial" font-size="18" fill="%23333" text-anchor="middle"%3ETOTE BAG%3C/text%3E%3C/svg%3E',
             type: 'accessories'
+        },
+        {
+            id: 'demo-7',
+            name: 'T-Shirt Blanc Logo',
+            category: 'T-Shirts',
+            price: '29.99',
+            currency: '€',
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23fff" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23000" text-anchor="middle" font-weight="bold"%3ET-SHIRT%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle"%3EWHITE%3C/text%3E%3C/svg%3E',
+            type: 'men'
+        },
+        {
+            id: 'demo-8',
+            name: 'Hoodie Noir Essential',
+            category: 'Hoodies',
+            price: '64.99',
+            currency: '€',
+            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ctext x="200" y="240" font-family="Arial" font-size="30" fill="%23fff" text-anchor="middle" font-weight="bold"%3EESSENTIAL%3C/text%3E%3Ctext x="200" y="280" font-family="Arial" font-size="24" fill="%23ccc" text-anchor="middle"%3EHOODIE%3C/text%3E%3C/svg%3E',
+            badge: 'Best-seller',
+            type: 'men'
         }
     ];
     
     state.products = demoProducts;
-    displayProducts(demoProducts, container);
-    showToast('Mode démonstration - Connectez votre API Printful pour afficher vos produits');
+    if (container) {
+        displayProducts(demoProducts, container);
+    }
+    console.log('✅ 8 produits de démonstration chargés');
 }
 
 // ===== CRÉER UNE IMAGE DE PRODUIT SVG =====
@@ -187,14 +334,20 @@ function displayProducts(products, container) {
         return;
     }
     
-    container.innerHTML = products.map(product => `
+    container.innerHTML = products.map(product => {
+        // Ensure price is a valid number
+        const price = parseFloat(product.price) || 0;
+        const currency = product.currency || '€';
+        
+        return `
         <div class="product-card" data-id="${product.id}">
             <div class="product-image-container">
                 ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
                 <img src="${product.thumbnail || product.image}" 
                      alt="${product.name}" 
                      class="product-image" 
-                     loading="lazy">
+                     loading="lazy"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22400%22 height=%22500%22/%3E%3Ctext x=%22200%22 y=%22250%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22%3EImage non disponible%3C/text%3E%3C/svg%3E'">
                 <button class="quick-add" onclick="addToCart('${product.id}')">
                     Ajouter au panier
                 </button>
@@ -202,10 +355,11 @@ function displayProducts(products, container) {
             <div class="product-info">
                 <div class="product-category">${product.category || 'Vêtement'}</div>
                 <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${parseFloat(product.price).toFixed(2)} ${product.currency}</p>
+                <p class="product-price">${price.toFixed(2)} ${currency}</p>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 // ===== GESTION DU PANIER =====
@@ -472,6 +626,92 @@ window.filterProducts = filterProducts;
 window.searchProducts = searchProducts;
 window.toggleCart = toggleCart;
 window.checkout = checkout;
+
+// ===== GLOBAL SEARCH FUNCTIONALITY =====
+window.toggleSearch = function() {
+    const overlay = document.getElementById('searchOverlay');
+    if (!overlay) return;
+    
+    const isVisible = overlay.style.display !== 'none';
+    overlay.style.display = isVisible ? 'none' : 'flex';
+    
+    if (!isVisible) {
+        const input = document.getElementById('globalSearchInput');
+        if (input) {
+            input.focus();
+            input.value = '';
+        }
+        document.getElementById('searchResults').innerHTML = '';
+    }
+    
+    // Prevent body scroll when search is open
+    document.body.style.overflow = isVisible ? 'auto' : 'hidden';
+};
+
+// Global search input handler
+document.addEventListener('DOMContentLoaded', () => {
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    if (globalSearchInput) {
+        globalSearchInput.addEventListener('input', (e) => {
+            performGlobalSearch(e.target.value);
+        });
+        
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('searchOverlay');
+                if (overlay && overlay.style.display !== 'none') {
+                    toggleSearch();
+                }
+            }
+        });
+    }
+});
+
+// Perform global search
+function performGlobalSearch(query) {
+    const resultsContainer = document.getElementById('searchResults');
+    if (!resultsContainer) return;
+    
+    if (!query || query.length < 2) {
+        resultsContainer.innerHTML = '';
+        return;
+    }
+    
+    const products = state.products || [];
+    const searchTerm = query.toLowerCase();
+    
+    const results = products.filter(product => {
+        const name = (product.name || '').toLowerCase();
+        const category = (product.category || '').toLowerCase();
+        return name.includes(searchTerm) || category.includes(searchTerm);
+    });
+    
+    if (results.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="search-no-results">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <p>Aucun résultat pour "${query}"</p>
+                <p style="font-size: 0.875rem; margin-top: 0.5rem;">Essayez avec d'autres mots-clés</p>
+            </div>
+        `;
+        return;
+    }
+    
+    resultsContainer.innerHTML = results.slice(0, 8).map(product => `
+        <a href="boutique.html?product=${product.id}" class="search-result-item" onclick="toggleSearch()">
+            <img src="${product.thumbnail || product.image}" alt="${product.name}" class="search-result-image">
+            <div class="search-result-info">
+                <div class="search-result-title">${product.name}</div>
+                <div class="search-result-category">${product.category || 'Produit'}</div>
+                <div class="search-result-price">${parseFloat(product.price).toFixed(2)} ${product.currency}</div>
+            </div>
+        </a>
+    `).join('');
+}
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
