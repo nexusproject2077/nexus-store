@@ -199,6 +199,23 @@ function initializeMobileMenu() {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
         });
     }
 }
@@ -340,7 +357,7 @@ function displayProducts(products, container) {
         const currency = product.currency || '€';
         
         return `
-        <div class="product-card" data-id="${product.id}">
+        <div class="product-card" data-id="${product.id}" onclick="window.location.href='produit.html?id=${product.id}'" style="cursor: pointer;">
             <div class="product-image-container">
                 ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
                 <img src="${product.thumbnail || product.image}" 
@@ -348,7 +365,7 @@ function displayProducts(products, container) {
                      class="product-image" 
                      loading="lazy"
                      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22400%22 height=%22500%22/%3E%3Ctext x=%22200%22 y=%22250%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22%3EImage non disponible%3C/text%3E%3C/svg%3E'">
-                <button class="quick-add" onclick="addToCart('${product.id}')">
+                <button class="quick-add" onclick="event.stopPropagation(); addToCart('${product.id}')">
                     Ajouter au panier
                 </button>
             </div>
@@ -365,7 +382,10 @@ function displayProducts(products, container) {
 // ===== GESTION DU PANIER =====
 function addToCart(productId) {
     const product = state.products.find(p => p.id == productId);
-    if (!product) return;
+    if (!product) {
+        showToast('❌ Produit introuvable');
+        return;
+    }
     
     const existingItem = state.cart.find(item => item.id == productId);
     
@@ -379,6 +399,8 @@ function addToCart(productId) {
             currency: product.currency || '€',
             image: product.thumbnail || product.image,
             category: product.category || 'Produit',
+            color: 'Standard',
+            size: 'M',
             quantity: 1
         });
     }
@@ -386,6 +408,11 @@ function addToCart(productId) {
     saveCart();
     updateCartCount();
     showToast('✓ Produit ajouté au panier');
+    
+    // Track add to cart
+    if (typeof trackAddToCart === 'function') {
+        trackAddToCart(product);
+    }
 }
 
 function removeFromCart(productId) {
@@ -435,6 +462,9 @@ function toggleCart() {
     
     if (modal.classList.contains('active')) {
         displayCart();
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
     }
 }
 
@@ -448,7 +478,7 @@ function displayCart() {
         cartItemsContainer.innerHTML = `
             <div class="empty-cart">
                 <p>Votre panier est vide</p>
-                <a href="boutique.html" class="btn btn-primary">Découvrir la boutique</a>
+                <a href="boutique.html" class="btn btn-primary" style="margin-top: 1rem;">Découvrir la boutique</a>
             </div>
         `;
         cartTotalEl.textContent = '0,00 €';
@@ -460,12 +490,12 @@ function displayCart() {
             <img src="${item.image}" alt="${item.name}" class="cart-item-image">
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-details">${item.category}</div>
+                <div class="cart-item-details">${item.category}${item.color ? ' • ' + item.color : ''}${item.size ? ' • Taille ' + item.size : ''}</div>
                 <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} ${item.currency}</div>
                 <div style="margin-top: 0.5rem; display: flex; gap: 1rem; align-items: center;">
-                    <button onclick="updateCartQuantity('${item.id}', -1)" style="padding: 0.25rem 0.5rem; background: var(--gray-200); border-radius: 4px;">−</button>
-                    <span style="font-weight: 600;">Qté: ${item.quantity}</span>
-                    <button onclick="updateCartQuantity('${item.id}', 1)" style="padding: 0.25rem 0.5rem; background: var(--gray-200); border-radius: 4px;">+</button>
+                    <button onclick="updateCartQuantity('${item.id}', -1)" style="padding: 0.25rem 0.5rem; background: var(--gray-200); border: none; border-radius: 4px; cursor: pointer; font-weight: 700;">−</button>
+                    <span style="font-weight: 600; min-width: 60px; text-align: center;">Qté: ${item.quantity}</span>
+                    <button onclick="updateCartQuantity('${item.id}', 1)" style="padding: 0.25rem 0.5rem; background: var(--gray-200); border: none; border-radius: 4px; cursor: pointer; font-weight: 700;">+</button>
                 </div>
                 <button class="remove-item" onclick="removeFromCart('${item.id}')">Retirer</button>
             </div>
