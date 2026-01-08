@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Produit | FLUX</title>
+    <meta name="description" content="Détails du produit FLUX - Streetwear premium">
+    
+    <!-- Google Consent Mode v2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});
+        window.acceptCookies = function() {
+            gtag('consent', 'update', {'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted', 'analytics_storage': 'granted'});
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').style.display = 'none';
+        };
+        window.refuseCookies = function() {
+            gtag('consent', 'update', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});
+            localStorage.setItem('cookieConsent', 'refused');
+            document.getElementById('cookieConsent').style.display = 'none';
+        };
+        window.addEventListener('DOMContentLoaded', function() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent === 'accepted') acceptCookies();
+            else if (consent === 'refused') refuseCookies();
+            else setTimeout(() => document.getElementById('cookieConsent').style.display = 'block', 1000);
+        });
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5825303311354202" crossorigin="anonymous"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .product-page { max-width: 1400px; margin: 0 auto; padding: 3rem 4%; }
+        .product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .product-gallery { position: sticky; top: 100px; }
+        .main-image { width: 100%; aspect-ratio: 1; background: var(--gray-100); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1rem; }
+        .main-image img { width: 100%; height: 100%; object-fit: cover; }
+        .thumbnail-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+        .thumbnail { aspect-ratio: 1; background: var(--gray-100); border-radius: var(--radius-md); overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+        .thumbnail:hover, .thumbnail.active { border-color: var(--black); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        .product-category { color: var(--gray-500); font-size: 0.9375rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .product-price-box { margin: 1.5rem 0; padding: 1.5rem; background: var(--gray-50); border-radius: var(--radius-md); }
+        .product-price { font-size: 2rem; font-weight: 700; color: var(--black); }
+        .product-price-old { font-size: 1.25rem; text-decoration: line-through; color: var(--gray-400); margin-left: 1rem; }
+        .product-badge { display: inline-block; padding: 0.5rem 1rem; background: var(--accent); color: var(--white); font-weight: 700; font-size: 0.875rem; border-radius: var(--radius-sm); margin-bottom: 1rem; }
+        .product-description { margin: 2rem 0; line-height: 1.8; color: var(--gray-700); }
+        .product-description h3 { font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 1rem; }
+        .product-description ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        .product-description li { margin-bottom: 0.5rem; }
+        .option-group { margin: 2rem 0; }
+        .option-label { font-weight: 700; font-size: 0.9375rem; margin-bottom: 1rem; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        .color-options, .size-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .color-option { width: 48px; height: 48px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; position: relative; }
+        .color-option:hover, .color-option.active { border-color: var(--black); transform: scale(1.1); }
+        .color-option.active::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--white); font-weight: 700; font-size: 1.25rem; text-shadow: 0 0 3px rgba(0,0,0,0.5); }
+        .size-option { padding: 0.75rem 1.5rem; border: 2px solid var(--gray-300); border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; transition: all 0.2s; background: var(--white); }
+        .size-option:hover { border-color: var(--black); }
+        .size-option.active { background: var(--black); color: var(--white); border-color: var(--black); }
+        .size-option.unavailable { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+        .quantity-selector { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+        .quantity-label { font-weight: 700; font-size: 0.9375rem; }
+        .quantity-controls { display: flex; align-items: center; gap: 0.5rem; border: 2px solid var(--gray-300); border-radius: var(--radius-sm); }
+        .quantity-btn { padding: 0.5rem 1rem; background: none; border: none; cursor: pointer; font-size: 1.25rem; font-weight: 700; }
+        .quantity-input { width: 60px; text-align: center; border: none; font-weight: 700; font-size: 1rem; }
+        .add-to-cart-section { margin: 2rem 0; }
+        .add-to-cart-btn-large { width: 100%; padding: 1.25rem; background: var(--black); color: var(--white); border: none; font-weight: 700; font-size: 1.125rem; letter-spacing: 1px; cursor: pointer; border-radius: var(--radius-sm); transition: all 0.3s; }
+        .add-to-cart-btn-large:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .add-to-cart-btn-large:disabled { background: var(--gray-300); cursor: not-allowed; transform: none; }
+        .product-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; padding: 2rem; background: var(--gray-50); border-radius: var(--radius-md); }
+        .feature { text-align: center; }
+        .feature svg { width: 32px; height: 32px; margin: 0 auto 0.75rem; color: var(--accent); }
+        .feature-title { font-weight: 700; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .feature-text { font-size: 0.8125rem; color: var(--gray-600); }
+        .product-specs { margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--gray-200); border-radius: var(--radius-md); }
+        .product-specs h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; }
+        .spec-row { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-200); }
+        .spec-row:last-child { border-bottom: none; }
+        .spec-label { font-weight: 600; color: var(--gray-600); }
+        .spec-value { color: var(--black); }
+        .error-message { background: #fee; border: 1px solid #fcc; color: #c00; padding: 1rem; border-radius: var(--radius-sm); margin: 1rem 0; }
+        @media (max-width: 1024px) {
+            .product-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .product-gallery { position: relative; top: 0; }
+            .product-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cookie Consent -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
+                    <circle cx="8" cy="10" r="1" fill="currentColor"></circle>
+                    <circle cx="16" cy="10" r="1" fill="currentColor"></circle>
+                </svg>
+            </div>
+            <div class="cookie-text">
+                <h3>Cookies</h3>
+                <p>Nous utilisons des cookies. <a href="politique-cookies.html">En savoir plus</a></p>
+            </div>
+            <div class="cookie-actions">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accepter</button>
+                <button class="cookie-btn cookie-refuse" onclick="refuseCookies()">Refuser</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-btn" onclick="window.location.href='boutique.html'" aria-label="Rechercher">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Page -->
+    <div class="product-page">
+        <div id="loadingProduct" class="loading">Chargement du produit...</div>
+        <div id="errorProduct" class="error-message" style="display: none;"></div>
+        
+        <div id="productContent" class="product-layout" style="display: none;">
+            <!-- Product Gallery -->
+            <div class="product-gallery">
+                <div class="main-image" id="mainImage">
+                    <img src="" alt="" id="mainImageImg">
+                </div>
+                <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <div id="productBadge"></div>
+                <p class="product-category" id="productCategory">Catégorie</p>
+                <h1 id="productName">Nom du produit</h1>
+                
+                <div class="product-price-box">
+                    <span class="product-price" id="productPrice">0,00 €</span>
+                    <span class="product-price-old" id="productPriceOld" style="display: none;"></span>
+                </div>
+
+                <div class="product-description" id="productDescription"></div>
+
+                <!-- Color Selection -->
+                <div class="option-group" id="colorGroup" style="display: none;">
+                    <label class="option-label">Couleur : <span id="selectedColorName">-</span></label>
+                    <div class="color-options" id="colorOptions"></div>
+                </div>
+
+                <!-- Size Selection -->
+                <div class="option-group" id="sizeGroup" style="display: none;">
+                    <label class="option-label">Taille : <span id="selectedSizeName">-</span></label>
+                    <div class="size-options" id="sizeOptions"></div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="quantity-selector">
+                    <span class="quantity-label">Quantité :</span>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="changeQuantity(-1)">−</button>
+                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="99" readonly>
+                        <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <!-- Add to Cart -->
+                <div class="add-to-cart-section">
+                    <button class="add-to-cart-btn-large" id="addToCartBtn" onclick="addProductToCart()">
+                        Ajouter au panier
+                    </button>
+                </div>
+
+                <!-- Features -->
+                <div class="product-features">
+                    <div class="feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                        <div class="feature-title">Livraison Gratuite</div>
+                        <div class="feature-text">Dès 50€ d'achat</div>
+                    </div>
+                    <div class="feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <div class="feature-title">Qualité Premium</div>
+                        <div class="feature-text">Matériaux de qualité</div>
+                    </div>
+                    <div class="feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <div class="feature-title">Retour Facile</div>
+                        <div class="feature-text">30 jours</div>
+                    </div>
+                </div>
+
+                <!-- Specs -->
+                <div class="product-specs" id="productSpecs" style="display: none;">
+                    <h3>Caractéristiques</h3>
+                    <div id="specsContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal (same as before) -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        let currentProduct = null;
+        let selectedColor = null;
+        let selectedSize = null;
+
+        // Load product on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || urlParams.get('product');
+            
+            if (productId) {
+                loadProduct(productId);
+            } else {
+                showError('Aucun produit spécifié');
+            }
+        });
+
+        async function loadProduct(productId) {
+            try {
+                // Try API first
+                const response = await fetch(`${API_BASE}/products/${productId}`);
+                const data = await response.json();
+                
+                if (data.success && data.product) {
+                    displayProduct(data.product);
+                } else {
+                    // Fallback to demo products
+                    loadDemoProduct(productId);
+                }
+            } catch (error) {
+                loadDemoProduct(productId);
+            }
+        }
+
+        function loadDemoProduct(productId) {
+            const demoProducts = state.products || [];
+            const product = demoProducts.find(p => p.id == productId);
+            
+            if (product) {
+                displayProduct(product);
+            } else {
+                showError('Produit introuvable');
+            }
+        }
+
+        function displayProduct(product) {
+            currentProduct = product;
+            document.getElementById('loadingProduct').style.display = 'none';
+            document.getElementById('productContent').style.display = 'grid';
+            
+            // Basic info
+            document.getElementById('pageTitle').textContent = product.name + ' | FLUX';
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productCategory').textContent = product.category || 'Vêtement';
+            document.getElementById('productPrice').textContent = parseFloat(product.price).toFixed(2) + ' ' + (product.currency || '€');
+            
+            // Badge
+            if (product.badge) {
+                document.getElementById('productBadge').innerHTML = `<span class="product-badge">${product.badge}</span>`;
+            }
+            
+            // Image
+            const img = product.thumbnail || product.image;
+            document.getElementById('mainImageImg').src = img;
+            document.getElementById('mainImageImg').alt = product.name;
+            
+            // Description
+            const description = product.description || `
+                <h3>Description</h3>
+                <p>Le ${product.name} FLUX incarne l'essence du streetwear moderne avec une touche de sophistication urbaine.</p>
+                <h3>Caractéristiques</h3>
+                <ul>
+                    <li>Coton bio premium 100%</li>
+                    <li>Coupe moderne et confortable</li>
+                    <li>Impression haute qualité durable</li>
+                    <li>Fabriqué de manière éthique</li>
+                </ul>
+                <h3>Entretien</h3>
+                <p>Lavage en machine à 30°C. Ne pas utiliser de javel. Séchage à basse température.</p>
+            `;
+            document.getElementById('productDescription').innerHTML = description;
+            
+            // Colors (demo)
+            if (product.colors || true) {
+                const colors = product.colors || [{name: 'Noir', value: '#000000'}, {name: 'Blanc', value: '#FFFFFF'}, {name: 'Gris', value: '#808080'}];
+                document.getElementById('colorGroup').style.display = 'block';
+                document.getElementById('colorOptions').innerHTML = colors.map((color, i) => `
+                    <div class="color-option ${i === 0 ? 'active' : ''}" 
+                         style="background: ${color.value}; ${color.value === '#FFFFFF' ? 'border: 2px solid #ddd;' : ''}"
+                         onclick="selectColor('${color.name}', '${color.value}', this)"
+                         data-color="${color.name}"></div>
+                `).join('');
+                selectedColor = colors[0].name;
+                document.getElementById('selectedColorName').textContent = colors[0].name;
+            }
+            
+            // Sizes (demo)
+            const sizes = product.sizes || ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+            document.getElementById('sizeGroup').style.display = 'block';
+            document.getElementById('sizeOptions').innerHTML = sizes.map(size => `
+                <div class="size-option" onclick="selectSize('${size}', this)">${size}</div>
+            `).join('');
+            
+            // Specs
+            if (product.specs) {
+                document.getElementById('productSpecs').style.display = 'block';
+                document.getElementById('specsContent').innerHTML = Object.entries(product.specs).map(([key, value]) => `
+                    <div class="spec-row">
+                        <span class="spec-label">${key}</span>
+                        <span class="spec-value">${value}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function selectColor(name, value, element) {
+            document.querySelectorAll('.color-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            selectedColor = name;
+            document.getElementById('selectedColorName').textContent = name;
+        }
+
+        function selectSize(size, element) {
+            if (element.classList.contains('unavailable')) return;
+            document.querySelectorAll('.size-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            selectedSize = size;
+            document.getElementById('selectedSizeName').textContent = size;
+            document.getElementById('addToCartBtn').disabled = false;
+        }
+
+        function changeQuantity(delta) {
+            const input = document.getElementById('quantity');
+            let value = parseInt(input.value) + delta;
+            if (value < 1) value = 1;
+            if (value > 99) value = 99;
+            input.value = value;
+        }
+
+        function addProductToCart() {
+            if (!selectedSize) {
+                showToast('⚠️ Veuillez choisir une taille');
+                return;
+            }
+            
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const cartItem = {
+                id: currentProduct.id,
+                name: currentProduct.name,
+                price: parseFloat(currentProduct.price),
+                currency: currentProduct.currency || '€',
+                image: currentProduct.thumbnail || currentProduct.image,
+                category: currentProduct.category,
+                color: selectedColor,
+                size: selectedSize,
+                quantity: quantity
+            };
+            
+            // Add to cart
+            let cart = JSON.parse(localStorage.getItem('fluxCart')) || [];
+            const existingIndex = cart.findIndex(item => 
+                item.id === cartItem.id && 
+                item.color === cartItem.color && 
+                item.size === cartItem.size
+            );
+            
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            localStorage.setItem('fluxCart', JSON.stringify(cart));
+            updateCartCount();
+            showToast('✓ Produit ajouté au panier !');
+        }
+
+        function showError(message) {
+            document.getElementById('loadingProduct').style.display = 'none';
+            document.getElementById('errorProduct').textContent = message;
+            document.getElementById('errorProduct').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
