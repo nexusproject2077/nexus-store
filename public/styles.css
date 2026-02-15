@@ -1340,6 +1340,49 @@ section {
     color: var(--gray-300);
 }
 
+/* ===== SOURCE BADGES ===== */
+.source-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 0.4rem;
+}
+
+.source-cj {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.source-filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.source-filter-btn {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.source-filter-btn:hover,
+.source-filter-btn.active {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1200px) {
     .about-grid,

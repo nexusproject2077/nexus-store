@@ -309,6 +309,22 @@
             <!-- Sidebar Filters -->
             <aside class="sidebar-filters">
                 <div class="filter-group">
+                    <h3>Source</h3>
+                    <div class="filter-option">
+                        <input type="radio" name="source" id="source-all" value="all" checked onchange="filterBySource('all')">
+                        <label for="source-all">Tous</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="source" id="source-printful" value="printful" onchange="filterBySource('printful')">
+                        <label for="source-printful">Printful (Print-on-demand)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="source" id="source-cj" value="cj" onchange="filterBySource('cj')">
+                        <label for="source-cj">CJ Dropshipping</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
                     <h3>Catégories</h3>
                     <div class="filter-option">
                         <input type="checkbox" id="cat-all" value="all" checked onchange="applyFilters()">
