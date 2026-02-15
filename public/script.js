@@ -11,6 +11,7 @@ let state = {
     filteredProducts: [],
     cart: JSON.parse(localStorage.getItem('fluxCart')) || [],
     currentCategory: 'all',
+    currentSource: 'all', // 'all', 'printful', 'cj'
     searchQuery: ''
 };
 
@@ -356,13 +357,15 @@ function displayProducts(products, container) {
         const price = parseFloat(product.price) || 0;
         const currency = product.currency || '€';
         
+        const sourceBadge = product.source === 'cj' ? '<span class="source-badge source-cj">CJ</span>' : '';
+
         return `
-        <div class="product-card" data-id="${product.id}" onclick="window.location.href='produit.html?id=${product.id}'" style="cursor: pointer;">
+        <div class="product-card" data-id="${product.id}" data-source="${product.source || 'printful'}" onclick="window.location.href='produit.html?id=${product.id}'" style="cursor: pointer;">
             <div class="product-image-container">
                 ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                <img src="${product.thumbnail || product.image}" 
-                     alt="${product.name}" 
-                     class="product-image" 
+                <img src="${product.thumbnail || product.image}"
+                     alt="${product.name}"
+                     class="product-image"
                      loading="lazy"
                      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22400%22 height=%22500%22/%3E%3Ctext x=%22200%22 y=%22250%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22%3EImage non disponible%3C/text%3E%3C/svg%3E'">
                 <button class="quick-add" onclick="event.stopPropagation(); addToCart('${product.id}')">
@@ -370,7 +373,7 @@ function displayProducts(products, container) {
                 </button>
             </div>
             <div class="product-info">
-                <div class="product-category">${product.category || 'Vêtement'}</div>
+                <div class="product-category">${product.category || 'Vêtement'} ${sourceBadge}</div>
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">${price.toFixed(2)} ${currency}</p>
             </div>
@@ -399,6 +402,7 @@ function addToCart(productId) {
             currency: product.currency || '€',
             image: product.thumbnail || product.image,
             category: product.category || 'Produit',
+            source: product.source || 'printful',
             color: 'Standard',
             size: 'M',
             quantity: 1
@@ -648,11 +652,48 @@ function formatDate(dateString) {
     return date.toLocaleDateString('fr-FR', options);
 }
 
+// ===== FILTRE PAR SOURCE =====
+function filterBySource(source) {
+    state.currentSource = source;
+
+    if (source === 'all') {
+        state.filteredProducts = [...state.products];
+    } else {
+        state.filteredProducts = state.products.filter(p => p.source === source);
+    }
+
+    const container = document.getElementById('productsGrid') || document.getElementById('featuredProducts');
+    if (container) {
+        displayProducts(state.filteredProducts, container);
+    }
+}
+
+// ===== RECHERCHE CJ DROPSHIPPING =====
+async function searchCJProducts(keyword) {
+    try {
+        const response = await fetch(`${API_BASE}/cj/search?keyword=${encodeURIComponent(keyword)}&size=20`);
+        const data = await response.json();
+
+        if (data.success && data.products) {
+            state.products = [...state.products.filter(p => p.source !== 'cj'), ...data.products];
+            state.filteredProducts = [...state.products];
+            const container = document.getElementById('productsGrid') || document.getElementById('featuredProducts');
+            if (container) {
+                displayProducts(state.filteredProducts, container);
+            }
+        }
+    } catch (error) {
+        console.error('Erreur recherche CJ:', error);
+    }
+}
+
 // Exposer les fonctions globalement pour les onclick dans le HTML
 window.addToCart = addToCart;
 window.removeFromCart = removeFromCart;
 window.updateCartQuantity = updateCartQuantity;
 window.filterProducts = filterProducts;
+window.filterBySource = filterBySource;
+window.searchCJProducts = searchCJProducts;
 window.searchProducts = searchProducts;
 window.toggleCart = toggleCart;
 window.checkout = checkout;

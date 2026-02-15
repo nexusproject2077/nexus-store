@@ -1,13 +1,13 @@
 {
   "name": "flux-store",
   "version": "1.0.0",
-  "description": "FLUX Store - E-commerce with Printful & Stripe",
+  "description": "NEXUS Store - E-commerce with Printful, CJDropshipping & Stripe",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["ecommerce", "printful", "stripe"],
+  "keywords": ["ecommerce", "printful", "cjdropshipping", "dropshipping", "stripe"],
   "author": "FLUX Corporation",
   "license": "MIT",
   "dependencies": {
