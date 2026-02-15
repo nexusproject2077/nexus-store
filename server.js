@@ -157,7 +157,7 @@ app.get('/api/products', async (req, res) => {
                     name: product.productNameEn || product.productName,
                     thumbnail: product.productImage || '',
                     price: product.sellPrice
-                        ? (parseFloat(product.sellPrice) * 1.1).toFixed(2)  // +10% margin
+                        ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)  // x2.5 margin
                         : '0.00',
                     originalPrice: product.sellPrice,
                     currency: '€',
@@ -216,7 +216,7 @@ app.get('/api/cj/search', async (req, res) => {
             name: product.productNameEn || product.productName,
             thumbnail: product.productImage || '',
             price: product.sellPrice
-                ? (parseFloat(product.sellPrice) * 1.1).toFixed(2)
+                ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)
                 : '0.00',
             originalPrice: product.sellPrice,
             currency: '€',
@@ -253,7 +253,7 @@ app.get('/api/cj/products/:pid', async (req, res) => {
             id: v.vid,
             name: v.variantNameEn || v.variantName || '',
             price: v.variantSellPrice
-                ? (parseFloat(v.variantSellPrice) * 1.1).toFixed(2)
+                ? (parseFloat(v.variantSellPrice) * 2.5).toFixed(2)
                 : '0.00',
             originalPrice: v.variantSellPrice,
             image: v.variantImage || product.productImage,
@@ -271,7 +271,7 @@ app.get('/api/cj/products/:pid', async (req, res) => {
                 thumbnail: product.productImage || '',
                 images: product.productImageSet || [product.productImage],
                 price: product.sellPrice
-                    ? (parseFloat(product.sellPrice) * 1.1).toFixed(2)
+                    ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)
                     : '0.00',
                 originalPrice: product.sellPrice,
                 currency: '€',
@@ -322,7 +322,7 @@ app.get('/api/products/:id', async (req, res) => {
                 id: v.vid,
                 name: v.variantNameEn || v.variantName || '',
                 price: v.variantSellPrice
-                    ? (parseFloat(v.variantSellPrice) * 1.1).toFixed(2)
+                    ? (parseFloat(v.variantSellPrice) * 2.5).toFixed(2)
                     : '0.00',
                 image: v.variantImage || product.productImage,
                 sku: v.variantSku || '',
