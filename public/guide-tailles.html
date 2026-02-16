@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide des Tailles | FLUX</title>
+    <meta name="description" content="Guide des tailles FLUX : trouvez votre taille idéale pour nos t-shirts, hoodies et accessoires. Tableaux de mesures détaillés.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .info-hero { background: var(--gray-100); padding: 4rem 4%; text-align: center; }
+        .info-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+        .info-hero p { color: var(--gray-600); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+        .info-container { max-width: 900px; margin: 0 auto; padding: 4rem 4%; }
+        .info-container h2 { font-family: var(--font-display); font-size: 2rem; margin: 3rem 0 1.5rem; letter-spacing: 1px; }
+        .info-container h2:first-of-type { margin-top: 0; }
+        .info-container p, .info-container li { color: var(--gray-600); line-height: 1.8; margin-bottom: 1rem; }
+        .info-container ul { margin-left: 2rem; }
+        .info-container li { margin-bottom: 0.5rem; }
+        .info-container strong { color: var(--black); }
+        .size-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+        .size-table th, .size-table td { padding: 1rem 1.25rem; text-align: center; border: 1px solid var(--gray-200); }
+        .size-table th { background: var(--black); color: var(--white); font-weight: 600; }
+        .size-table tr:nth-child(even) { background: var(--gray-50); }
+        .size-table td:first-child { font-weight: 700; text-align: left; background: var(--gray-50); }
+        .measure-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .measure-tip {
+            padding: 2rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        .measure-tip svg { color: var(--accent); margin-bottom: 1rem; }
+        .measure-tip h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .measure-tip p { font-size: 0.9375rem; color: var(--gray-600); margin-bottom: 0; }
+        .info-box { background: var(--gray-50); padding: 1.5rem; border-left: 4px solid var(--accent); margin: 2rem 0; border-radius: var(--radius-sm); }
+        @media (max-width: 768px) {
+            .size-table { font-size: 0.8125rem; }
+            .size-table th, .size-table td { padding: 0.625rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="info-hero">
+        <h1>Guide des Tailles</h1>
+        <p>Trouvez votre taille idéale grâce à nos tableaux de mesures détaillés. Nos vêtements taillent normalement.</p>
+    </section>
+
+    <div class="info-container">
+        <h2>Comment prendre vos mesures</h2>
+        <div class="measure-tips">
+            <div class="measure-tip">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a5 5 0 0 0-5 5v3H3l1.5 12h15L21 10h-4V7a5 5 0 0 0-5-5z"></path>
+                </svg>
+                <h3>Tour de poitrine</h3>
+                <p>Mesurez horizontalement à l'endroit le plus large de la poitrine, sous les bras.</p>
+            </div>
+            <div class="measure-tip">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 12h8M12 8v8"></path>
+                </svg>
+                <h3>Tour de taille</h3>
+                <p>Mesurez au creux de la taille, à l'endroit le plus étroit du buste.</p>
+            </div>
+            <div class="measure-tip">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3>Tour de hanches</h3>
+                <p>Mesurez à l'endroit le plus large des hanches, environ 20 cm sous la taille.</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Conseil :</strong> Utilisez un mètre ruban souple. Tenez-vous droit et mesurez sans serrer. En cas de doute entre deux tailles, optez pour la taille supérieure pour un confort optimal.</p>
+        </div>
+
+        <h2>T-Shirts & Hauts</h2>
+        <table class="size-table">
+            <thead>
+                <tr>
+                    <th>Taille</th>
+                    <th>XS</th>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>XXL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tour de poitrine (cm)</td>
+                    <td>82-86</td>
+                    <td>86-92</td>
+                    <td>92-98</td>
+                    <td>98-104</td>
+                    <td>104-110</td>
+                    <td>110-116</td>
+                </tr>
+                <tr>
+                    <td>Tour de taille (cm)</td>
+                    <td>68-72</td>
+                    <td>72-78</td>
+                    <td>78-84</td>
+                    <td>84-90</td>
+                    <td>90-96</td>
+                    <td>96-102</td>
+                </tr>
+                <tr>
+                    <td>Longueur (cm)</td>
+                    <td>66</td>
+                    <td>68</td>
+                    <td>70</td>
+                    <td>72</td>
+                    <td>74</td>
+                    <td>76</td>
+                </tr>
+                <tr>
+                    <td>Largeur épaules (cm)</td>
+                    <td>42</td>
+                    <td>44</td>
+                    <td>46</td>
+                    <td>48</td>
+                    <td>50</td>
+                    <td>52</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Hoodies & Sweats</h2>
+        <table class="size-table">
+            <thead>
+                <tr>
+                    <th>Taille</th>
+                    <th>XS</th>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>XXL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tour de poitrine (cm)</td>
+                    <td>88-92</td>
+                    <td>92-98</td>
+                    <td>98-104</td>
+                    <td>104-110</td>
+                    <td>110-116</td>
+                    <td>116-122</td>
+                </tr>
+                <tr>
+                    <td>Tour de taille (cm)</td>
+                    <td>72-76</td>
+                    <td>76-82</td>
+                    <td>82-88</td>
+                    <td>88-94</td>
+                    <td>94-100</td>
+                    <td>100-106</td>
+                </tr>
+                <tr>
+                    <td>Longueur (cm)</td>
+                    <td>64</td>
+                    <td>66</td>
+                    <td>68</td>
+                    <td>70</td>
+                    <td>72</td>
+                    <td>74</td>
+                </tr>
+                <tr>
+                    <td>Longueur manches (cm)</td>
+                    <td>60</td>
+                    <td>62</td>
+                    <td>64</td>
+                    <td>66</td>
+                    <td>68</td>
+                    <td>70</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Correspondance internationale</h2>
+        <table class="size-table">
+            <thead>
+                <tr>
+                    <th>FLUX</th>
+                    <th>XS</th>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>XXL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>FR</td>
+                    <td>34-36</td>
+                    <td>36-38</td>
+                    <td>38-40</td>
+                    <td>40-42</td>
+                    <td>42-44</td>
+                    <td>44-46</td>
+                </tr>
+                <tr>
+                    <td>EU</td>
+                    <td>42-44</td>
+                    <td>44-46</td>
+                    <td>46-48</td>
+                    <td>48-50</td>
+                    <td>50-52</td>
+                    <td>52-54</td>
+                </tr>
+                <tr>
+                    <td>US/UK</td>
+                    <td>32-34</td>
+                    <td>34-36</td>
+                    <td>36-38</td>
+                    <td>38-40</td>
+                    <td>40-42</td>
+                    <td>42-44</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Nos conseils par coupe</h2>
+        <ul>
+            <li><strong>Coupe Regular :</strong> Prenez votre taille habituelle pour un ajustement classique et confortable.</li>
+            <li><strong>Coupe Oversize :</strong> Nos pièces oversized sont déjà conçues plus amples. Prenez votre taille habituelle.</li>
+            <li><strong>Coupe Slim :</strong> Pour un ajustement près du corps, prenez votre taille habituelle. Si vous hésitez, prenez une taille au-dessus.</li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">Besoin d'aide pour choisir votre taille ?</p>
+            <p style="color: var(--gray-600); margin-bottom: 1.5rem;">Notre équipe vous conseille avec plaisir.</p>
+            <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h3>FLUX</h3><p>Streetwear premium pour ceux qui osent se démarquer.</p></div>
+                <div class="footer-col"><h4>Boutique</h4><ul><li><a href="nouveautes.html">Nouveautés</a></li><li><a href="boutique.html">Tous les produits</a></li></ul></div>
+                <div class="footer-col"><h4>Aide</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="livraison.html">Livraison</a></li><li><a href="retours.html">Retours</a></li></ul></div>
+                <div class="footer-col"><h4>Légal</h4><ul><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 FLUX. Tous droits réservés.</p></div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

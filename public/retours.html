@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retours & Échanges | FLUX</title>
+    <meta name="description" content="Politique de retours FLUX : 30 jours pour changer d'avis. Retours gratuits et remboursement intégral. Simple et rapide.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .info-hero { background: var(--gray-100); padding: 4rem 4%; text-align: center; }
+        .info-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+        .info-hero p { color: var(--gray-600); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+        .info-container { max-width: 900px; margin: 0 auto; padding: 4rem 4%; }
+        .info-container h2 { font-family: var(--font-display); font-size: 2rem; margin: 3rem 0 1.5rem; letter-spacing: 1px; }
+        .info-container h2:first-of-type { margin-top: 0; }
+        .info-container p, .info-container li { color: var(--gray-600); line-height: 1.8; margin-bottom: 1rem; }
+        .info-container ul { margin-left: 2rem; }
+        .info-container li { margin-bottom: 0.5rem; }
+        .info-container strong { color: var(--black); }
+        .return-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .return-step { text-align: center; padding: 2rem 1rem; background: var(--gray-50); border-radius: var(--radius-lg); }
+        .return-step-number { width: 48px; height: 48px; background: var(--accent); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; margin: 0 auto 1rem; }
+        .return-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .return-step p { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0; }
+        .highlight-box { background: var(--gray-50); padding: 2rem; border-radius: var(--radius-lg); margin: 2rem 0; text-align: center; }
+        .highlight-box h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .highlight-box p { color: var(--gray-600); margin-bottom: 0; }
+        .highlight-number { font-family: var(--font-display); font-size: 3rem; color: var(--accent); display: block; }
+        .info-box { background: var(--gray-50); padding: 1.5rem; border-left: 4px solid var(--accent); margin: 2rem 0; border-radius: var(--radius-sm); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="info-hero">
+        <h1>Retours & Échanges</h1>
+        <p>Satisfait ou remboursé. 30 jours pour changer d'avis avec retours gratuits.</p>
+    </section>
+
+    <div class="info-container">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem;">
+            <div class="highlight-box">
+                <span class="highlight-number">30</span>
+                <h3>Jours</h3>
+                <p>pour changer d'avis</p>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-number">0 €</span>
+                <h3>Retour gratuit</h3>
+                <p>étiquette prépayée</p>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-number">14J</span>
+                <h3>Remboursement</h3>
+                <p>après réception du retour</p>
+            </div>
+        </div>
+
+        <h2>Comment retourner un article ?</h2>
+        <div class="return-steps">
+            <div class="return-step">
+                <div class="return-step-number">1</div>
+                <h3>Contactez-nous</h3>
+                <p>Envoyez un email à contact@flux-store.com avec votre numéro de commande.</p>
+            </div>
+            <div class="return-step">
+                <div class="return-step-number">2</div>
+                <h3>Étiquette retour</h3>
+                <p>Nous vous envoyons une étiquette de retour prépayée par email.</p>
+            </div>
+            <div class="return-step">
+                <div class="return-step-number">3</div>
+                <h3>Emballez</h3>
+                <p>Remettez l'article dans son emballage d'origine avec les étiquettes.</p>
+            </div>
+            <div class="return-step">
+                <div class="return-step-number">4</div>
+                <h3>Expédiez</h3>
+                <p>Déposez le colis dans un point relais ou en bureau de poste.</p>
+            </div>
+        </div>
+
+        <h2>Conditions de retour</h2>
+        <p>Pour être accepté, le retour doit respecter les conditions suivantes :</p>
+        <ul>
+            <li>L'article doit être <strong>non porté et non lavé</strong></li>
+            <li>Les <strong>étiquettes doivent être intactes</strong> et attachées au vêtement</li>
+            <li>L'article doit être retourné dans son <strong>emballage d'origine</strong> (ou équivalent)</li>
+            <li>Le retour doit être effectué dans un <strong>délai de 30 jours</strong> après réception</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Articles non retournables :</strong> Pour des raisons d'hygiène, les sous-vêtements, maillots de bain et boucles d'oreilles ne peuvent pas être retournés s'ils ont été portés.</p>
+        </div>
+
+        <h2>Échanges</h2>
+        <p>Vous souhaitez changer de taille ou de couleur ? Contactez-nous à contact@flux-store.com avec :</p>
+        <ul>
+            <li>Votre numéro de commande</li>
+            <li>L'article à échanger</li>
+            <li>La taille ou couleur souhaitée</li>
+        </ul>
+        <p>Si l'article souhaité est disponible, nous procéderons à l'échange dès réception du retour. Les frais de réexpédition sont offerts.</p>
+
+        <h2>Remboursement</h2>
+        <p>Le remboursement est effectué sous <strong>14 jours maximum</strong> après réception et vérification du retour.</p>
+        <p>Le remboursement est crédité sur le <strong>même moyen de paiement</strong> utilisé lors de l'achat (carte bancaire). Le délai d'apparition sur votre relevé bancaire peut varier selon votre banque (généralement 5 à 10 jours ouvrés).</p>
+
+        <h2>Article défectueux ou erreur ?</h2>
+        <p>Si vous avez reçu un article défectueux ou une erreur de commande, contactez-nous immédiatement. Nous organiserons un retour prioritaire et un renvoi ou remboursement sans frais supplémentaires.</p>
+
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+            <p style="font-weight: 600; margin-bottom: 1rem;">Besoin d'aide avec un retour ?</p>
+            <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h3>FLUX</h3><p>Streetwear premium pour ceux qui osent se démarquer.</p></div>
+                <div class="footer-col"><h4>Boutique</h4><ul><li><a href="nouveautes.html">Nouveautés</a></li><li><a href="boutique.html">Tous les produits</a></li></ul></div>
+                <div class="footer-col"><h4>Aide</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="livraison.html">Livraison</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                <div class="footer-col"><h4>Légal</h4><ul><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 FLUX. Tous droits réservés.</p></div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Nous Contacter | FLUX</title>
+    <meta name="description" content="Contactez l'équipe FLUX. Questions, suggestions, service après-vente : nous sommes là pour vous aider.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contact-hero {
+            background: var(--gray-100);
+            padding: 4rem 4%;
+            text-align: center;
+        }
+        .contact-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+        .contact-hero p { color: var(--gray-600); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 4%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .contact-info h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .contact-info p { color: var(--gray-600); line-height: 1.8; margin-bottom: 2rem; }
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-item-icon svg { color: var(--accent); }
+        .contact-item-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .contact-item-text p { color: var(--gray-600); margin-bottom: 0; font-size: 0.9375rem; }
+        .contact-form h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group textarea { resize: vertical; min-height: 150px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            display: none;
+            text-align: center;
+        }
+        .contact-hours {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+        }
+        .contact-hours h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .contact-hours p { color: var(--gray-600); font-size: 0.9375rem; margin-bottom: 0.25rem; }
+        @media (max-width: 768px) {
+            .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="contact-hero">
+        <h1>Contactez-nous</h1>
+        <p>Une question, une suggestion ou besoin d'aide ? Notre équipe est là pour vous répondre dans les meilleurs délais.</p>
+    </section>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Nos coordonnées</h2>
+            <p>N'hésitez pas à nous contacter par le moyen qui vous convient le mieux. Nous nous engageons à vous répondre sous 48 heures ouvrées.</p>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+                <div class="contact-item-text">
+                    <h3>Email</h3>
+                    <p>contact@flux-store.com</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
+                <div class="contact-item-text">
+                    <h3>Téléphone</h3>
+                    <p>+33 (0)1 XX XX XX XX</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <div class="contact-item-text">
+                    <h3>Adresse</h3>
+                    <p>123 Rue du Commerce<br>75001 Paris, France</p>
+                </div>
+            </div>
+
+            <div class="contact-hours">
+                <h3>Horaires du service client</h3>
+                <p>Lundi - Vendredi : 9h00 - 18h00</p>
+                <p>Samedi : 10h00 - 16h00</p>
+                <p>Dimanche : Fermé</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Envoyez-nous un message</h2>
+
+            <div class="form-success" id="formSuccess">
+                Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.
+            </div>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Prénom *</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nom *</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Sujet</label>
+                    <select id="subject">
+                        <option value="">Choisir un sujet</option>
+                        <option value="commande">Question sur une commande</option>
+                        <option value="produit">Question sur un produit</option>
+                        <option value="retour">Retour / Échange</option>
+                        <option value="livraison">Livraison</option>
+                        <option value="partenariat">Partenariat / Presse</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" required placeholder="Décrivez votre demande..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAQ Link -->
+    <section style="background: var(--gray-50); padding: 4rem 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem; letter-spacing: 1px;">Questions fréquentes</h2>
+            <p style="color: var(--gray-600); margin-bottom: 1.5rem;">Consultez notre FAQ pour trouver rapidement une réponse à votre question.</p>
+            <a href="faq.html" class="btn btn-secondary">Voir la FAQ</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FLUX</h3>
+                    <p>Streetwear premium pour ceux qui osent se démarquer.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Boutique</h4>
+                    <ul>
+                        <li><a href="nouveautes.html">Nouveautés</a></li>
+                        <li><a href="boutique.html">Tous les produits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Aide</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="livraison.html">Livraison</a></li>
+                        <li><a href="retours.html">Retours</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="cgv.html">CGV</a></li>
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="politique-confidentialite.html">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 FLUX. Tous droits réservés.</p></div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+            showToast('Message envoyé avec succès !');
+        });
+    </script>
+</body>
+</html>

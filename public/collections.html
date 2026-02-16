@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | FLUX</title>
+    <meta name="description" content="Explorez les collections FLUX : Essentials, Urban Night, Sport Tech et éditions limitées. Streetwear premium pour tous les styles.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .collections-hero {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 100%);
+            color: var(--white);
+            padding: 6rem 4%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .collections-hero::before {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .collections-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .collections-hero h1 span { color: var(--accent); }
+        .collections-hero p {
+            font-size: 1.125rem;
+            color: var(--gray-300);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .collections-container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 4rem 4%;
+        }
+        .collection-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+        .collection-card:nth-child(even) { direction: rtl; }
+        .collection-card:nth-child(even) > * { direction: ltr; }
+        .collection-img {
+            aspect-ratio: 4/5;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+        .collection-img img { width: 100%; height: 100%; object-fit: cover; }
+        .collection-label {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            border-radius: var(--radius-sm);
+        }
+        .collection-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .collection-text .collection-season {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .collection-text p {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .collection-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .collection-tag {
+            padding: 0.375rem 0.875rem;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        @media (max-width: 768px) {
+            .collection-card,
+            .collection-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="announcement-slider">
+            <p>NOUVELLE COLLECTION 2025 DISPONIBLE</p>
+            <p>LIVRAISON GRATUITE DES 50EUR</p>
+            <p>RETOURS GRATUITS SOUS 30 JOURS</p>
+        </div>
+    </div>
+
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="collections.html" class="active">Collections</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="collections-hero">
+        <h1>NOS <span>COLLECTIONS</span></h1>
+        <p>Chaque collection raconte une histoire. Explorez nos univers et trouvez les pièces qui vous correspondent.</p>
+    </section>
+
+    <div class="collections-container">
+        <!-- Collection 1 -->
+        <div class="collection-card">
+            <div class="collection-img">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect fill='%230a0a0a' width='400' height='500'/%3E%3Ctext x='200' y='230' font-family='Arial' font-size='36' fill='%23ff6b35' text-anchor='middle' font-weight='bold'%3EESSENTIALS%3C/text%3E%3Ctext x='200' y='270' font-family='Arial' font-size='18' fill='%23666' text-anchor='middle'%3EFLUX 2025%3C/text%3E%3C/svg%3E" alt="Collection Essentials">
+                <span class="collection-label">Permanente</span>
+            </div>
+            <div class="collection-text">
+                <p class="collection-season">Collection permanente</p>
+                <h2>Essentials</h2>
+                <p>Les basiques revisités. Des pièces intemporelles en coton bio premium, conçues pour être portées au quotidien. Coupes parfaites, couleurs neutres, qualité irréprochable.</p>
+                <div class="collection-tags">
+                    <span class="collection-tag">T-Shirts</span>
+                    <span class="collection-tag">Hoodies</span>
+                    <span class="collection-tag">Sweats</span>
+                    <span class="collection-tag">Basiques</span>
+                </div>
+                <a href="boutique.html" class="btn btn-primary">Découvrir</a>
+            </div>
+        </div>
+
+        <!-- Collection 2 -->
+        <div class="collection-card">
+            <div class="collection-img">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect fill='%231a1a2e' width='400' height='500'/%3E%3Ctext x='200' y='220' font-family='Arial' font-size='32' fill='%23fff' text-anchor='middle' font-weight='bold'%3EURBAN%3C/text%3E%3Ctext x='200' y='260' font-family='Arial' font-size='32' fill='%23ff6b35' text-anchor='middle' font-weight='bold'%3ENIGHT%3C/text%3E%3Ctext x='200' y='300' font-family='Arial' font-size='16' fill='%23666' text-anchor='middle'%3EHiver 2025%3C/text%3E%3C/svg%3E" alt="Collection Urban Night">
+                <span class="collection-label">Hiver 2025</span>
+            </div>
+            <div class="collection-text">
+                <p class="collection-season">Hiver 2025</p>
+                <h2>Urban Night</h2>
+                <p>Inspirée par les lumières de la ville la nuit. Des pièces sombres et contrastées avec des touches réfléchissantes et des détails néon. Pour ceux qui vivent la nuit.</p>
+                <div class="collection-tags">
+                    <span class="collection-tag">Vestes</span>
+                    <span class="collection-tag">Hoodies</span>
+                    <span class="collection-tag">Pantalons</span>
+                    <span class="collection-tag">Réfléchissant</span>
+                </div>
+                <a href="boutique.html" class="btn btn-primary">Découvrir</a>
+            </div>
+        </div>
+
+        <!-- Collection 3 -->
+        <div class="collection-card">
+            <div class="collection-img">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect fill='%23e5e5e5' width='400' height='500'/%3E%3Ctext x='200' y='220' font-family='Arial' font-size='28' fill='%23333' text-anchor='middle' font-weight='bold'%3ESPORT%3C/text%3E%3Ctext x='200' y='260' font-family='Arial' font-size='28' fill='%23ff6b35' text-anchor='middle' font-weight='bold'%3ETECH%3C/text%3E%3Ctext x='200' y='300' font-family='Arial' font-size='16' fill='%23666' text-anchor='middle'%3EPrintemps 2025%3C/text%3E%3C/svg%3E" alt="Collection Sport Tech">
+                <span class="collection-label">Printemps 2025</span>
+            </div>
+            <div class="collection-text">
+                <p class="collection-season">Printemps 2025</p>
+                <h2>Sport Tech</h2>
+                <p>La performance rencontre le style. Des matières techniques, des coupes dynamiques et un design futuriste. Pour le sport, la rue, et tout ce qui se passe entre les deux.</p>
+                <div class="collection-tags">
+                    <span class="collection-tag">Technique</span>
+                    <span class="collection-tag">Respirant</span>
+                    <span class="collection-tag">Joggers</span>
+                    <span class="collection-tag">T-Shirts</span>
+                </div>
+                <a href="boutique.html" class="btn btn-primary">Découvrir</a>
+            </div>
+        </div>
+
+        <!-- Collection 4 -->
+        <div class="collection-card">
+            <div class="collection-img">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect fill='%23c19a6b' width='400' height='500'/%3E%3Ctext x='200' y='220' font-family='Arial' font-size='26' fill='%23fff' text-anchor='middle' font-weight='bold'%3EÉDITION%3C/text%3E%3Ctext x='200' y='260' font-family='Arial' font-size='26' fill='%23fff' text-anchor='middle' font-weight='bold'%3ELIMITÉE%3C/text%3E%3Ctext x='200' y='300' font-family='Arial' font-size='16' fill='%23eee' text-anchor='middle'%3EExclusif%3C/text%3E%3C/svg%3E" alt="Éditions Limitées">
+                <span class="collection-label">Exclusif</span>
+            </div>
+            <div class="collection-text">
+                <p class="collection-season">Éditions limitées</p>
+                <h2>Éditions Limitées</h2>
+                <p>Des pièces uniques en quantité limitée. Collaborations artistiques, imprimés exclusifs et matières rares. Une fois épuisées, elles ne reviennent jamais.</p>
+                <div class="collection-tags">
+                    <span class="collection-tag">Limité</span>
+                    <span class="collection-tag">Collaborations</span>
+                    <span class="collection-tag">Exclusif</span>
+                    <span class="collection-tag">Collector</span>
+                </div>
+                <a href="boutique.html" class="btn btn-primary">Découvrir</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Soyez les premiers informés</h2>
+                <p>Inscrivez-vous pour recevoir nos nouvelles collections en avant-première.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h3>FLUX</h3><p>Streetwear premium pour ceux qui osent se démarquer.</p></div>
+                <div class="footer-col"><h4>Boutique</h4><ul><li><a href="nouveautes.html">Nouveautés</a></li><li><a href="boutique.html">Tous les produits</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+                <div class="footer-col"><h4>Aide</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="livraison.html">Livraison</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                <div class="footer-col"><h4>Légal</h4><ul><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="politique-confidentialite.html">Confidentialité</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 FLUX. Tous droits réservés.</p></div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

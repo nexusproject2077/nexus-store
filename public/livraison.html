@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livraison - Délais & Tarifs | FLUX</title>
+    <meta name="description" content="Informations sur la livraison FLUX : délais, tarifs, suivi de commande. Livraison gratuite dès 50€ d'achat.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .info-hero { background: var(--gray-100); padding: 4rem 4%; text-align: center; }
+        .info-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+        .info-hero p { color: var(--gray-600); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+        .info-container { max-width: 900px; margin: 0 auto; padding: 4rem 4%; }
+        .info-container h2 { font-family: var(--font-display); font-size: 2rem; margin: 3rem 0 1.5rem; letter-spacing: 1px; }
+        .info-container h2:first-of-type { margin-top: 0; }
+        .info-container p { color: var(--gray-600); line-height: 1.8; margin-bottom: 1rem; }
+        .info-container strong { color: var(--black); }
+        .shipping-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+        .shipping-table th, .shipping-table td { padding: 1rem 1.25rem; text-align: left; border: 1px solid var(--gray-200); }
+        .shipping-table th { background: var(--black); color: var(--white); font-weight: 600; }
+        .shipping-table tr:nth-child(even) { background: var(--gray-50); }
+        .free-badge { background: var(--success); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8125rem; font-weight: 700; }
+        .shipping-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .shipping-step { text-align: center; padding: 2rem 1rem; background: var(--gray-50); border-radius: var(--radius-lg); }
+        .shipping-step-number { width: 48px; height: 48px; background: var(--accent); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; margin: 0 auto 1rem; }
+        .shipping-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .shipping-step p { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0; }
+        .info-box { background: var(--gray-50); padding: 1.5rem; border-left: 4px solid var(--accent); margin: 2rem 0; border-radius: var(--radius-sm); }
+        @media (max-width: 768px) {
+            .shipping-table { font-size: 0.875rem; }
+            .shipping-table th, .shipping-table td { padding: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo"><a href="index.html">FLUX</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="nouveautes.html">Nouveautés</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Panier">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="info-hero">
+        <h1>Livraison</h1>
+        <p>Livraison gratuite dès 50 € d'achat. Expédition rapide et suivi en temps réel de votre commande.</p>
+    </section>
+
+    <div class="info-container">
+        <h2>Tarifs et délais</h2>
+        <table class="shipping-table">
+            <thead>
+                <tr>
+                    <th>Mode de livraison</th>
+                    <th>Délai</th>
+                    <th>Tarif</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Standard (France)</strong></td>
+                    <td>3 à 7 jours ouvrés</td>
+                    <td>4,95 € / <span class="free-badge">Gratuit dès 50 €</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Express (France)</strong></td>
+                    <td>24 à 48h</td>
+                    <td>9,95 €</td>
+                </tr>
+                <tr>
+                    <td><strong>Point relais (France)</strong></td>
+                    <td>4 à 8 jours ouvrés</td>
+                    <td>3,95 € / <span class="free-badge">Gratuit dès 50 €</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Union européenne</strong></td>
+                    <td>5 à 10 jours ouvrés</td>
+                    <td>7,95 €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Comment ça marche ?</h2>
+        <div class="shipping-steps">
+            <div class="shipping-step">
+                <div class="shipping-step-number">1</div>
+                <h3>Commande</h3>
+                <p>Passez votre commande en ligne et payez en toute sécurité.</p>
+            </div>
+            <div class="shipping-step">
+                <div class="shipping-step-number">2</div>
+                <h3>Préparation</h3>
+                <p>Votre commande est préparée et emballée avec soin sous 24-48h.</p>
+            </div>
+            <div class="shipping-step">
+                <div class="shipping-step-number">3</div>
+                <h3>Expédition</h3>
+                <p>Vous recevez un email avec le numéro de suivi de votre colis.</p>
+            </div>
+            <div class="shipping-step">
+                <div class="shipping-step-number">4</div>
+                <h3>Livraison</h3>
+                <p>Votre colis arrive chez vous ou en point relais !</p>
+            </div>
+        </div>
+
+        <h2>Suivi de commande</h2>
+        <p>Dès l'expédition de votre colis, vous recevrez un email contenant :</p>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li style="color: var(--gray-600); margin-bottom: 0.5rem;">Votre numéro de suivi</li>
+            <li style="color: var(--gray-600); margin-bottom: 0.5rem;">Un lien pour suivre votre colis en temps réel</li>
+            <li style="color: var(--gray-600); margin-bottom: 0.5rem;">La date de livraison estimée</li>
+        </ul>
+
+        <h2>Zones de livraison</h2>
+        <p>Nous livrons actuellement en :</p>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li style="color: var(--gray-600); margin-bottom: 0.5rem;"><strong>France métropolitaine</strong> (toutes les régions)</li>
+            <li style="color: var(--gray-600); margin-bottom: 0.5rem;"><strong>Union européenne</strong> : Allemagne, Belgique, Espagne, Italie, Luxembourg, Pays-Bas, Portugal, etc.</li>
+        </ul>
+        <p>La livraison vers les DOM-TOM et le reste du monde sera bientôt disponible.</p>
+
+        <div class="info-box">
+            <p><strong>Bon à savoir :</strong> En période de soldes ou de forte affluence, les délais de livraison peuvent être légèrement allongés. Nous faisons tout pour expédier vos commandes le plus rapidement possible.</p>
+        </div>
+
+        <h2>Problème de livraison ?</h2>
+        <p>Si vous rencontrez un problème avec votre livraison (colis endommagé, retard, erreur), contactez-nous immédiatement à <strong>contact@flux-store.com</strong> ou via notre <a href="contact.html" style="color: var(--accent); text-decoration: underline;">formulaire de contact</a>. Nous nous engageons à résoudre tout problème dans les plus brefs délais.</p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FLUX</h3>
+                    <p>Streetwear premium pour ceux qui osent se démarquer.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Boutique</h4>
+                    <ul><li><a href="nouveautes.html">Nouveautés</a></li><li><a href="boutique.html">Tous les produits</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Aide</h4>
+                    <ul><li><a href="faq.html">FAQ</a></li><li><a href="retours.html">Retours</a></li><li><a href="contact.html">Contact</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Légal</h4>
+                    <ul><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 FLUX. Tous droits réservés.</p></div>
+        </div>
+    </footer>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
