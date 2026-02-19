@@ -318,9 +318,24 @@
             }
             
             // Image
-            const img = product.thumbnail || product.image;
+            const img = product.thumbnail || product.image || (product.images && product.images[0]) || '';
             document.getElementById('mainImageImg').src = img;
             document.getElementById('mainImageImg').alt = product.name;
+
+            // Thumbnail gallery from images array or variant images
+            const allImages = product.images || [];
+            if (!allImages.length && product.variants) {
+                product.variants.forEach(v => {
+                    if (v.image && !allImages.includes(v.image)) allImages.push(v.image);
+                });
+            }
+            if (allImages.length > 1) {
+                document.getElementById('thumbnailGallery').innerHTML = allImages.slice(0, 8).map((imgUrl, i) => `
+                    <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="changeMainImage('${imgUrl}', this)">
+                        <img src="${imgUrl}" alt="${product.name} - ${i + 1}">
+                    </div>
+                `).join('');
+            }
             
             // Description
             const description = product.description || `
@@ -369,6 +384,12 @@
                     </div>
                 `).join('');
             }
+        }
+
+        function changeMainImage(imgUrl, element) {
+            document.getElementById('mainImageImg').src = imgUrl;
+            document.querySelectorAll('.thumbnail').forEach(el => el.classList.remove('active'));
+            if (element) element.classList.add('active');
         }
 
         function selectColor(name, value, element) {
