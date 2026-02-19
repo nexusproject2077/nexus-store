@@ -14,6 +14,18 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
 const CJ_API_KEY = process.env.CJ_API_KEY || '';
 const CJ_BASE_URL = 'https://developers.cjdropshipping.com/api2.0/v1';
 
+// eBay Configuration
+const EBAY_CLIENT_ID = process.env.EBAY_CLIENT_ID || '';
+const EBAY_CLIENT_SECRET = process.env.EBAY_CLIENT_SECRET || '';
+const EBAY_SELLER_NAME = process.env.EBAY_SELLER_NAME || '';
+const EBAY_ENVIRONMENT = process.env.EBAY_ENVIRONMENT || 'production'; // 'sandbox' or 'production'
+const EBAY_BASE_URL = EBAY_ENVIRONMENT === 'sandbox'
+    ? 'https://api.sandbox.ebay.com'
+    : 'https://api.ebay.com';
+const EBAY_AUTH_URL = EBAY_ENVIRONMENT === 'sandbox'
+    ? 'https://api.sandbox.ebay.com/identity/v1/oauth2/token'
+    : 'https://api.ebay.com/identity/v1/oauth2/token';
+
 // ========== CJ DROPSHIPPING AUTH ==========
 
 let cjAccessToken = null;
@@ -78,6 +90,66 @@ async function cjAPI(endpoint, method = 'GET', body = null, extraHeaders = {}) {
     return data;
 }
 
+// ========== EBAY AUTH ==========
+
+let ebayAccessToken = null;
+let ebayTokenExpiry = null;
+
+async function getEbayAccessToken() {
+    if (ebayAccessToken && ebayTokenExpiry && Date.now() < ebayTokenExpiry - 60000) {
+        return ebayAccessToken;
+    }
+
+    if (!EBAY_CLIENT_ID || !EBAY_CLIENT_SECRET) {
+        throw new Error('EBAY_CLIENT_ID et EBAY_CLIENT_SECRET non configurés. Ajoutez-les dans votre fichier .env');
+    }
+
+    const credentials = Buffer.from(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`).toString('base64');
+
+    const response = await fetch(EBAY_AUTH_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${credentials}`
+        },
+        body: 'grant_type=client_credentials&scope=https://api.ebay.com/oauth/api_scope'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.access_token) {
+        throw new Error(data.error_description || 'Échec authentification eBay');
+    }
+
+    ebayAccessToken = data.access_token;
+    ebayTokenExpiry = Date.now() + (data.expires_in * 1000);
+    console.log('✅ eBay token obtenu');
+    return ebayAccessToken;
+}
+
+// ========== EBAY API HELPER ==========
+
+async function ebayAPI(endpoint, method = 'GET') {
+    const token = await getEbayAccessToken();
+
+    const response = await fetch(`${EBAY_BASE_URL}${endpoint}`, {
+        method,
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'X-EBAY-C-MARKETPLACE-ID': 'EBAY_FR'
+        }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.errors?.[0]?.message || 'eBay API error');
+    }
+
+    return data;
+}
+
 // ========== PRINTFUL API HELPER ==========
 
 async function printfulAPI(endpoint, method = 'GET', body = null) {
@@ -109,9 +181,9 @@ async function printfulAPI(endpoint, method = 'GET', body = null) {
 
 // ========== ROUTES API - PRODUITS ==========
 
-// 1. Get all products (unified: Printful + CJ)
+// 1. Get all products (unified: Printful + CJ + eBay)
 app.get('/api/products', async (req, res) => {
-    const source = req.query.source || 'all'; // 'all', 'printful', 'cj'
+    const source = req.query.source || 'all'; // 'all', 'printful', 'cj', 'ebay'
     let allProducts = [];
 
     // Fetch Printful products
@@ -170,6 +242,63 @@ app.get('/api/products', async (req, res) => {
             }
         } catch (error) {
             console.error('Erreur CJ:', error.message);
+        }
+    }
+
+    // Fetch eBay products
+    if ((source === 'all' || source === 'ebay') && EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
+        try {
+            const keyword = req.query.keyword || '';
+            const page = req.query.page || 1;
+            const size = req.query.size || 20;
+            const offset = (page - 1) * size;
+
+            let searchQuery = keyword || '';
+            let filterParts = [];
+
+            // Filter by seller if configured
+            if (EBAY_SELLER_NAME) {
+                filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
+            }
+
+            // Build the search URL
+            let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
+            if (searchQuery) {
+                searchUrl += `&q=${encodeURIComponent(searchQuery)}`;
+            } else if (!EBAY_SELLER_NAME) {
+                // If no seller and no keyword, skip eBay
+                searchUrl = null;
+            }
+
+            if (filterParts.length > 0 && searchUrl) {
+                searchUrl += `&filter=${filterParts.join(',')}`;
+            }
+
+            if (searchUrl) {
+                const ebayData = await ebayAPI(searchUrl);
+
+                if (ebayData.itemSummaries && Array.isArray(ebayData.itemSummaries)) {
+                    const ebayProducts = ebayData.itemSummaries.map(item => ({
+                        id: `ebay-${item.itemId}`,
+                        ebayItemId: item.itemId,
+                        name: item.title,
+                        thumbnail: item.image?.imageUrl || item.thumbnailImages?.[0]?.imageUrl || '',
+                        price: item.price?.value
+                            ? parseFloat(item.price.value).toFixed(2)
+                            : '0.00',
+                        currency: item.price?.currency === 'USD' ? '$' : '€',
+                        category: item.categories?.[0]?.categoryName || 'eBay',
+                        source: 'ebay',
+                        variants: [],
+                        badge: 'eBay',
+                        condition: item.condition || '',
+                        itemWebUrl: item.itemWebUrl || ''
+                    }));
+                    allProducts.push(...ebayProducts);
+                }
+            }
+        } catch (error) {
+            console.error('Erreur eBay:', error.message);
         }
     }
 
@@ -288,6 +417,106 @@ app.get('/api/cj/products/:pid', async (req, res) => {
     }
 });
 
+// ========== ROUTES API - EBAY ==========
+
+// Search eBay products
+app.get('/api/ebay/search', async (req, res) => {
+    try {
+        const { keyword, category, page = 1, size = 20, minPrice, maxPrice } = req.query;
+
+        if (!keyword && !EBAY_SELLER_NAME) {
+            return res.status(400).json({
+                success: false,
+                error: 'Veuillez fournir un mot-clé de recherche'
+            });
+        }
+
+        const offset = (page - 1) * size;
+        let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
+
+        if (keyword) {
+            searchUrl += `&q=${encodeURIComponent(keyword)}`;
+        }
+
+        let filterParts = [];
+        if (EBAY_SELLER_NAME) {
+            filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
+        }
+        if (minPrice) {
+            filterParts.push(`price:[${minPrice}..${maxPrice || ''}],priceCurrency:EUR`);
+        }
+        if (category) {
+            searchUrl += `&category_ids=${encodeURIComponent(category)}`;
+        }
+        if (filterParts.length > 0) {
+            searchUrl += `&filter=${filterParts.join(',')}`;
+        }
+
+        const data = await ebayAPI(searchUrl);
+
+        const products = (data.itemSummaries || []).map(item => ({
+            id: `ebay-${item.itemId}`,
+            ebayItemId: item.itemId,
+            name: item.title,
+            thumbnail: item.image?.imageUrl || '',
+            price: item.price?.value ? parseFloat(item.price.value).toFixed(2) : '0.00',
+            currency: item.price?.currency === 'USD' ? '$' : '€',
+            category: item.categories?.[0]?.categoryName || 'eBay',
+            source: 'ebay',
+            condition: item.condition || '',
+            itemWebUrl: item.itemWebUrl || '',
+            badge: 'eBay'
+        }));
+
+        res.json({
+            success: true,
+            products,
+            total: data.total || products.length,
+            page: parseInt(page),
+            size: parseInt(size)
+        });
+    } catch (error) {
+        console.error('Erreur recherche eBay:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Get eBay product details
+app.get('/api/ebay/products/:itemId', async (req, res) => {
+    try {
+        const { itemId } = req.params;
+        const data = await ebayAPI(`/buy/browse/v1/item/${itemId}`);
+
+        if (!data) {
+            return res.status(404).json({ success: false, error: 'Produit eBay non trouvé' });
+        }
+
+        res.json({
+            success: true,
+            product: {
+                id: `ebay-${data.itemId}`,
+                ebayItemId: data.itemId,
+                name: data.title,
+                description: data.shortDescription || data.description || '',
+                thumbnail: data.image?.imageUrl || '',
+                images: (data.additionalImages || []).map(img => img.imageUrl),
+                price: data.price?.value ? parseFloat(data.price.value).toFixed(2) : '0.00',
+                currency: data.price?.currency === 'USD' ? '$' : '€',
+                category: data.categoryPath || 'eBay',
+                source: 'ebay',
+                condition: data.condition || '',
+                itemWebUrl: data.itemWebUrl || '',
+                seller: data.seller?.username || '',
+                variants: [],
+                badge: 'eBay'
+            }
+        });
+    } catch (error) {
+        console.error('Erreur détails eBay:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // 4. Get CJ categories
 app.get('/api/cj/categories', async (req, res) => {
     try {
@@ -307,6 +536,35 @@ app.get('/api/cj/categories', async (req, res) => {
 app.get('/api/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
+
+        // Route to eBay if ID starts with 'ebay-'
+        if (id.startsWith('ebay-')) {
+            const itemId = id.replace('ebay-', '');
+            const data = await ebayAPI(`/buy/browse/v1/item/${itemId}`);
+
+            if (!data) {
+                return res.status(404).json({ success: false, error: 'Produit eBay non trouvé' });
+            }
+
+            return res.json({
+                success: true,
+                product: {
+                    id: `ebay-${data.itemId}`,
+                    name: data.title,
+                    description: data.shortDescription || data.description || '',
+                    thumbnail: data.image?.imageUrl || '',
+                    images: [data.image?.imageUrl, ...(data.additionalImages || []).map(img => img.imageUrl)].filter(Boolean),
+                    price: data.price?.value ? parseFloat(data.price.value).toFixed(2) : '0.00',
+                    currency: data.price?.currency === 'USD' ? '$' : '€',
+                    category: data.categoryPath || 'eBay',
+                    source: 'ebay',
+                    condition: data.condition || '',
+                    itemWebUrl: data.itemWebUrl || '',
+                    variants: [],
+                    badge: 'eBay'
+                }
+            });
+        }
 
         // Route to CJ if ID starts with 'cj-'
         if (id.startsWith('cj-')) {
@@ -614,12 +872,23 @@ app.get('/api/health', async (req, res) => {
         }
     }
 
+    let ebayStatus = 'not configured';
+    if (EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
+        try {
+            await getEbayAccessToken();
+            ebayStatus = 'connected';
+        } catch {
+            ebayStatus = 'error';
+        }
+    }
+
     res.json({
         success: true,
         message: 'NEXUS Store API is running',
         providers: {
             printful: PRINTFUL_API_KEY ? 'connected' : 'not configured',
             cj: cjStatus,
+            ebay: ebayStatus,
             stripe: STRIPE_SECRET_KEY && STRIPE_SECRET_KEY !== 'votre_clé_stripe_ici' ? 'connected' : 'not configured'
         }
     });
@@ -634,6 +903,7 @@ app.listen(PORT, () => {
     ║   Port: ${PORT}                             ║
     ║   Printful: ${PRINTFUL_API_KEY ? '✅' : '❌'} ${PRINTFUL_API_KEY ? 'Connected' : 'Not configured'}       ║
     ║   CJDropshipping: ${CJ_API_KEY ? '✅' : '❌'} ${CJ_API_KEY ? 'Connected' : 'Not configured'}  ║
+    ║   eBay: ${EBAY_CLIENT_ID ? '✅' : '❌'} ${EBAY_CLIENT_ID ? 'Connected' : 'Not configured'}            ║
     ║   Status: http://localhost:${PORT}         ║
     ╚══════════════════════════════════════════╝
     `);

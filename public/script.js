@@ -11,7 +11,7 @@ let state = {
     filteredProducts: [],
     cart: JSON.parse(localStorage.getItem('fluxCart')) || [],
     currentCategory: 'all',
-    currentSource: 'all', // 'all', 'printful', 'cj'
+    currentSource: 'all', // 'all', 'printful', 'cj', 'ebay'
     searchQuery: ''
 };
 
@@ -109,56 +109,58 @@ function getAllDemoProducts() {
         {
             id: 'demo-1',
             name: 'T-Shirt Premium Noir',
-            category: 'T-Shirts',
+            category: 'Mode & Vêtements',
             price: 29.99,
             currency: '€',
             thumbnail: createProductImage('T-SHIRT', '#000000'),
-            type: 'men'
+            source: 'printful'
         },
         {
             id: 'demo-2',
-            name: 'Hoodie Oversize Gris',
-            category: 'Hoodies',
-            price: 59.99,
+            name: 'Écouteurs Bluetooth Sans Fil',
+            category: 'Électronique',
+            price: 34.99,
             currency: '€',
-            thumbnail: createProductImage('HOODIE', '#808080'),
-            type: 'men'
+            thumbnail: createProductImage('BLUETOOTH', '#1a1a2e'),
+            source: 'cj'
         },
         {
             id: 'demo-3',
-            name: 'Crop Top Blanc',
-            category: 'Hauts',
+            name: 'Lampe LED Décorative',
+            category: 'Maison & Jardin',
             price: 24.99,
             currency: '€',
-            thumbnail: createProductImage('CROP TOP', '#ffffff', '#000000'),
-            type: 'women'
+            thumbnail: createProductImage('LED LAMP', '#ffd700', '#333333'),
+            source: 'cj'
         },
         {
             id: 'demo-4',
-            name: 'Casquette Logo FLUX',
-            category: 'Accessoires',
-            price: 24.99,
+            name: 'Kit Soin Visage Bio',
+            category: 'Beauté & Santé',
+            price: 19.99,
             currency: '€',
-            thumbnail: createProductImage('CAP', '#000000'),
-            type: 'accessories'
+            thumbnail: createProductImage('SKINCARE', '#e8d5c4', '#333333'),
+            source: 'ebay',
+            badge: 'eBay'
         },
         {
             id: 'demo-5',
-            name: 'Sweatshirt Vintage',
-            category: 'Sweats',
-            price: 49.99,
+            name: 'Tapis de Yoga Premium',
+            category: 'Sport & Loisirs',
+            price: 29.99,
             currency: '€',
-            thumbnail: createProductImage('SWEAT', '#c19a6b'),
-            type: 'women'
+            thumbnail: createProductImage('YOGA MAT', '#4caf50'),
+            source: 'cj'
         },
         {
             id: 'demo-6',
-            name: 'Tote Bag Canvas',
-            category: 'Sacs',
-            price: 19.99,
+            name: 'Coque iPhone Design',
+            category: 'Accessoires',
+            price: 14.99,
             currency: '€',
-            thumbnail: createProductImage('BAG', '#f5f5dc', '#333333'),
-            type: 'accessories'
+            thumbnail: createProductImage('PHONE CASE', '#2196f3'),
+            source: 'ebay',
+            badge: 'eBay'
         }
     ];
 }
@@ -251,81 +253,83 @@ function loadDemoProducts(container) {
         {
             id: 'demo-1',
             name: 'T-Shirt Premium Noir',
-            category: 'T-Shirts',
+            category: 'Mode & Vêtements',
             price: '29.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23fff" text-anchor="middle" font-weight="bold"%3ET-SHIRT%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
+            thumbnail: createProductImage('T-SHIRT', '#000000'),
             badge: 'Nouveau',
-            type: 'men'
+            source: 'printful'
         },
         {
             id: 'demo-2',
-            name: 'Hoodie Oversize Gris',
-            category: 'Hoodies',
-            price: '59.99',
+            name: 'Écouteurs Bluetooth Sans Fil',
+            category: 'Électronique',
+            price: '34.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23808080" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23fff" text-anchor="middle" font-weight="bold"%3EHOODIE%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
+            thumbnail: createProductImage('BLUETOOTH', '#1a1a2e'),
             badge: 'Best-seller',
-            type: 'men'
+            source: 'cj'
         },
         {
             id: 'demo-3',
-            name: 'Crop Top Blanc',
-            category: 'Hauts',
+            name: 'Lampe LED Décorative',
+            category: 'Maison & Jardin',
             price: '24.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23ffffff" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="28" fill="%23000" text-anchor="middle" font-weight="bold"%3ECROP TOP%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
-            type: 'women'
+            thumbnail: createProductImage('LED LAMP', '#ffd700', '#333333'),
+            source: 'cj'
         },
         {
             id: 'demo-4',
-            name: 'Casquette Logo FLUX',
-            category: 'Accessoires',
-            price: '24.99',
+            name: 'Kit Soin Visage Bio',
+            category: 'Beauté & Santé',
+            price: '19.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ccircle cx="200" cy="220" r="80" fill="%23fff"/%3E%3Ctext x="200" y="235" font-family="Arial" font-size="28" fill="%23000" text-anchor="middle" font-weight="bold"%3EFLUX%3C/text%3E%3Ctext x="200" y="320" font-family="Arial" font-size="24" fill="%23fff" text-anchor="middle"%3ECAP%3C/text%3E%3C/svg%3E',
-            type: 'accessories'
+            thumbnail: createProductImage('SKINCARE', '#e8d5c4', '#333333'),
+            badge: 'eBay',
+            source: 'ebay'
         },
         {
             id: 'demo-5',
-            name: 'Sweatshirt Vintage',
-            category: 'Sweats',
-            price: '49.99',
+            name: 'Tapis de Yoga Premium',
+            category: 'Sport & Loisirs',
+            price: '29.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23c19a6b" width="400" height="500"/%3E%3Ctext x="200" y="230" font-family="Arial" font-size="26" fill="%23fff" text-anchor="middle" font-weight="bold"%3ESWEATSHIRT%3C/text%3E%3Ctext x="200" y="270" font-family="Arial" font-size="20" fill="%23fff" text-anchor="middle"%3EVINTAGE%3C/text%3E%3Ctext x="200" y="300" font-family="Arial" font-size="18" fill="%23fff" text-anchor="middle"%3EFLUX%3C/text%3E%3C/svg%3E',
-            badge: 'Nouveau',
-            type: 'women'
+            thumbnail: createProductImage('YOGA MAT', '#4caf50'),
+            source: 'cj'
         },
         {
             id: 'demo-6',
-            name: 'Tote Bag Canvas',
-            category: 'Sacs',
-            price: '19.99',
+            name: 'Coque iPhone Design',
+            category: 'Accessoires',
+            price: '14.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23f5f5dc" width="400" height="500"/%3E%3Crect x="100" y="150" width="200" height="200" fill="none" stroke="%23000" stroke-width="4"/%3E%3Ctext x="200" y="270" font-family="Arial" font-size="24" fill="%23000" text-anchor="middle" font-weight="bold"%3EFLUX%3C/text%3E%3Ctext x="200" y="300" font-family="Arial" font-size="18" fill="%23333" text-anchor="middle"%3ETOTE BAG%3C/text%3E%3C/svg%3E',
-            type: 'accessories'
+            thumbnail: createProductImage('PHONE CASE', '#2196f3'),
+            badge: 'eBay',
+            source: 'ebay'
         },
         {
             id: 'demo-7',
-            name: 'T-Shirt Blanc Logo',
-            category: 'T-Shirts',
-            price: '29.99',
+            name: 'Hoodie Oversize Gris',
+            category: 'Mode & Vêtements',
+            price: '59.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23fff" width="400" height="500"/%3E%3Ctext x="200" y="250" font-family="Arial" font-size="32" fill="%23000" text-anchor="middle" font-weight="bold"%3ET-SHIRT%3C/text%3E%3Ctext x="200" y="290" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle"%3EWHITE%3C/text%3E%3C/svg%3E',
-            type: 'men'
+            thumbnail: createProductImage('HOODIE', '#808080'),
+            badge: 'Best-seller',
+            source: 'printful'
         },
         {
             id: 'demo-8',
-            name: 'Hoodie Noir Essential',
-            category: 'Hoodies',
-            price: '64.99',
+            name: 'Power Bank 20000mAh',
+            category: 'Électronique',
+            price: '24.99',
             currency: '€',
-            thumbnail: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"%3E%3Crect fill="%23000" width="400" height="500"/%3E%3Ctext x="200" y="240" font-family="Arial" font-size="30" fill="%23fff" text-anchor="middle" font-weight="bold"%3EESSENTIAL%3C/text%3E%3Ctext x="200" y="280" font-family="Arial" font-size="24" fill="%23ccc" text-anchor="middle"%3EHOODIE%3C/text%3E%3C/svg%3E',
-            badge: 'Best-seller',
-            type: 'men'
+            thumbnail: createProductImage('POWER BANK', '#333333'),
+            badge: 'Nouveau',
+            source: 'cj'
         }
     ];
-    
+
     state.products = demoProducts;
     if (container) {
         displayProducts(demoProducts, container);
@@ -357,7 +361,9 @@ function displayProducts(products, container) {
         const price = parseFloat(product.price) || 0;
         const currency = product.currency || '€';
         
-        const sourceBadge = product.source === 'cj' ? '<span class="source-badge source-cj">CJ</span>' : '';
+        let sourceBadge = '';
+        if (product.source === 'cj') sourceBadge = '<span class="source-badge source-cj">CJ</span>';
+        else if (product.source === 'ebay') sourceBadge = '<span class="source-badge source-ebay">eBay</span>';
 
         return `
         <div class="product-card" data-id="${product.id}" data-source="${product.source || 'printful'}" onclick="window.location.href='produit.html?id=${product.id}'" style="cursor: pointer;">
@@ -373,7 +379,7 @@ function displayProducts(products, container) {
                 </button>
             </div>
             <div class="product-info">
-                <div class="product-category">${product.category || 'Vêtement'} ${sourceBadge}</div>
+                <div class="product-category">${product.category || 'Produit'} ${sourceBadge}</div>
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">${price.toFixed(2)} ${currency}</p>
             </div>
