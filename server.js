@@ -611,15 +611,40 @@ app.get('/api/products/:id', async (req, res) => {
                 in_stock: true
             }));
 
+            // Calculate price from product or first variant
+            const basePrice = product.sellPrice
+                || (product.variants && product.variants[0] && product.variants[0].variantSellPrice)
+                || '0';
+            const price = (parseFloat(basePrice) * 2.5).toFixed(2);
+
+            // Collect all images
+            const images = [];
+            if (product.productImage) images.push(product.productImage);
+            if (product.productImageSet) {
+                const extraImages = Array.isArray(product.productImageSet)
+                    ? product.productImageSet
+                    : product.productImageSet.split(',');
+                extraImages.forEach(img => { if (img && img.trim()) images.push(img.trim()); });
+            }
+            // Add unique variant images
+            variants.forEach(v => {
+                if (v.image && !images.includes(v.image)) images.push(v.image);
+            });
+
             return res.json({
                 success: true,
                 product: {
                     id: `cj-${product.pid}`,
                     name: product.productNameEn || product.productName,
-                    description: product.description || '',
-                    thumbnail: product.productImage || '',
+                    description: product.description || product.productNameEn || '',
+                    thumbnail: product.productImage || (variants[0] && variants[0].image) || '',
+                    images,
+                    price,
+                    currency: '€',
+                    category: product.categoryName || 'Dropshipping',
                     variants,
-                    source: 'cj'
+                    source: 'cj',
+                    badge: 'Dropshipping'
                 }
             });
         }
