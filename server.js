@@ -181,6 +181,16 @@ async function printfulAPI(endpoint, method = 'GET', body = null) {
 
 // ========== HELPERS ==========
 
+// CJ API v2.0 returns products in data.list (paginated) or data (array)
+function getCJProductList(cjData) {
+    if (!cjData || !cjData.data) return [];
+    // v2.0 paginated format: { data: { list: [...], total: N } }
+    if (cjData.data.list && Array.isArray(cjData.data.list)) return cjData.data.list;
+    // v1 format or direct array: { data: [...] }
+    if (Array.isArray(cjData.data)) return cjData.data;
+    return [];
+}
+
 function formatCJProduct(product) {
     return {
         id: `cj-${product.pid}`,
@@ -244,8 +254,9 @@ app.get('/api/products', async (req, res) => {
 
                 const cjData = await cjAPI(`/product/list${queryParams}`);
 
-                if (cjData.data && Array.isArray(cjData.data)) {
-                    const cjProducts = cjData.data.map(product => formatCJProduct(product));
+                const cjProductList = getCJProductList(cjData);
+                if (cjProductList.length > 0) {
+                    const cjProducts = cjProductList.map(product => formatCJProduct(product));
                     allProducts.push(...cjProducts);
                 }
             } else {
@@ -260,8 +271,9 @@ app.get('/api/products', async (req, res) => {
                 );
 
                 for (const result of results) {
-                    if (result.status === 'fulfilled' && result.value.data && Array.isArray(result.value.data)) {
-                        const cjProducts = result.value.data.map(product => formatCJProduct(product));
+                    if (result.status === 'fulfilled') {
+                        const cjProductList = getCJProductList(result.value);
+                        const cjProducts = cjProductList.map(product => formatCJProduct(product));
                         allProducts.push(...cjProducts);
                     }
                 }
@@ -365,25 +377,13 @@ app.get('/api/cj/search', async (req, res) => {
 
         const data = await cjAPI(`/product/list${queryParams}`);
 
-        const products = (data.data || []).map(product => ({
-            id: `cj-${product.pid}`,
-            cjProductId: product.pid,
-            name: product.productNameEn || product.productName,
-            thumbnail: product.productImage || '',
-            price: product.sellPrice
-                ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)
-                : '0.00',
-            originalPrice: product.sellPrice,
-            currency: '€',
-            category: product.categoryName || 'Dropshipping',
-            source: 'cj',
-            badge: 'Dropshipping'
-        }));
+        const cjProductList = getCJProductList(data);
+        const products = cjProductList.map(product => formatCJProduct(product));
 
         res.json({
             success: true,
             products,
-            total: data.total || products.length,
+            total: data.data?.total || products.length,
             page: parseInt(page),
             size: parseInt(size)
         });
@@ -958,11 +958,14 @@ app.get('/api/test', async (req, res) => {
         try {
             await getCJAccessToken();
             const cjData = await cjAPI('/product/list?page=1&size=3&keyWord=phone');
+            const cjProductList = getCJProductList(cjData);
             results.cj = {
                 status: 'ok',
                 auth: 'token obtained',
-                products_count: cjData.data ? cjData.data.length : 0,
-                sample: cjData.data && cjData.data[0] ? cjData.data[0].productNameEn : null
+                raw_data_type: typeof cjData.data,
+                raw_data_keys: cjData.data ? Object.keys(cjData.data) : null,
+                products_count: cjProductList.length,
+                sample: cjProductList[0] ? cjProductList[0].productNameEn : null
             };
         } catch (e) {
             results.cj = { status: 'error', message: e.message };
