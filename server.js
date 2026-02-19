@@ -179,6 +179,26 @@ async function printfulAPI(endpoint, method = 'GET', body = null) {
     return data;
 }
 
+// ========== HELPERS ==========
+
+function formatCJProduct(product) {
+    return {
+        id: `cj-${product.pid}`,
+        cjProductId: product.pid,
+        name: product.productNameEn || product.productName,
+        thumbnail: product.productImage || '',
+        price: product.sellPrice
+            ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)
+            : '0.00',
+        originalPrice: product.sellPrice,
+        currency: '€',
+        category: product.categoryName || 'Dropshipping',
+        source: 'cj',
+        variants: [],
+        badge: 'Dropshipping'
+    };
+}
+
 // ========== ROUTES API - PRODUITS ==========
 
 // 1. Get all products (unified: Printful + CJ + eBay)
@@ -216,36 +236,42 @@ app.get('/api/products', async (req, res) => {
             const page = req.query.page || 1;
             const size = req.query.size || 20;
 
-            let queryParams = `?page=${page}&size=${size}`;
-            if (keyword) queryParams += `&keyWord=${encodeURIComponent(keyword)}`;
-            if (category) queryParams += `&categoryId=${encodeURIComponent(category)}`;
+            if (keyword || category) {
+                // Search with user-provided keyword or category
+                let queryParams = `?page=${page}&size=${size}`;
+                if (keyword) queryParams += `&keyWord=${encodeURIComponent(keyword)}`;
+                if (category) queryParams += `&categoryId=${encodeURIComponent(category)}`;
 
-            const cjData = await cjAPI(`/product/list${queryParams}`);
+                const cjData = await cjAPI(`/product/list${queryParams}`);
 
-            if (cjData.data && Array.isArray(cjData.data)) {
-                const cjProducts = cjData.data.map(product => ({
-                    id: `cj-${product.pid}`,
-                    cjProductId: product.pid,
-                    name: product.productNameEn || product.productName,
-                    thumbnail: product.productImage || '',
-                    price: product.sellPrice
-                        ? (parseFloat(product.sellPrice) * 2.5).toFixed(2)  // x2.5 margin
-                        : '0.00',
-                    originalPrice: product.sellPrice,
-                    currency: '€',
-                    category: product.categoryName || 'Dropshipping',
-                    source: 'cj',
-                    variants: [],
-                    badge: 'Dropshipping'
-                }));
-                allProducts.push(...cjProducts);
+                if (cjData.data && Array.isArray(cjData.data)) {
+                    const cjProducts = cjData.data.map(product => formatCJProduct(product));
+                    allProducts.push(...cjProducts);
+                }
+            } else {
+                // No keyword: fetch popular products from multiple categories
+                const defaultSearches = ['phone accessories', 'home decor', 'fashion', 'electronics', 'beauty'];
+                const perSearch = Math.ceil(size / defaultSearches.length);
+
+                const results = await Promise.allSettled(
+                    defaultSearches.map(kw =>
+                        cjAPI(`/product/list?page=1&size=${perSearch}&keyWord=${encodeURIComponent(kw)}`)
+                    )
+                );
+
+                for (const result of results) {
+                    if (result.status === 'fulfilled' && result.value.data && Array.isArray(result.value.data)) {
+                        const cjProducts = result.value.data.map(product => formatCJProduct(product));
+                        allProducts.push(...cjProducts);
+                    }
+                }
             }
         } catch (error) {
             console.error('Erreur CJ:', error.message);
         }
     }
 
-    // Fetch eBay products
+    // Fetch eBay products (all products from the platform, not just one seller)
     if ((source === 'all' || source === 'ebay') && EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
         try {
             const keyword = req.query.keyword || '';
@@ -253,24 +279,24 @@ app.get('/api/products', async (req, res) => {
             const size = req.query.size || 20;
             const offset = (page - 1) * size;
 
-            let searchQuery = keyword || '';
             let filterParts = [];
 
-            // Filter by seller if configured
+            // Optionally filter by seller if configured
             if (EBAY_SELLER_NAME) {
                 filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
             }
 
-            // Build the search URL
+            // Build the search URL - always search, use a default query if no keyword
             let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
+            const searchQuery = keyword || '';
             if (searchQuery) {
                 searchUrl += `&q=${encodeURIComponent(searchQuery)}`;
-            } else if (!EBAY_SELLER_NAME) {
-                // If no seller and no keyword, skip eBay
-                searchUrl = null;
+            } else {
+                // Default: trending/popular products when no keyword
+                searchUrl += `&q=trending`;
             }
 
-            if (filterParts.length > 0 && searchUrl) {
+            if (filterParts.length > 0) {
                 searchUrl += `&filter=${filterParts.join(',')}`;
             }
 
@@ -419,12 +445,12 @@ app.get('/api/cj/products/:pid', async (req, res) => {
 
 // ========== ROUTES API - EBAY ==========
 
-// Search eBay products
+// Search eBay products (all platform products)
 app.get('/api/ebay/search', async (req, res) => {
     try {
-        const { keyword, category, page = 1, size = 20, minPrice, maxPrice } = req.query;
+        const { keyword, category, page = 1, size = 20, minPrice, maxPrice, sellerOnly } = req.query;
 
-        if (!keyword && !EBAY_SELLER_NAME) {
+        if (!keyword) {
             return res.status(400).json({
                 success: false,
                 error: 'Veuillez fournir un mot-clé de recherche'
@@ -433,13 +459,11 @@ app.get('/api/ebay/search', async (req, res) => {
 
         const offset = (page - 1) * size;
         let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
-
-        if (keyword) {
-            searchUrl += `&q=${encodeURIComponent(keyword)}`;
-        }
+        searchUrl += `&q=${encodeURIComponent(keyword)}`;
 
         let filterParts = [];
-        if (EBAY_SELLER_NAME) {
+        // Only filter by seller if explicitly requested
+        if (sellerOnly === 'true' && EBAY_SELLER_NAME) {
             filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
         }
         if (minPrice) {
@@ -863,22 +887,26 @@ app.get('/api/orders/:id', async (req, res) => {
 
 app.get('/api/health', async (req, res) => {
     let cjStatus = 'not configured';
+    let cjError = null;
     if (CJ_API_KEY) {
         try {
             await getCJAccessToken();
             cjStatus = 'connected';
-        } catch {
+        } catch (e) {
             cjStatus = 'error';
+            cjError = e.message;
         }
     }
 
     let ebayStatus = 'not configured';
+    let ebayError = null;
     if (EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
         try {
             await getEbayAccessToken();
             ebayStatus = 'connected';
-        } catch {
+        } catch (e) {
             ebayStatus = 'error';
+            ebayError = e.message;
         }
     }
 
@@ -890,8 +918,78 @@ app.get('/api/health', async (req, res) => {
             cj: cjStatus,
             ebay: ebayStatus,
             stripe: STRIPE_SECRET_KEY && STRIPE_SECRET_KEY !== 'votre_clé_stripe_ici' ? 'connected' : 'not configured'
+        },
+        errors: {
+            cj: cjError,
+            ebay: ebayError
+        },
+        config: {
+            cj_key_present: Boolean(CJ_API_KEY),
+            ebay_client_id_present: Boolean(EBAY_CLIENT_ID),
+            ebay_secret_present: Boolean(EBAY_CLIENT_SECRET),
+            ebay_seller: EBAY_SELLER_NAME || '(all products)',
+            printful_key_present: Boolean(PRINTFUL_API_KEY)
         }
     });
+});
+
+// ========== DIAGNOSTIC - TEST PROVIDERS ==========
+
+app.get('/api/test', async (req, res) => {
+    const results = { printful: null, cj: null, ebay: null };
+
+    // Test Printful
+    if (PRINTFUL_API_KEY) {
+        try {
+            const data = await printfulAPI('/store/products');
+            results.printful = {
+                status: 'ok',
+                products_count: data.result ? data.result.length : 0
+            };
+        } catch (e) {
+            results.printful = { status: 'error', message: e.message };
+        }
+    } else {
+        results.printful = { status: 'not configured' };
+    }
+
+    // Test CJ
+    if (CJ_API_KEY) {
+        try {
+            await getCJAccessToken();
+            const cjData = await cjAPI('/product/list?page=1&size=3&keyWord=phone');
+            results.cj = {
+                status: 'ok',
+                auth: 'token obtained',
+                products_count: cjData.data ? cjData.data.length : 0,
+                sample: cjData.data && cjData.data[0] ? cjData.data[0].productNameEn : null
+            };
+        } catch (e) {
+            results.cj = { status: 'error', message: e.message };
+        }
+    } else {
+        results.cj = { status: 'not configured' };
+    }
+
+    // Test eBay
+    if (EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
+        try {
+            await getEbayAccessToken();
+            const ebayData = await ebayAPI('/buy/browse/v1/item_summary/search?q=phone&limit=3');
+            results.ebay = {
+                status: 'ok',
+                auth: 'token obtained',
+                products_count: ebayData.itemSummaries ? ebayData.itemSummaries.length : 0,
+                sample: ebayData.itemSummaries && ebayData.itemSummaries[0] ? ebayData.itemSummaries[0].title : null
+            };
+        } catch (e) {
+            results.ebay = { status: 'error', message: e.message };
+        }
+    } else {
+        results.ebay = { status: 'not configured' };
+    }
+
+    res.json({ success: true, tests: results });
 });
 
 // Start server
