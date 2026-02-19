@@ -1358,6 +1358,11 @@ section {
     color: var(--white);
 }
 
+.source-ebay {
+    background: #0064d2;
+    color: var(--white);
+}
+
 .source-filter-bar {
     display: flex;
     gap: 0.5rem;

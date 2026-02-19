@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boutique - Tous nos produits | FLUX</title>
-    <meta name="description" content="Découvrez tous les produits FLUX : t-shirts, hoodies, accessoires streetwear premium. Livraison gratuite dès 50€.">
-    <meta name="keywords" content="boutique flux, acheter streetwear, t-shirt premium, hoodie, accessoires mode">
+    <meta name="description" content="Découvrez tous les produits FLUX : mode, électronique, maison, beauté, sport et bien plus. Livraison rapide, meilleurs prix.">
+    <meta name="keywords" content="boutique flux, mode, électronique, maison, beauté, sport, accessoires, dropshipping, eBay">
     
     <!-- Google Consent Mode v2 -->
     <script>
@@ -284,7 +284,7 @@
     <!-- Shop Hero -->
     <section class="shop-hero">
         <h1>Notre Boutique</h1>
-        <p>Découvrez l'intégralité de notre collection streetwear premium. Qualité supérieure, design unique, style urbain.</p>
+        <p>Découvrez tous nos produits : mode, électronique, maison, beauté, sport et bien plus. Les meilleurs prix, livrés chez vous.</p>
     </section>
 
     <!-- Main Content -->
@@ -322,6 +322,10 @@
                         <input type="radio" name="source" id="source-cj" value="cj" onchange="filterBySource('cj')">
                         <label for="source-cj">CJ Dropshipping</label>
                     </div>
+                    <div class="filter-option">
+                        <input type="radio" name="source" id="source-ebay" value="ebay" onchange="filterBySource('ebay')">
+                        <label for="source-ebay">eBay</label>
+                    </div>
                 </div>
 
                 <div class="filter-group">
@@ -331,32 +335,40 @@
                         <label for="cat-all">Tous les produits</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-tshirts" value="tshirts" onchange="applyFilters()">
-                        <label for="cat-tshirts">T-Shirts</label>
+                        <input type="checkbox" id="cat-mode" value="mode" onchange="applyFilters()">
+                        <label for="cat-mode">Mode & Vêtements</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-hoodies" value="hoodies" onchange="applyFilters()">
-                        <label for="cat-hoodies">Hoodies & Sweats</label>
+                        <input type="checkbox" id="cat-electronique" value="electronique" onchange="applyFilters()">
+                        <label for="cat-electronique">Électronique</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-maison" value="maison" onchange="applyFilters()">
+                        <label for="cat-maison">Maison & Jardin</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-beaute" value="beaute" onchange="applyFilters()">
+                        <label for="cat-beaute">Beauté & Santé</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-sport" value="sport" onchange="applyFilters()">
+                        <label for="cat-sport">Sport & Loisirs</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-auto" value="auto" onchange="applyFilters()">
+                        <label for="cat-auto">Auto & Moto</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-jouets" value="jouets" onchange="applyFilters()">
+                        <label for="cat-jouets">Jouets & Enfants</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-animaux" value="animaux" onchange="applyFilters()">
+                        <label for="cat-animaux">Animaux</label>
                     </div>
                     <div class="filter-option">
                         <input type="checkbox" id="cat-accessories" value="accessories" onchange="applyFilters()">
                         <label for="cat-accessories">Accessoires</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <h3>Genre</h3>
-                    <div class="filter-option">
-                        <input type="checkbox" id="gender-men" value="men" onchange="applyFilters()">
-                        <label for="gender-men">Homme</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="gender-women" value="women" onchange="applyFilters()">
-                        <label for="gender-women">Femme</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="gender-unisex" value="unisex" onchange="applyFilters()">
-                        <label for="gender-unisex">Unisexe</label>
                     </div>
                 </div>
 
@@ -405,7 +417,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>FLUX</h3>
-                    <p>Streetwear premium pour ceux qui osent se démarquer.</p>
+                    <p>Votre boutique multi-produits. Mode, tech, maison et plus.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Instagram">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -518,37 +530,49 @@
             }
         }
 
+        // Category keywords mapping
+        const categoryKeywords = {
+            mode: ['t-shirt', 'hoodie', 'sweat', 'shirt', 'jean', 'pantalon', 'robe', 'veste', 'jacket', 'dress', 'clothing', 'vêtement', 'fashion', 'top', 'crop', 'polo', 'chemise', 'manteau', 'coat', 'pull', 'hauts', 'sacs', 'bag'],
+            electronique: ['phone', 'téléphone', 'laptop', 'ordinateur', 'tablet', 'tablette', 'écouteur', 'headphone', 'speaker', 'camera', 'electronic', 'tech', 'usb', 'cable', 'chargeur', 'charger', 'bluetooth', 'smart', 'watch', 'montre', 'led', 'hdmi', 'batterie', 'power bank'],
+            maison: ['maison', 'home', 'garden', 'jardin', 'cuisine', 'kitchen', 'lamp', 'lampe', 'meuble', 'furniture', 'décor', 'decor', 'tapis', 'rug', 'rideau', 'curtain', 'oreiller', 'pillow', 'rangement', 'storage', 'bathroom', 'salle de bain'],
+            beaute: ['beauté', 'beauty', 'maquillage', 'makeup', 'skincare', 'soin', 'parfum', 'perfume', 'cheveux', 'hair', 'crème', 'cream', 'santé', 'health', 'fitness', 'bien-être', 'wellness', 'cosmétique'],
+            sport: ['sport', 'fitness', 'gym', 'yoga', 'running', 'vélo', 'bike', 'camping', 'outdoor', 'randonnée', 'hiking', 'football', 'basketball', 'tennis', 'natation', 'swimming', 'pêche', 'fishing', 'loisir'],
+            auto: ['auto', 'moto', 'voiture', 'car', 'motorcycle', 'véhicule', 'vehicle', 'pneu', 'tire', 'gps', 'dashcam', 'accessoire auto', 'garage', 'parking'],
+            jouets: ['jouet', 'toy', 'enfant', 'kid', 'bébé', 'baby', 'jeu', 'game', 'puzzle', 'peluche', 'plush', 'lego', 'poupée', 'doll', 'éducatif', 'educational'],
+            animaux: ['animal', 'pet', 'chien', 'dog', 'chat', 'cat', 'aquarium', 'fish', 'oiseau', 'bird', 'laisse', 'leash', 'litière', 'litter', 'croquette', 'gamelle'],
+            accessories: ['accessoire', 'accessory', 'casquette', 'cap', 'lunettes', 'sunglasses', 'ceinture', 'belt', 'bijou', 'jewelry', 'montre', 'watch', 'sac', 'bag', 'portefeuille', 'wallet', 'écharpe', 'scarf']
+        };
+
         // Apply filters
         function applyFilters() {
             let filtered = [...(window.allProducts || state.products)];
-            
+
+            // Source filter
+            const selectedSource = document.querySelector('input[name="source"]:checked');
+            if (selectedSource && selectedSource.value !== 'all') {
+                filtered = filtered.filter(p => p.source === selectedSource.value);
+            }
+
             // Category filters
-            const categories = [];
-            if (document.getElementById('cat-tshirts').checked) categories.push('tshirts');
-            if (document.getElementById('cat-hoodies').checked) categories.push('hoodies');
-            if (document.getElementById('cat-accessories').checked) categories.push('accessories');
-            
-            if (categories.length > 0 && !document.getElementById('cat-all').checked) {
+            const selectedCategories = [];
+            Object.keys(categoryKeywords).forEach(cat => {
+                const el = document.getElementById('cat-' + cat);
+                if (el && el.checked) selectedCategories.push(cat);
+            });
+
+            if (selectedCategories.length > 0 && !document.getElementById('cat-all').checked) {
                 filtered = filtered.filter(p => {
                     const name = (p.name || '').toLowerCase();
                     const category = (p.category || '').toLowerCase();
-                    return categories.some(cat => name.includes(cat) || category.includes(cat));
+                    const combined = name + ' ' + category;
+
+                    return selectedCategories.some(cat => {
+                        const keywords = categoryKeywords[cat] || [];
+                        return keywords.some(kw => combined.includes(kw));
+                    });
                 });
             }
-            
-            // Gender filters
-            const genders = [];
-            if (document.getElementById('gender-men').checked) genders.push('men');
-            if (document.getElementById('gender-women').checked) genders.push('women');
-            if (document.getElementById('gender-unisex').checked) genders.push('unisex');
-            
-            if (genders.length > 0) {
-                filtered = filtered.filter(p => {
-                    const type = p.type || '';
-                    return genders.includes(type);
-                });
-            }
-            
+
             // Price filters
             const minPrice = parseFloat(document.getElementById('priceMin').value) || 0;
             const maxPrice = parseFloat(document.getElementById('priceMax').value) || Infinity;
@@ -556,7 +580,7 @@
                 const price = parseFloat(p.price) || 0;
                 return price >= minPrice && price <= maxPrice;
             });
-            
+
             displayShopProducts(filtered);
         }
 
@@ -608,6 +632,7 @@
             document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(cb => {
                 if (cb.id !== 'cat-all') cb.checked = false;
             });
+            document.getElementById('source-all').checked = true;
             document.getElementById('priceMin').value = '';
             document.getElementById('priceMax').value = '';
             document.getElementById('sortSelect').value = 'default';
