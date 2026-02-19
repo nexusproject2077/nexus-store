@@ -245,7 +245,7 @@ app.get('/api/products', async (req, res) => {
         }
     }
 
-    // Fetch eBay products
+    // Fetch eBay products (all products from the platform, not just one seller)
     if ((source === 'all' || source === 'ebay') && EBAY_CLIENT_ID && EBAY_CLIENT_SECRET) {
         try {
             const keyword = req.query.keyword || '';
@@ -253,24 +253,24 @@ app.get('/api/products', async (req, res) => {
             const size = req.query.size || 20;
             const offset = (page - 1) * size;
 
-            let searchQuery = keyword || '';
             let filterParts = [];
 
-            // Filter by seller if configured
+            // Optionally filter by seller if configured
             if (EBAY_SELLER_NAME) {
                 filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
             }
 
-            // Build the search URL
+            // Build the search URL - always search, use a default query if no keyword
             let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
+            const searchQuery = keyword || '';
             if (searchQuery) {
                 searchUrl += `&q=${encodeURIComponent(searchQuery)}`;
-            } else if (!EBAY_SELLER_NAME) {
-                // If no seller and no keyword, skip eBay
-                searchUrl = null;
+            } else {
+                // Default: trending/popular products when no keyword
+                searchUrl += `&q=trending`;
             }
 
-            if (filterParts.length > 0 && searchUrl) {
+            if (filterParts.length > 0) {
                 searchUrl += `&filter=${filterParts.join(',')}`;
             }
 
@@ -419,12 +419,12 @@ app.get('/api/cj/products/:pid', async (req, res) => {
 
 // ========== ROUTES API - EBAY ==========
 
-// Search eBay products
+// Search eBay products (all platform products)
 app.get('/api/ebay/search', async (req, res) => {
     try {
-        const { keyword, category, page = 1, size = 20, minPrice, maxPrice } = req.query;
+        const { keyword, category, page = 1, size = 20, minPrice, maxPrice, sellerOnly } = req.query;
 
-        if (!keyword && !EBAY_SELLER_NAME) {
+        if (!keyword) {
             return res.status(400).json({
                 success: false,
                 error: 'Veuillez fournir un mot-clé de recherche'
@@ -433,13 +433,11 @@ app.get('/api/ebay/search', async (req, res) => {
 
         const offset = (page - 1) * size;
         let searchUrl = `/buy/browse/v1/item_summary/search?limit=${size}&offset=${offset}`;
-
-        if (keyword) {
-            searchUrl += `&q=${encodeURIComponent(keyword)}`;
-        }
+        searchUrl += `&q=${encodeURIComponent(keyword)}`;
 
         let filterParts = [];
-        if (EBAY_SELLER_NAME) {
+        // Only filter by seller if explicitly requested
+        if (sellerOnly === 'true' && EBAY_SELLER_NAME) {
             filterParts.push(`sellers:{${EBAY_SELLER_NAME}}`);
         }
         if (minPrice) {
