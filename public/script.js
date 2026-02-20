@@ -140,8 +140,7 @@ function getAllDemoProducts() {
             price: 19.99,
             currency: '€',
             thumbnail: createProductImage('SKINCARE', '#e8d5c4', '#333333'),
-            source: 'ebay',
-            badge: 'eBay'
+            source: 'ebay'
         },
         {
             id: 'demo-5',
@@ -159,8 +158,7 @@ function getAllDemoProducts() {
             price: 14.99,
             currency: '€',
             thumbnail: createProductImage('PHONE CASE', '#2196f3'),
-            source: 'ebay',
-            badge: 'eBay'
+            source: 'ebay'
         }
     ];
 }
@@ -286,7 +284,6 @@ function loadDemoProducts(container) {
             price: '19.99',
             currency: '€',
             thumbnail: createProductImage('SKINCARE', '#e8d5c4', '#333333'),
-            badge: 'eBay',
             source: 'ebay'
         },
         {
@@ -305,7 +302,6 @@ function loadDemoProducts(container) {
             price: '14.99',
             currency: '€',
             thumbnail: createProductImage('PHONE CASE', '#2196f3'),
-            badge: 'eBay',
             source: 'ebay'
         },
         {
@@ -334,7 +330,7 @@ function loadDemoProducts(container) {
     if (container) {
         displayProducts(demoProducts, container);
     }
-    console.log('✅ 8 produits de démonstration chargés');
+    console.log('8 produits demo charges');
 }
 
 // ===== CRÉER UNE IMAGE DE PRODUIT SVG =====
@@ -345,6 +341,27 @@ function createProductImage(text, bgColor = '#cccccc', textColor = '#ffffff') {
             <text x="200" y="250" font-family="Arial" font-size="24" fill="${textColor}" text-anchor="middle" font-weight="bold">${text}</text>
         </svg>
     `)}`;
+}
+
+// ===== RATING HELPERS =====
+function generateRating(name) {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+        hash += name.charCodeAt(i);
+    }
+    const stars = (hash % 3) + 3; // 3 to 5
+    const count = (hash % 491) + 10; // 10 to 500
+    return { stars: stars, count: count };
+}
+
+function renderStars(rating) {
+    const filledStar = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#ff9500" stroke="#ff9500" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+    const emptyStar = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+        html += i <= rating ? filledStar : emptyStar;
+    }
+    return html;
 }
 
 // ===== AFFICHAGE DES PRODUITS =====
@@ -361,9 +378,8 @@ function displayProducts(products, container) {
         const price = parseFloat(product.price) || 0;
         const currency = product.currency || '€';
         
-        let sourceBadge = '';
-        if (product.source === 'cj') sourceBadge = '<span class="source-badge source-cj">CJ</span>';
-        else if (product.source === 'ebay') sourceBadge = '<span class="source-badge source-ebay">eBay</span>';
+        const rating = generateRating(product.name);
+        const starsHtml = renderStars(rating.stars);
 
         return `
         <div class="product-card" data-id="${product.id}" data-source="${product.source || 'printful'}" onclick="window.location.href='produit.html?id=${product.id}'" style="cursor: pointer;">
@@ -379,9 +395,14 @@ function displayProducts(products, container) {
                 </button>
             </div>
             <div class="product-info">
-                <div class="product-category">${product.category || 'Produit'} ${sourceBadge}</div>
+                <div class="product-category">${product.category || 'Produit'}</div>
+                <div class="product-rating">
+                    <div class="stars">${starsHtml}</div>
+                    <span class="rating-count">(${rating.count})</span>
+                </div>
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">${price.toFixed(2)} ${currency}</p>
+                ${price >= 50 ? '<p class="free-shipping"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg> Livraison gratuite</p>' : ''}
             </div>
         </div>
     `;
@@ -392,7 +413,7 @@ function displayProducts(products, container) {
 function addToCart(productId) {
     const product = state.products.find(p => p.id == productId);
     if (!product) {
-        showToast('❌ Produit introuvable');
+        showToast('Produit introuvable');
         return;
     }
     
@@ -417,7 +438,7 @@ function addToCart(productId) {
     
     saveCart();
     updateCartCount();
-    showToast('✓ Produit ajouté au panier');
+    showToast('Produit ajouté au panier');
     
     // Track add to cart
     if (typeof trackAddToCart === 'function') {
@@ -519,15 +540,15 @@ function displayCart() {
 // ===== PAIEMENT =====
 async function checkout() {
     if (state.cart.length === 0) {
-        showToast('⚠️ Votre panier est vide');
+        showToast('Votre panier est vide');
         return;
     }
     
-    showToast('🔄 Traitement de votre commande...');
+    showToast('Traitement de votre commande...');
     
     // Simuler le processus de paiement
     setTimeout(() => {
-        showToast('✓ Commande confirmée ! Merci pour votre achat.');
+        showToast('Commande confirmée ! Merci pour votre achat.');
         
         // Vider le panier après confirmation
         setTimeout(() => {
@@ -561,7 +582,7 @@ async function checkout() {
         }
     } catch (error) {
         console.error('Erreur de paiement:', error);
-        showToast('❌ Erreur lors du paiement');
+        showToast('Erreur lors du paiement');
     }
     */
 }
@@ -575,7 +596,7 @@ function initializeNewsletter() {
         e.preventDefault();
         const email = form.querySelector('input[type="email"]').value;
         
-        showToast('✓ Merci de votre inscription !');
+        showToast('Merci de votre inscription !');
         form.reset();
         
         // Dans un cas réel, vous enverriez l'email à votre backend
@@ -866,4 +887,4 @@ function trackPurchase(items, total) {
     }
 }
 
-console.log('✅ FLUX E-commerce - JavaScript chargé');
+console.log('FLUX E-commerce loaded');

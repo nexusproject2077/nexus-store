@@ -205,7 +205,7 @@ function formatCJProduct(product) {
         category: product.categoryName || 'Dropshipping',
         source: 'cj',
         variants: [],
-        badge: 'Dropshipping'
+        badge: ''
     };
 }
 
@@ -328,7 +328,7 @@ app.get('/api/products', async (req, res) => {
                         category: item.categories?.[0]?.categoryName || 'eBay',
                         source: 'ebay',
                         variants: [],
-                        badge: 'eBay',
+                        badge: '',
                         condition: item.condition || '',
                         itemWebUrl: item.itemWebUrl || ''
                     }));
@@ -489,7 +489,7 @@ app.get('/api/ebay/search', async (req, res) => {
             source: 'ebay',
             condition: item.condition || '',
             itemWebUrl: item.itemWebUrl || '',
-            badge: 'eBay'
+            badge: ''
         }));
 
         res.json({
@@ -532,7 +532,7 @@ app.get('/api/ebay/products/:itemId', async (req, res) => {
                 itemWebUrl: data.itemWebUrl || '',
                 seller: data.seller?.username || '',
                 variants: [],
-                badge: 'eBay'
+                badge: ''
             }
         });
     } catch (error) {
@@ -585,7 +585,7 @@ app.get('/api/products/:id', async (req, res) => {
                     condition: data.condition || '',
                     itemWebUrl: data.itemWebUrl || '',
                     variants: [],
-                    badge: 'eBay'
+                    badge: ''
                 }
             });
         }
@@ -644,7 +644,7 @@ app.get('/api/products/:id', async (req, res) => {
                     category: product.categoryName || 'Dropshipping',
                     variants,
                     source: 'cj',
-                    badge: 'Dropshipping'
+                    badge: ''
                 }
             });
         }
@@ -987,8 +987,6 @@ app.get('/api/test', async (req, res) => {
             results.cj = {
                 status: 'ok',
                 auth: 'token obtained',
-                raw_data_type: typeof cjData.data,
-                raw_data_keys: cjData.data ? Object.keys(cjData.data) : null,
                 products_count: cjProductList.length,
                 sample: cjProductList[0] ? cjProductList[0].productNameEn : null
             };
