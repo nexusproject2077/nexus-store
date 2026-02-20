@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boutique - Tous nos produits | FLUX</title>
     <meta name="description" content="Découvrez tous les produits FLUX : mode, électronique, maison, beauté, sport et bien plus. Livraison rapide, meilleurs prix.">
-    <meta name="keywords" content="boutique flux, mode, électronique, maison, beauté, sport, accessoires, dropshipping, eBay">
+    <meta name="keywords" content="boutique flux, mode, électronique, maison, beauté, sport, accessoires">
     
     <!-- Google Consent Mode v2 -->
     <script>
@@ -309,26 +309,6 @@
             <!-- Sidebar Filters -->
             <aside class="sidebar-filters">
                 <div class="filter-group">
-                    <h3>Source</h3>
-                    <div class="filter-option">
-                        <input type="radio" name="source" id="source-all" value="all" checked onchange="filterBySource('all')">
-                        <label for="source-all">Tous</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="radio" name="source" id="source-printful" value="printful" onchange="filterBySource('printful')">
-                        <label for="source-printful">Printful (Print-on-demand)</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="radio" name="source" id="source-cj" value="cj" onchange="filterBySource('cj')">
-                        <label for="source-cj">CJ Dropshipping</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="radio" name="source" id="source-ebay" value="ebay" onchange="filterBySource('ebay')">
-                        <label for="source-ebay">eBay</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
                     <h3>Catégories</h3>
                     <div class="filter-option">
                         <input type="checkbox" id="cat-all" value="all" checked onchange="applyFilters()">
@@ -547,12 +527,6 @@
         function applyFilters() {
             let filtered = [...(window.allProducts || state.products)];
 
-            // Source filter
-            const selectedSource = document.querySelector('input[name="source"]:checked');
-            if (selectedSource && selectedSource.value !== 'all') {
-                filtered = filtered.filter(p => p.source === selectedSource.value);
-            }
-
             // Category filters
             const selectedCategories = [];
             Object.keys(categoryKeywords).forEach(cat => {
@@ -632,7 +606,6 @@
             document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(cb => {
                 if (cb.id !== 'cat-all') cb.checked = false;
             });
-            document.getElementById('source-all').checked = true;
             document.getElementById('priceMin').value = '';
             document.getElementById('priceMax').value = '';
             document.getElementById('sortSelect').value = 'default';
