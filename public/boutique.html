@@ -16,7 +16,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .filter-group{margin-bottom:22px;}
 .filter-group label{display:block;font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
 .filter-group select,.price-range input{width:100%;background:#0a0a1a;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font-size:.88rem;outline:none;cursor:pointer;}
-.filter-group select:focus,.price-range input:focus{border-color:var(--primary);}
 .cat-list{list-style:none;}
 .cat-list li a{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:.88rem;transition:all .2s;}
 .cat-list li a:hover,.cat-list li a.active{background:rgba(14,165,233,.1);color:var(--primary);}
@@ -26,18 +25,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .btn-apply{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:10px;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:4px;}
 .btn-apply:hover{background:var(--primary-dark);}
 .btn-reset{width:100%;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:.82rem;cursor:pointer;margin-top:8px;}
-.btn-reset:hover{border-color:var(--primary);color:var(--primary);}
 .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:.82rem;color:var(--text-muted);}
 .breadcrumb a{color:var(--text-muted);text-decoration:none;}.breadcrumb a:hover{color:var(--primary);}
-.breadcrumb span{color:var(--primary);}
 .shop-search{display:flex;margin-bottom:20px;}
 .shop-search input{flex:1;background:var(--surface);border:1px solid var(--border);border-right:none;color:var(--text);border-radius:12px 0 0 12px;padding:11px 14px;font-size:.92rem;outline:none;}
-.shop-search input:focus{border-color:var(--primary);}
 .shop-search button{background:var(--primary);border:none;color:#fff;padding:11px 18px;border-radius:0 12px 12px 0;cursor:pointer;}
 .shop-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
-.shop-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;}
-.shop-title span{color:var(--primary);}
-.shop-controls{display:flex;align-items:center;gap:10px;}
+.shop-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;}.shop-title span{color:var(--primary);}
 .result-count{color:var(--text-muted);font-size:.85rem;}
 .sort-select{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 12px;font-size:.88rem;outline:none;cursor:pointer;}
 .view-toggle{display:flex;gap:4px;}
@@ -51,13 +45,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .product-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .3s;cursor:pointer;position:relative;}
 .product-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 8px 24px rgba(14,165,233,.15);}
 .product-badge{position:absolute;top:10px;left:10px;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;z-index:2;}
-.badge-hot{background:#f59e0b;color:#000;}
-.badge-sale{background:#ef4444;color:#fff;}
-.badge-new{background:#10b981;color:#fff;}
+.badge-hot{background:#f59e0b;color:#000;}.badge-sale{background:#ef4444;color:#fff;}.badge-new{background:#10b981;color:#fff;}
 .product-img{width:100%;height:185px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1e293b,#0f172a);}
 .product-wishlist{position:absolute;top:10px;right:10px;background:rgba(10,10,26,.8);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:all .2s;z-index:2;}
-.product-wishlist:hover{border-color:var(--danger);}
-.product-wishlist.active{border-color:var(--danger);background:rgba(239,68,68,.15);}
+.product-wishlist:hover,.product-wishlist.active{border-color:var(--danger);}
 .product-info{padding:14px;}
 .product-vendor{font-size:.72rem;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
 .product-name{font-weight:600;font-size:.92rem;margin-bottom:7px;line-height:1.4;}
@@ -70,21 +61,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .btn-cart:hover{background:var(--primary);color:#fff;}
 .products-grid.list-view .product-card{display:flex;}
 .products-grid.list-view .product-img{width:160px;height:140px;flex-shrink:0;}
-.products-grid.list-view .product-info{flex:1;}
 .pagination{display:flex;justify-content:center;gap:6px;margin-top:36px;}
 .page-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:.88rem;transition:all .2s;display:flex;align-items:center;justify-content:center;}
 .page-btn:hover,.page-btn.active{background:var(--primary);border-color:var(--primary);color:#fff;}
-.page-btn:disabled{opacity:.3;cursor:not-allowed;}
 .skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--border) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:14px;height:300px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.toast{position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:10px;font-size:.88rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:280px;}
+.toast{position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:10px;font-size:.88rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
 .toast.show{transform:translateY(0);opacity:1;}
 .cart-overlay{position:fixed;top:0;right:-420px;width:390px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1000;transition:right .3s;padding:22px;overflow-y:auto;display:flex;flex-direction:column;}
 .cart-overlay.open{right:0;}
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
 .cart-header h3{font-family:'Space Grotesk',sans-serif;}
 .cart-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;}
-.cart-items{flex:1;overflow-y:auto;}
 .cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
 .cart-item-img{width:54px;height:54px;border-radius:8px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
 .cart-item-info{flex:1;}
@@ -97,317 +85,262 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .cart-total{display:flex;justify-content:space-between;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;}
 .cart-total span:last-child{color:var(--primary);}
 .btn-checkout{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:700;cursor:pointer;}
-.btn-checkout:hover{opacity:.9;}
 .mobile-filter-btn{display:none;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 14px;font-size:.88rem;cursor:pointer;align-items:center;gap:6px;}
 @media(max-width:900px){.shop-layout{grid-template-columns:1fr;}.sidebar{display:none;position:fixed;top:0;left:-100%;width:270px;height:100vh;overflow-y:auto;z-index:999;transition:left .3s;border-radius:0;}.sidebar.open{display:block;left:0;}.mobile-filter-btn{display:flex;}}
-@media(max-width:600px){.shop-layout{padding:80px 12px 36px;}.products-grid{grid-template-columns:repeat(2,1fr);}.shop-header{flex-direction:column;align-items:flex-start;}}
+@media(max-width:600px){.shop-layout{padding:80px 12px 36px;}.products-grid{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
 <body>
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="index.html" class="nav-logo"><div class="logo-icon">N</div><span>Nexus<span style="color:var(--primary)">Store</span></span></a>
-    <div class="nav-search">
-      <input type="text" id="navSearch" placeholder="Rechercher..." onkeydown="if(event.key==='Enter')applySearch()">
-      <button onclick="applySearch()">🔍</button>
-    </div>
-    <div class="nav-actions">
-      <a href="vendeur.html" class="nav-link">Vendre</a>
-      <a href="abonnements.html" class="nav-link">Premium</a>
-      <button class="nav-btn" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></button>
-      <button class="nav-btn">👤</button>
-    </div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div class="nav-search"><input type="text" id="navSearch" placeholder="Rechercher..."><button onclick="doSearch()">&#128269;</button></div>
+    <div class="nav-actions"><a href="vendeur.html" class="nav-link">Vendre</a><a href="abonnements.html" class="nav-link">Premium</a><button class="nav-btn" onclick="toggleCart()">&#128722; <span class="cart-count" id="cartCount">0</span></button><button class="nav-btn">&#128100;</button></div>
+    <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Accueil</a><a href="boutique.html">Boutique</a>
-  <a href="vendeur.html">Vendre</a><a href="abonnements.html">Premium</a>
-</div>
+<div class="mobile-menu" id="mobileMenu"><a href="index.html">Accueil</a><a href="boutique.html">Boutique</a><a href="vendeur.html">Vendre</a><a href="abonnements.html">Premium</a></div>
 <div class="cart-overlay" id="cartSidebar">
-  <div class="cart-header"><h3>🛒 Panier</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
-  <div class="cart-items" id="cartItems"><p style="color:var(--text-muted);text-align:center;padding:40px 0">Votre panier est vide</p></div>
-  <div class="cart-footer">
-    <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
-    <button class="btn-checkout" onclick="window.location.href='checkout.html'">Commander →</button>
-  </div>
+  <div class="cart-header"><h3>&#128722; Panier</h3><button class="cart-close" onclick="toggleCart()">&#10005;</button></div>
+  <div class="cart-items" id="cartItems"><p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p></div>
+  <div class="cart-footer"><div class="cart-total"><span>Total</span><span id="cartTotal">0,00 &#8364;</span></div><button class="btn-checkout" onclick="location.href='checkout.html'">Commander &#8594;</button></div>
 </div>
 <div class="shop-layout">
   <aside class="sidebar" id="sidebar">
-    <h3>🎯 Filtres</h3>
-    <div class="filter-group">
-      <label>Catégories</label>
-      <ul class="cat-list" id="catList">
-        <li><a href="#" class="active" onclick="filterCat('all',this);return false">Tout <span id="cAll">24</span></a></li>
-        <li><a href="#" onclick="filterCat('electronique',this);return false">📱 Électronique <span id="cElec">8</span></a></li>
-        <li><a href="#" onclick="filterCat('mode',this);return false">👗 Mode <span id="cMode">3</span></a></li>
-        <li><a href="#" onclick="filterCat('maison',this);return false">🏠 Maison <span id="cMaison">4</span></a></li>
-        <li><a href="#" onclick="filterCat('sport',this);return false">⚽ Sport <span id="cSport">2</span></a></li>
-        <li><a href="#" onclick="filterCat('beaute',this);return false">💄 Beauté <span id="cBeaute">3</span></a></li>
-        <li><a href="#" onclick="filterCat('gaming',this);return false">🎮 Gaming <span id="cGaming">3</span></a></li>
-        <li><a href="#" onclick="filterCat('auto',this);return false">🚗 Auto <span id="cAuto">1</span></a></li>
-        <li><a href="#" onclick="filterCat('livres',this);return false">📚 Livres <span id="cLivres">1</span></a></li>
+    <h3>&#127919; Filtres</h3>
+    <div class="filter-group"><label>Cat&eacute;gories</label>
+      <ul class="cat-list">
+        <li><a href="#" class="active" onclick="filterCat('all',this);return false">Tout <span>24</span></a></li>
+        <li><a href="#" onclick="filterCat('electronique',this);return false">&#128241; &Eacute;lectronique <span>8</span></a></li>
+        <li><a href="#" onclick="filterCat('mode',this);return false">&#128291; Mode <span>3</span></a></li>
+        <li><a href="#" onclick="filterCat('maison',this);return false">&#127968; Maison <span>4</span></a></li>
+        <li><a href="#" onclick="filterCat('sport',this);return false">&#9917; Sport <span>2</span></a></li>
+        <li><a href="#" onclick="filterCat('beaute',this);return false">&#128132; Beaut&eacute; <span>3</span></a></li>
+        <li><a href="#" onclick="filterCat('gaming',this);return false">&#127918; Gaming <span>3</span></a></li>
+        <li><a href="#" onclick="filterCat('auto',this);return false">&#128663; Auto <span>1</span></a></li>
+        <li><a href="#" onclick="filterCat('livres',this);return false">&#128218; Livres <span>1</span></a></li>
       </ul>
     </div>
-    <div class="filter-group">
-      <label>Prix (€)</label>
-      <div class="price-range">
-        <input type="number" id="priceMin" placeholder="Min">
-        <input type="number" id="priceMax" placeholder="Max">
-      </div>
-    </div>
-    <div class="filter-group">
-      <label>Note minimale</label>
-      <select id="ratingFilter">
-        <option value="0">Toutes notes</option>
-        <option value="4">★★★★ 4+ étoiles</option>
-        <option value="3">★★★ 3+ étoiles</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Disponibilité</label>
-      <select id="stockFilter">
-        <option value="all">Tous</option>
-        <option value="in">En stock</option>
-        <option value="promo">En promotion</option>
-      </select>
-    </div>
-    <button class="btn-apply" onclick="applyFilters()">✓ Appliquer</button>
-    <button class="btn-reset" onclick="resetFilters()">✕ Réinitialiser</button>
+    <div class="filter-group"><label>Prix (&#8364;)</label><div class="price-range"><input type="number" id="priceMin" placeholder="Min"><input type="number" id="priceMax" placeholder="Max"></div></div>
+    <div class="filter-group"><label>Note</label><select id="ratingFilter"><option value="0">Toutes notes</option><option value="4">4+ &#9733;</option><option value="3">3+ &#9733;</option></select></div>
+    <div class="filter-group"><label>Dispo</label><select id="stockFilter"><option value="all">Tous</option><option value="in">En stock</option><option value="promo">Promo</option></select></div>
+    <button class="btn-apply" onclick="applyFilters()">&#10003; Appliquer</button>
+    <button class="btn-reset" onclick="resetFilters()">&#10005; R&eacute;init.</button>
   </aside>
-  <main class="shop-main">
-    <div class="breadcrumb">
-      <a href="index.html">🏠 Accueil</a><span>›</span><span id="breadCat">Boutique</span>
-    </div>
-    <div class="shop-search">
-      <input type="text" id="mainSearch" placeholder="Rechercher dans la boutique..." onkeydown="if(event.key==='Enter')applySearch()">
-      <button onclick="applySearch()">🔍</button>
-    </div>
+  <main>
+    <div class="breadcrumb"><a href="index.html">&#127968; Accueil</a><span>&#8250;</span><span id="breadCat" style="color:var(--primary)">Boutique</span></div>
+    <div class="shop-search"><input type="text" id="mainSearch" placeholder="Rechercher dans la boutique..."><button onclick="doSearch()">&#128269;</button></div>
     <div class="active-filters" id="activeFilters"></div>
     <div class="shop-header">
-      <div>
-        <h1 class="shop-title" id="pageTitle">Tous les <span>produits</span></h1>
-        <p class="result-count" id="resultCount">Chargement...</p>
-      </div>
+      <div><h1 class="shop-title" id="pageTitle">Tous les <span>produits</span></h1><p class="result-count" id="resultCount">Chargement...</p></div>
       <div class="shop-controls">
-        <button class="mobile-filter-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">🎯 Filtres</button>
-        <select class="sort-select" id="sortSel" onchange="doSort()">
-          <option value="def">Pertinence</option>
-          <option value="pa">Prix croissant</option>
-          <option value="pd">Prix décroissant</option>
-          <option value="note">Meilleures notes</option>
-          <option value="new">Nouveautés</option>
-          <option value="sold">Meilleures ventes</option>
-        </select>
-        <div class="view-toggle">
-          <button class="view-btn active" id="gBtn" onclick="setView('g')">⊞</button>
-          <button class="view-btn" id="lBtn" onclick="setView('l')">≡</button>
-        </div>
+        <button class="mobile-filter-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">&#127919; Filtres</button>
+        <select class="sort-select" id="sortSel" onchange="doSort()"><option value="def">Pertinence</option><option value="pa">Prix croissant</option><option value="pd">Prix d&eacute;croissant</option><option value="note">Meilleures notes</option><option value="new">Nouveaut&eacute;s</option><option value="sold">Meilleures ventes</option></select>
+        <div class="view-toggle"><button class="view-btn active" id="gBtn" onclick="setView('g')">&#8862;</button><button class="view-btn" id="lBtn" onclick="setView('l')">&#8801;</button></div>
       </div>
     </div>
-    <div class="products-grid" id="prodGrid">
-      <div class="skeleton"></div><div class="skeleton"></div>
-      <div class="skeleton"></div><div class="skeleton"></div>
-      <div class="skeleton"></div><div class="skeleton"></div>
-    </div>
+    <div class="products-grid" id="prodGrid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
     <div class="pagination" id="pgn"></div>
   </main>
 </div>
-<div class="toast" id="toast"></div><script>
-const PRODS=[
-  {id:'p1',n:'iPhone 15 Pro Max',v:'TechShop Pro',c:'electronique',p:1299,op:1499,r:4.8,rv:2847,b:'hot',e:'📱',s:15420},
-  {id:'p2',n:'Samsung QLED 65"',v:'ElectroPlanet',c:'electronique',p:799,op:1199,r:4.7,rv:1203,b:'sale',e:'📺',s:3201},
-  {id:'p3',n:'MacBook Pro M3',v:'Apple Reseller',c:'electronique',p:2199,op:null,r:4.9,rv:892,b:'new',e:'💻',s:7654},
-  {id:'p4',n:'Nike Air Max 2024',v:'SportZone',c:'mode',p:129,op:159,r:4.6,rv:4521,b:'sale',e:'👟',s:28900},
-  {id:'p5',n:'Canapé Design Moderne',v:'MaisonLux',c:'maison',p:899,op:1299,r:4.5,rv:342,b:null,e:'🛋️',s:1234},
-  {id:'p6',n:'PS5 + Controller',v:'GameWorld',c:'gaming',p:549,op:null,r:4.9,rv:12034,b:'hot',e:'🎮',s:45231},
-  {id:'p7',n:'Parfum Boss Bottled',v:'BeautyParis',c:'beaute',p:89,op:119,r:4.4,rv:2109,b:'sale',e:'🌸',s:9876},
-  {id:'p8',n:'Vélo Électrique 500W',v:'SportMoto',c:'sport',p:1199,op:1499,r:4.7,rv:567,b:null,e:'🚴',s:2341},
-  {id:'p9',n:'Drone DJI Mini 4 Pro',v:'TechShop Pro',c:'electronique',p:759,op:899,r:4.8,rv:3201,b:'sale',e:'🚁',s:8765},
-  {id:'p10',n:'AirPods Pro 2',v:'Apple Reseller',c:'electronique',p:279,op:null,r:4.8,rv:15678,b:'hot',e:'🎧',s:67890},
-  {id:'p11',n:'Robe Soirée Élégante',v:'FashionNexus',c:'mode',p:159,op:229,r:4.5,rv:876,b:'sale',e:'👗',s:4567},
-  {id:'p12',n:'Robot Cuisine 1200W',v:'MaisonLux',c:'maison',p:349,op:499,r:4.6,rv:1432,b:'sale',e:'🍳',s:5678},
-  {id:'p13',n:'Montre Connectée Ultra',v:'TechShop Pro',c:'electronique',p:399,op:null,r:4.7,rv:2345,b:'new',e:'⌚',s:12345},
-  {id:'p14',n:'FIFA 25 PS5',v:'GameWorld',c:'gaming',p:69,op:null,r:4.3,rv:8901,b:'new',e:'⚽',s:34567},
-  {id:'p15',n:'Crème Anti-Âge Luxe',v:'BeautyParis',c:'beaute',p:129,op:179,r:4.6,rv:1234,b:'sale',e:'✨',s:6543},
-  {id:'p16',n:'Tente Camping 4P',v:'SportMoto',c:'sport',p:299,op:399,r:4.5,rv:654,b:'sale',e:'⛺',s:3456},
-  {id:'p17',n:'Accessoires BMW Pack',v:'AutoPremium',c:'auto',p:249,op:null,r:4.4,rv:432,b:'new',e:'🚗',s:2109},
-  {id:'p18',n:'Harry Potter Complet',v:'LibrairieNexus',c:'livres',p:89,op:120,r:4.9,rv:5432,b:'sale',e:'📚',s:23456},
-  {id:'p19',n:'RTX 4090 Gaming GPU',v:'TechShop Pro',c:'gaming',p:1599,op:null,r:4.9,rv:987,b:'hot',e:'🖥️',s:4321},
-  {id:'p20',n:'Aspirateur Robot Pro',v:'MaisonLux',c:'maison',p:499,op:699,r:4.7,rv:2098,b:'sale',e:'🤖',s:8765},
-  {id:'p21',n:'Jordan 4 Retro',v:'SportZone',c:'mode',p:189,op:220,r:4.8,rv:6789,b:'hot',e:'👠',s:34567},
-  {id:'p22',n:'Palette Maquillage Pro',v:'BeautyParis',c:'beaute',p:79,op:null,r:4.5,rv:3456,b:'new',e:'💄',s:12987},
-  {id:'p23',n:'Enceinte Sonos Era 300',v:'ElectroPlanet',c:'electronique',p:449,op:null,r:4.6,rv:1876,b:null,e:'🔊',s:5432},
-  {id:'p24',n:'Tableau Déco Moderne',v:'MaisonLux',c:'maison',p:199,op:279,r:4.4,rv:543,b:'sale',e:'🖼️',s:2876},
+<div class="toast" id="toast"></div>
+<script>
+var PRODS=[
+  {id:"p1",n:"iPhone 15 Pro Max",v:"TechShop Pro",c:"electronique",p:1299,op:1499,r:4.8,rv:2847,b:"hot",e:"📱",s:15420},
+  {id:"p2",n:"Samsung QLED 65\"",v:"ElectroPlanet",c:"electronique",p:799,op:1199,r:4.7,rv:1203,b:"sale",e:"📺",s:3201},
+  {id:"p3",n:"MacBook Pro M3",v:"Apple Reseller",c:"electronique",p:2199,op:null,r:4.9,rv:892,b:"new",e:"💻",s:7654},
+  {id:"p4",n:"Nike Air Max 2024",v:"SportZone",c:"mode",p:129,op:159,r:4.6,rv:4521,b:"sale",e:"👟",s:28900},
+  {id:"p5",n:"Canap\u00e9 Design Moderne",v:"MaisonLux",c:"maison",p:899,op:1299,r:4.5,rv:342,b:null,e:"🛋️",s:1234},
+  {id:"p6",n:"PS5 + Controller",v:"GameWorld",c:"gaming",p:549,op:null,r:4.9,rv:12034,b:"hot",e:"🎮",s:45231},
+  {id:"p7",n:"Parfum Boss Bottled",v:"BeautyParis",c:"beaute",p:89,op:119,r:4.4,rv:2109,b:"sale",e:"🌸",s:9876},
+  {id:"p8",n:"V\u00e9lo \u00c9lectrique 500W",v:"SportMoto",c:"sport",p:1199,op:1499,r:4.7,rv:567,b:null,e:"🚴",s:2341},
+  {id:"p9",n:"Drone DJI Mini 4 Pro",v:"TechShop Pro",c:"electronique",p:759,op:899,r:4.8,rv:3201,b:"sale",e:"🚁",s:8765},
+  {id:"p10",n:"AirPods Pro 2",v:"Apple Reseller",c:"electronique",p:279,op:null,r:4.8,rv:15678,b:"hot",e:"🎧",s:67890},
+  {id:"p11",n:"Robe Soir\u00e9e \u00c9l\u00e9gante",v:"FashionNexus",c:"mode",p:159,op:229,r:4.5,rv:876,b:"sale",e:"👗",s:4567},
+  {id:"p12",n:"Robot Cuisine 1200W",v:"MaisonLux",c:"maison",p:349,op:499,r:4.6,rv:1432,b:"sale",e:"🍳",s:5678},
+  {id:"p13",n:"Montre Connect\u00e9e Ultra",v:"TechShop Pro",c:"electronique",p:399,op:null,r:4.7,rv:2345,b:"new",e:"⌚",s:12345},
+  {id:"p14",n:"FIFA 25 PS5",v:"GameWorld",c:"gaming",p:69,op:null,r:4.3,rv:8901,b:"new",e:"⚽",s:34567},
+  {id:"p15",n:"Cr\u00e8me Anti-\u00c2ge Luxe",v:"BeautyParis",c:"beaute",p:129,op:179,r:4.6,rv:1234,b:"sale",e:"✨",s:6543},
+  {id:"p16",n:"Tente Camping 4P",v:"SportMoto",c:"sport",p:299,op:399,r:4.5,rv:654,b:"sale",e:"⛺",s:3456},
+  {id:"p17",n:"Accessoires BMW Pack",v:"AutoPremium",c:"auto",p:249,op:null,r:4.4,rv:432,b:"new",e:"🚗",s:2109},
+  {id:"p18",n:"Harry Potter Complet",v:"LibrairieNexus",c:"livres",p:89,op:120,r:4.9,rv:5432,b:"sale",e:"📚",s:23456},
+  {id:"p19",n:"RTX 4090 Gaming GPU",v:"TechShop Pro",c:"gaming",p:1599,op:null,r:4.9,rv:987,b:"hot",e:"🖥️",s:4321},
+  {id:"p20",n:"Aspirateur Robot Pro",v:"MaisonLux",c:"maison",p:499,op:699,r:4.7,rv:2098,b:"sale",e:"🤖",s:8765},
+  {id:"p21",n:"Jordan 4 Retro",v:"SportZone",c:"mode",p:189,op:220,r:4.8,rv:6789,b:"hot",e:"👠",s:34567},
+  {id:"p22",n:"Palette Maquillage Pro",v:"BeautyParis",c:"beaute",p:79,op:null,r:4.5,rv:3456,b:"new",e:"💄",s:12987},
+  {id:"p23",n:"Enceinte Sonos Era 300",v:"ElectroPlanet",c:"electronique",p:449,op:null,r:4.6,rv:1876,b:null,e:"🔊",s:5432},
+  {id:"p24",n:"Tableau D\u00e9co Moderne",v:"MaisonLux",c:"maison",p:199,op:279,r:4.4,rv:543,b:"sale",e:"🖼️",s:2876},
 ];
-let st={all:[...PRODS],fil:[...PRODS],cat:'all',q:'',page:1,pp:12,view:'g',
-  cart:JSON.parse(localStorage.getItem('nx_cart')||'[]'),
-  wish:JSON.parse(localStorage.getItem('nx_wish')||'[]')};
-
+var st={all:PRODS.slice(),fil:PRODS.slice(),cat:"all",q:"",page:1,pp:12,view:"g",
+  cart:JSON.parse(localStorage.getItem("nx_cart")||"[]"),
+  wish:JSON.parse(localStorage.getItem("nx_wish")||"[]")};
 function render(){
-  const g=document.getElementById('prodGrid');
-  const pg=st.fil.slice((st.page-1)*st.pp, st.page*st.pp);
-  g.innerHTML='';
-  g.className='products-grid'+(st.view==='l'?' list-view':'');
-  if(!pg.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)"><div style="font-size:3rem;margin-bottom:12px">😔</div><h3>Aucun produit trouvé</h3><p>Modifiez vos filtres</p></div>';return;}
-  pg.forEach(p=>{
-    const inW=st.wish.includes(p.id);
-    const d=document.createElement('div');
-    d.className='product-card';
-    d.onclick=()=>location.href='produit.html?id='+p.id;
-    d.innerHTML=(p.b?'<div class="product-badge badge-'+p.b+'">'+({hot:'🔥 Top',sale:'PROMO',new:'NOUVEAU'}[p.b])+'</div>':'')+
+  var g=document.getElementById("prodGrid");
+  var pg=st.fil.slice((st.page-1)*st.pp,st.page*st.pp);
+  g.innerHTML="";
+  g.className="products-grid"+(st.view==="l"?" list-view":"");
+  if(!pg.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)"><div style="font-size:3rem">&#128542;</div><h3>Aucun produit</h3></div>';return;}
+  pg.forEach(function(p){
+    var inW=st.wish.indexOf(p.id)>=0;
+    var d=document.createElement("div");
+    d.className="product-card";
+    d.onclick=function(){location.href="produit.html?id="+p.id;};
+    var badge="";
+    if(p.b==="hot")badge='<div class="product-badge badge-hot">&#128293; Top</div>';
+    else if(p.b==="sale")badge='<div class="product-badge badge-sale">PROMO</div>';
+    else if(p.b==="new")badge='<div class="product-badge badge-new">NOUVEAU</div>';
+    var stars="★★★★★".slice(0,Math.floor(p.r))+"☆☆☆☆☆".slice(0,5-Math.floor(p.r));
+    var oldP=p.op?'<span class="product-price-old">'+p.op+'\u20ac</span>':"";
+    var wishCls=inW?" active":"";
+    var wishHeart=inW?"\u2764\uFE0F":"\uD83E\uDD0D";
+    var pid=p.id;
+    d.innerHTML=badge+
       '<div class="product-img">'+p.e+'</div>'+
-      '<div class="product-wishlist'+(inW?' active':'')+ '" onclick="tw(event,''+p.id+'')">'+(inW?'❤️':'🤍')+'</div>'+
+      '<div class="product-wishlist'+wishCls+'" id="w'+pid+'">'+wishHeart+'</div>'+
       '<div class="product-info">'+
         '<div class="product-vendor">'+p.v+'</div>'+
         '<div class="product-name">'+p.n+'</div>'+
-        '<div class="product-rating"><span class="stars">'+'★'.repeat(Math.floor(p.r))+'☆'.repeat(5-Math.floor(p.r))+'</span><span style="font-size:.75rem;color:var(--text-muted)"> '+p.r+' ('+p.rv.toLocaleString()+')</span></div>'+
+        '<div class="product-rating"><span class="stars">'+stars+'</span><span style="font-size:.75rem;color:var(--text-muted)"> '+p.r+' ('+p.rv.toLocaleString()+')</span></div>'+
         '<div class="product-price-row">'+
-          '<div>'+(p.op?'<span class="product-price-old">'+p.op+'€</span>':'')+
-            '<span class="product-price">'+p.p.toLocaleString()+' €</span></div>'+
-          '<button class="btn-cart" onclick="ac(event,''+p.id+'')">+ Panier</button>'+
+          '<div>'+oldP+'<span class="product-price">'+p.p.toLocaleString()+' \u20ac</span></div>'+
+          '<button class="btn-cart">+ Panier</button>'+
         '</div>'+
       '</div>';
+    d.querySelector(".product-wishlist").onclick=function(e){e.stopPropagation();tw(pid);};
+    d.querySelector(".btn-cart").onclick=function(e){e.stopPropagation();ac(pid);};
     g.appendChild(d);
   });
-  document.getElementById('resultCount').textContent=st.fil.length+' produit'+(st.fil.length>1?'s':'')+' trouvé'+(st.fil.length>1?'s':'');
+  document.getElementById("resultCount").textContent=st.fil.length+" produit"+(st.fil.length>1?"s":"")+" trouv"+(st.fil.length>1?"\u00e9s":"\u00e9");
   renderPgn();
 }
-
 function renderPgn(){
-  const tot=Math.ceil(st.fil.length/st.pp),p=document.getElementById('pgn');
-  p.innerHTML='';if(tot<=1)return;
-  const prev=el('button','page-btn'); prev.textContent='‹';prev.disabled=st.page<=1;
-  prev.onclick=()=>{st.page--;render();window.scrollTo(0,0);}; p.appendChild(prev);
-  for(let i=1;i<=tot;i++){
-    if(i>6&&i<tot-1){if(i===7){const s=document.createElement('span');s.textContent='...';s.style.color='var(--text-muted)';p.appendChild(s);}continue;}
-    const b=el('button','page-btn'+(i===st.page?' active':''));b.textContent=i;
-    const pg=i;b.onclick=()=>{st.page=pg;render();window.scrollTo(0,0);}; p.appendChild(b);
+  var tot=Math.ceil(st.fil.length/st.pp),p=document.getElementById("pgn");
+  p.innerHTML="";if(tot<=1)return;
+  var prev=document.createElement("button");prev.className="page-btn";prev.textContent="\u2039";prev.disabled=st.page<=1;
+  prev.onclick=function(){st.page--;render();window.scrollTo(0,0);}; p.appendChild(prev);
+  for(var i=1;i<=tot;i++){
+    var b=document.createElement("button");
+    b.className="page-btn"+(i===st.page?" active":"");
+    b.textContent=i;
+    (function(pg){b.onclick=function(){st.page=pg;render();window.scrollTo(0,0);};})(i);
+    p.appendChild(b);
   }
-  const next=el('button','page-btn');next.textContent='›';next.disabled=st.page>=tot;
-  next.onclick=()=>{st.page++;render();window.scrollTo(0,0);}; p.appendChild(next);
+  var next=document.createElement("button");next.className="page-btn";next.textContent="\u203A";next.disabled=st.page>=tot;
+  next.onclick=function(){st.page++;render();window.scrollTo(0,0);}; p.appendChild(next);
 }
-
-function el(tag,cls){const e=document.createElement(tag);e.className=cls;return e;}
-
 function applyFilters(){
-  let f=[...st.all];
-  if(st.cat!=='all')f=f.filter(p=>p.c===st.cat);
-  if(st.q)f=f.filter(p=>p.n.toLowerCase().includes(st.q)||p.v.toLowerCase().includes(st.q));
-  const mn=parseFloat(document.getElementById('priceMin').value);
-  const mx=parseFloat(document.getElementById('priceMax').value);
-  if(!isNaN(mn)&&mn>0)f=f.filter(p=>p.p>=mn);
-  if(!isNaN(mx)&&mx>0)f=f.filter(p=>p.p<=mx);
-  const rt=parseInt(document.getElementById('ratingFilter').value);
-  if(rt>0)f=f.filter(p=>p.r>=rt);
-  const sk=document.getElementById('stockFilter').value;
-  if(sk==='promo')f=f.filter(p=>p.op);
+  var f=st.all.slice();
+  if(st.cat!=="all")f=f.filter(function(p){return p.c===st.cat;});
+  if(st.q)f=f.filter(function(p){return p.n.toLowerCase().indexOf(st.q)>=0||p.v.toLowerCase().indexOf(st.q)>=0;});
+  var mn=parseFloat(document.getElementById("priceMin").value);
+  var mx=parseFloat(document.getElementById("priceMax").value);
+  if(!isNaN(mn)&&mn>0)f=f.filter(function(p){return p.p>=mn;});
+  if(!isNaN(mx)&&mx>0)f=f.filter(function(p){return p.p<=mx;});
+  var rt=parseInt(document.getElementById("ratingFilter").value);
+  if(rt>0)f=f.filter(function(p){return p.r>=rt;});
+  var sk=document.getElementById("stockFilter").value;
+  if(sk==="promo")f=f.filter(function(p){return p.op;});
   st.fil=f;st.page=1;doSort(false);render();renderTags();
 }
-window.applyFilters=applyFilters;
-
-function doSort(r=true){
-  const s=document.getElementById('sortSel').value;
-  const d=r?st.fil:[...st.fil];
-  if(s==='pa')d.sort((a,b)=>a.p-b.p);
-  else if(s==='pd')d.sort((a,b)=>b.p-a.p);
-  else if(s==='note')d.sort((a,b)=>b.r-a.r);
-  else if(s==='sold')d.sort((a,b)=>b.s-a.s);
-  else if(s==='new')d.sort((a,b)=>(b.b==='new'?1:0)-(a.b==='new'?1:0));
-  if(r){st.fil=[...d];render();}
+function doSort(r){
+  var s=document.getElementById("sortSel").value;
+  var d=r===false?st.fil.slice():st.fil;
+  if(s==="pa")d.sort(function(a,b){return a.p-b.p;});
+  else if(s==="pd")d.sort(function(a,b){return b.p-a.p;});
+  else if(s==="note")d.sort(function(a,b){return b.r-a.r;});
+  else if(s==="sold")d.sort(function(a,b){return b.s-a.s;});
+  else if(s==="new")d.sort(function(a,b){return(b.b==="new"?1:0)-(a.b==="new"?1:0);});
+  if(r!==false){st.fil=d;render();}
 }
-window.doSort=doSort;
-
-window.applySearch=function(){
-  st.q=(document.getElementById('mainSearch').value||document.getElementById('navSearch').value).toLowerCase();
+function doSearch(){
+  var v1=document.getElementById("mainSearch").value;
+  var v2=document.getElementById("navSearch").value;
+  st.q=(v1||v2).toLowerCase();
   applyFilters();
-};
-window.filterCat=function(c,el){
+}
+window.doSearch=doSearch;
+function filterCat(c,el){
   st.cat=c;
-  document.querySelectorAll('.cat-list a').forEach(a=>a.classList.remove('active'));
-  el.classList.add('active');
-  const t={all:'Boutique',electronique:'Électronique',mode:'Mode',maison:'Maison & Déco',sport:'Sport',beaute:'Beauté',gaming:'Gaming',auto:'Auto',livres:'Livres'};
-  document.getElementById('breadCat').textContent=t[c]||c;
-  document.getElementById('pageTitle').innerHTML=(t[c]||c).replace(/s(S+)$/,' <span>$1</span>');
+  document.querySelectorAll(".cat-list a").forEach(function(a){a.classList.remove("active");});
+  el.classList.add("active");
+  var t={all:"Boutique",electronique:"\u00c9lectronique",mode:"Mode",maison:"Maison & D\u00e9co",sport:"Sport",beaute:"Beaut\u00e9",gaming:"Gaming",auto:"Auto",livres:"Livres"};
+  document.getElementById("breadCat").textContent=t[c]||c;
+  document.getElementById("pageTitle").innerHTML=(t[c]||c).replace(/(\s+)(\S+)$/, "$1<span>$2</span>");
   applyFilters();
-};
-window.resetFilters=function(){
-  st.cat='all';st.q='';
-  document.getElementById('priceMin').value='';
-  document.getElementById('priceMax').value='';
-  document.getElementById('ratingFilter').value='0';
-  document.getElementById('stockFilter').value='all';
-  document.getElementById('mainSearch').value='';
-  document.querySelectorAll('.cat-list a').forEach((a,i)=>a.classList.toggle('active',i===0));
-  st.fil=[...st.all];render();renderTags();
-};
-window.setView=function(v){
+}
+window.filterCat=filterCat;
+function resetFilters(){
+  st.cat="all";st.q="";
+  document.getElementById("priceMin").value="";
+  document.getElementById("priceMax").value="";
+  document.getElementById("ratingFilter").value="0";
+  document.getElementById("stockFilter").value="all";
+  document.getElementById("mainSearch").value="";
+  document.querySelectorAll(".cat-list a").forEach(function(a,i){a.classList.toggle("active",i===0);});
+  st.fil=st.all.slice();render();renderTags();
+}
+window.resetFilters=resetFilters;window.applyFilters=applyFilters;window.doSort=doSort;
+function setView(v){
   st.view=v;
-  document.getElementById('gBtn').classList.toggle('active',v==='g');
-  document.getElementById('lBtn').classList.toggle('active',v==='l');
+  document.getElementById("gBtn").classList.toggle("active",v==="g");
+  document.getElementById("lBtn").classList.toggle("active",v==="l");
   render();
-};
-
+}
+window.setView=setView;
 function renderTags(){
-  const tags=[];
-  if(st.cat!=='all')tags.push({l:'📂 '+st.cat,k:'cat'});
-  if(st.q)tags.push({l:'🔍 "'+st.q+'"',k:'q'});
-  document.getElementById('activeFilters').innerHTML=tags.map(t=>
-    '<div class="filter-tag">'+t.l+'<button onclick="rmTag(''+t.k+'')">✕</button></div>'
-  ).join('');
+  var tags=[],h="";
+  if(st.cat!=="all")tags.push({l:"&#128193; "+st.cat,k:"cat"});
+  if(st.q)tags.push({l:"&#128269; "+st.q,k:"q"});
+  tags.forEach(function(t){h+='<div class="filter-tag">'+t.l+'<button onclick="rmTag(\\''+t.k+'\\')">&#10005;</button></div>';});
+  document.getElementById("activeFilters").innerHTML=h;
 }
-window.rmTag=function(k){
-  if(k==='cat'){st.cat='all';document.querySelectorAll('.cat-list a').forEach((a,i)=>a.classList.toggle('active',i===0));}
-  if(k==='q'){st.q='';document.getElementById('mainSearch').value='';}
-  applyFilters();
-};
-
-// CART
-function saveCart(){localStorage.setItem('nx_cart',JSON.stringify(st.cart));}
-window.ac=function(e,id){
-  e.stopPropagation();
-  const p=PRODS.find(x=>x.id===id);if(!p)return;
-  const ex=st.cart.find(x=>x.id===id);
-  if(ex)ex.qty++;
-  else st.cart.push({id,n:p.n,p:p.p,e:p.e,qty:1});
+function rmTag(k){if(k==="cat"){st.cat="all";document.querySelectorAll(".cat-list a").forEach(function(a,i){a.classList.toggle("active",i===0);});}if(k==="q"){st.q="";document.getElementById("mainSearch").value="";}applyFilters();}
+window.rmTag=rmTag;
+function saveCart(){localStorage.setItem("nx_cart",JSON.stringify(st.cart));}
+function ac(id){
+  var p=null;for(var i=0;i<PRODS.length;i++){if(PRODS[i].id===id){p=PRODS[i];break;}}
+  if(!p)return;
+  var ex=null;for(var j=0;j<st.cart.length;j++){if(st.cart[j].id===id){ex=st.cart[j];break;}}
+  if(ex)ex.qty++;else st.cart.push({id:id,n:p.n,p:p.p,e:p.e,qty:1});
   saveCart();updateCartUI();
-  toast('✅ '+p.n+' ajouté !');
-};
-function updateCartUI(){
-  const tot=st.cart.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('cartCount').textContent=tot;
-  const ci=document.getElementById('cartItems');
-  if(!st.cart.length){ci.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p>';document.getElementById('cartTotal').textContent='0,00 €';return;}
-  ci.innerHTML=st.cart.map(i=>'<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' €</div><div class="cart-item-qty"><button class="qty-btn" onclick="uq(''+i.id+'',-1)">−</button><span>'+i.qty+'</span><button class="qty-btn" onclick="uq(''+i.id+'',1)">+</button><button class="cart-item-remove" onclick="rc(''+i.id+'')">🗑</button></div></div></div>').join('');
-  document.getElementById('cartTotal').textContent=st.cart.reduce((s,i)=>s+i.p*i.qty,0).toFixed(2).replace('.',',')+' €';
+  showToast("\u2705 "+p.n+" ajout\u00e9 !");
 }
-window.uq=function(id,d){const i=st.cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)st.cart=st.cart.filter(x=>x.id!==id);saveCart();updateCartUI();};
-window.rc=function(id){st.cart=st.cart.filter(x=>x.id!==id);saveCart();updateCartUI();};
-window.toggleCart=function(){document.getElementById('cartSidebar').classList.toggle('open');};
-
-// WISH
-window.tw=function(e,id){
-  e.stopPropagation();
-  if(st.wish.includes(id))st.wish=st.wish.filter(x=>x!==id);
-  else st.wish.push(id);
-  localStorage.setItem('nx_wish',JSON.stringify(st.wish));
+function updateCartUI(){
+  var tot=0;st.cart.forEach(function(i){tot+=i.qty;});
+  document.getElementById("cartCount").textContent=tot;
+  var ci=document.getElementById("cartItems");
+  if(!st.cart.length){ci.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p>';document.getElementById("cartTotal").textContent="0,00 \u20ac";return;}
+  var h="";st.cart.forEach(function(i){
+    h+='<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' \u20ac</div><div class="cart-item-qty"><button class="qty-btn" onclick="uq(\"'+i.id+'\",-1)">\u2212</button><span>'+i.qty+'</span><button class="qty-btn" onclick="uq(\"'+i.id+'\",1)">+</button><button class="cart-item-remove" onclick="rc(\"'+i.id+'\")">&#128465;</button></div></div></div>';
+  });
+  ci.innerHTML=h;
+  var s=0;st.cart.forEach(function(i){s+=i.p*i.qty;});
+  document.getElementById("cartTotal").textContent=s.toFixed(2).replace(".",",")+" \u20ac";
+}
+function uq(id,d){var i=null;for(var j=0;j<st.cart.length;j++){if(st.cart[j].id===id){i=st.cart[j];break;}}if(!i)return;i.qty+=d;if(i.qty<=0)st.cart=st.cart.filter(function(x){return x.id!==id;});saveCart();updateCartUI();}
+function rc(id){st.cart=st.cart.filter(function(x){return x.id!==id;});saveCart();updateCartUI();}
+function toggleCart(){document.getElementById("cartSidebar").classList.toggle("open");}
+function toggleMenu(){document.getElementById("mobileMenu").classList.toggle("open");}
+window.uq=uq;window.rc=rc;window.toggleCart=toggleCart;window.toggleMenu=toggleMenu;
+function tw(id){
+  var idx=st.wish.indexOf(id);
+  if(idx>=0)st.wish.splice(idx,1);else st.wish.push(id);
+  localStorage.setItem("nx_wish",JSON.stringify(st.wish));
   render();
-};
-
-// TOAST
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-
-// URL PARAMS
-const up=new URLSearchParams(location.search);
-if(up.get('cat')){const el=document.querySelector('.cat-list a[onclick*="'+up.get('cat')+'"]');if(el)window.filterCat(up.get('cat'),el);}
-if(up.get('q')){document.getElementById('mainSearch').value=up.get('q');st.q=up.get('q');}
-
-// NAVBAR SCROLL
-window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
-window.toggleMenu=function(){document.getElementById('mobileMenu').classList.toggle('open');};
-
-// INIT
-updateCartUI();applyFilters();
+}
+function showToast(m){
+  var t=document.getElementById("toast");
+  t.textContent=m;t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},3000);
+}
+var up=new URLSearchParams(location.search);
+if(up.get("cat")){var a=document.querySelector(".cat-list a[onclick*=\""+up.get("cat")+"\"]");if(a){filterCat(up.get("cat"),a);}}
+if(up.get("q")){document.getElementById("mainSearch").value=up.get("q");st.q=up.get("q");}
+window.addEventListener("scroll",function(){document.getElementById("navbar").classList.toggle("scrolled",scrollY>20);});
+document.getElementById("navSearch").addEventListener("keydown",function(e){if(e.key==="Enter")doSearch();});
+document.getElementById("mainSearch").addEventListener("keydown",function(e){if(e.key==="Enter")doSearch();});
+updateCartUI();
+applyFilters();
 </script>
 </body>
 </html>
