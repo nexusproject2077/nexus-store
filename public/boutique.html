@@ -1,616 +1,413 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique - Tous nos produits | FLUX</title>
-    <meta name="description" content="Découvrez tous les produits FLUX : mode, électronique, maison, beauté, sport et bien plus. Livraison rapide, meilleurs prix.">
-    <meta name="keywords" content="boutique flux, mode, électronique, maison, beauté, sport, accessoires">
-    
-    <!-- Google Consent Mode v2 -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied'
-        });
-        window.acceptCookies = function() {
-            gtag('consent', 'update', {
-                'ad_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted',
-                'analytics_storage': 'granted'
-            });
-            localStorage.setItem('cookieConsent', 'accepted');
-            document.getElementById('cookieConsent').style.display = 'none';
-        };
-        window.refuseCookies = function() {
-            gtag('consent', 'update', {
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'analytics_storage': 'denied'
-            });
-            localStorage.setItem('cookieConsent', 'refused');
-            document.getElementById('cookieConsent').style.display = 'none';
-        };
-        window.addEventListener('DOMContentLoaded', function() {
-            const consent = localStorage.getItem('cookieConsent');
-            if (consent === 'accepted') {
-                acceptCookies();
-            } else if (consent === 'refused') {
-                refuseCookies();
-            } else {
-                setTimeout(function() {
-                    document.getElementById('cookieConsent').style.display = 'block';
-                }, 1000);
-            }
-        });
-    </script>
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5825303311354202"
-     crossorigin="anonymous"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    
-    <style>
-        .shop-hero {
-            background: var(--gray-100);
-            padding: 4rem 4%;
-            text-align: center;
-        }
-        .shop-hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 1rem;
-        }
-        .shop-hero p {
-            color: var(--gray-600);
-            font-size: 1.125rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .shop-container {
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 3rem 4%;
-        }
-        .shop-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .results-info {
-            font-size: 1rem;
-            color: var(--gray-600);
-        }
-        .results-info strong {
-            color: var(--black);
-            font-weight: 700;
-        }
-        .shop-controls {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .sort-select {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.9375rem;
-            background: var(--white);
-            cursor: pointer;
-        }
-        .filters-sidebar {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-        .sidebar-filters {
-            width: 250px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 100px;
-        }
-        .filter-group {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .filter-group:last-child {
-            border-bottom: none;
-        }
-        .filter-group h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-        }
-        .filter-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        .filter-option label {
-            cursor: pointer;
-            font-size: 0.9375rem;
-            color: var(--gray-700);
-        }
-        .filter-option:hover label {
-            color: var(--black);
-        }
-        .price-range {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        .price-input {
-            width: 100px;
-            padding: 0.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm);
-            font-size: 0.875rem;
-        }
-        .clear-filters {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--gray-100);
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-        .clear-filters:hover {
-            background: var(--gray-200);
-        }
-        .products-section {
-            flex: 1;
-        }
-        .no-results {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--gray-500);
-        }
-        .no-results svg {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 1rem;
-            color: var(--gray-300);
-        }
-        @media (max-width: 1024px) {
-            .filters-sidebar {
-                flex-direction: column;
-            }
-            .sidebar-filters {
-                width: 100%;
-                position: relative;
-                top: 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique — Nexus Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{--primary:#0ea5e9;--primary-dark:#0284c7;--bg:#0a0a1a;--surface:#111827;--border:#1e293b;--text:#f1f5f9;--text-muted:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--accent:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+.shop-layout{display:grid;grid-template-columns:270px 1fr;gap:24px;max-width:1400px;margin:0 auto;padding:100px 24px 40px;}
+.sidebar{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;height:fit-content;position:sticky;top:90px;}
+.sidebar h3{font-family:'Space Grotesk',sans-serif;font-size:.9rem;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.filter-group{margin-bottom:22px;}
+.filter-group label{display:block;font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.filter-group select,.price-range input{width:100%;background:#0a0a1a;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font-size:.88rem;outline:none;cursor:pointer;}
+.filter-group select:focus,.price-range input:focus{border-color:var(--primary);}
+.cat-list{list-style:none;}
+.cat-list li a{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:.88rem;transition:all .2s;}
+.cat-list li a:hover,.cat-list li a.active{background:rgba(14,165,233,.1);color:var(--primary);}
+.cat-list li a span{background:var(--border);color:var(--text-muted);padding:1px 7px;border-radius:20px;font-size:.72rem;}
+.price-range{display:flex;gap:8px;margin-top:6px;}
+.price-range input{width:50%;text-align:center;}
+.btn-apply{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:10px;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:4px;}
+.btn-apply:hover{background:var(--primary-dark);}
+.btn-reset{width:100%;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:.82rem;cursor:pointer;margin-top:8px;}
+.btn-reset:hover{border-color:var(--primary);color:var(--primary);}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:.82rem;color:var(--text-muted);}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;}.breadcrumb a:hover{color:var(--primary);}
+.breadcrumb span{color:var(--primary);}
+.shop-search{display:flex;margin-bottom:20px;}
+.shop-search input{flex:1;background:var(--surface);border:1px solid var(--border);border-right:none;color:var(--text);border-radius:12px 0 0 12px;padding:11px 14px;font-size:.92rem;outline:none;}
+.shop-search input:focus{border-color:var(--primary);}
+.shop-search button{background:var(--primary);border:none;color:#fff;padding:11px 18px;border-radius:0 12px 12px 0;cursor:pointer;}
+.shop-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.shop-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;}
+.shop-title span{color:var(--primary);}
+.shop-controls{display:flex;align-items:center;gap:10px;}
+.result-count{color:var(--text-muted);font-size:.85rem;}
+.sort-select{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 12px;font-size:.88rem;outline:none;cursor:pointer;}
+.view-toggle{display:flex;gap:4px;}
+.view-btn{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.view-btn.active,.view-btn:hover{background:rgba(14,165,233,.1);border-color:var(--primary);color:var(--primary);}
+.active-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.filter-tag{display:flex;align-items:center;gap:6px;background:rgba(14,165,233,.1);border:1px solid var(--primary);color:var(--primary);border-radius:20px;padding:3px 10px;font-size:.78rem;}
+.filter-tag button{background:none;border:none;color:var(--primary);cursor:pointer;font-size:.9rem;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;}
+.products-grid.list-view{grid-template-columns:1fr;}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .3s;cursor:pointer;position:relative;}
+.product-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 8px 24px rgba(14,165,233,.15);}
+.product-badge{position:absolute;top:10px;left:10px;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;z-index:2;}
+.badge-hot{background:#f59e0b;color:#000;}
+.badge-sale{background:#ef4444;color:#fff;}
+.badge-new{background:#10b981;color:#fff;}
+.product-img{width:100%;height:185px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1e293b,#0f172a);}
+.product-wishlist{position:absolute;top:10px;right:10px;background:rgba(10,10,26,.8);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:all .2s;z-index:2;}
+.product-wishlist:hover{border-color:var(--danger);}
+.product-wishlist.active{border-color:var(--danger);background:rgba(239,68,68,.15);}
+.product-info{padding:14px;}
+.product-vendor{font-size:.72rem;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+.product-name{font-weight:600;font-size:.92rem;margin-bottom:7px;line-height:1.4;}
+.product-rating{display:flex;align-items:center;gap:5px;margin-bottom:9px;}
+.stars{color:#f59e0b;font-size:.8rem;}
+.product-price-row{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary);}
+.product-price-old{text-decoration:line-through;color:var(--text-muted);font-size:.8rem;margin-right:4px;}
+.btn-cart{background:rgba(14,165,233,.1);border:1px solid var(--primary);color:var(--primary);border-radius:7px;padding:5px 12px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-cart:hover{background:var(--primary);color:#fff;}
+.products-grid.list-view .product-card{display:flex;}
+.products-grid.list-view .product-img{width:160px;height:140px;flex-shrink:0;}
+.products-grid.list-view .product-info{flex:1;}
+.pagination{display:flex;justify-content:center;gap:6px;margin-top:36px;}
+.page-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:.88rem;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.page-btn:hover,.page-btn.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+.page-btn:disabled{opacity:.3;cursor:not-allowed;}
+.skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--border) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:14px;height:300px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.toast{position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:10px;font-size:.88rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:280px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.cart-overlay{position:fixed;top:0;right:-420px;width:390px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1000;transition:right .3s;padding:22px;overflow-y:auto;display:flex;flex-direction:column;}
+.cart-overlay.open{right:0;}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.cart-header h3{font-family:'Space Grotesk',sans-serif;}
+.cart-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;}
+.cart-items{flex:1;overflow-y:auto;}
+.cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.cart-item-img{width:54px;height:54px;border-radius:8px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:.82rem;font-weight:600;margin-bottom:3px;}
+.cart-item-price{color:var(--primary);font-weight:700;font-size:.88rem;}
+.cart-item-qty{display:flex;align-items:center;gap:7px;margin-top:5px;}
+.qty-btn{background:var(--bg);border:1px solid var(--border);color:var(--text);width:22px;height:22px;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cart-item-remove{background:none;border:none;color:var(--text-muted);cursor:pointer;margin-left:auto;}
+.cart-footer{padding-top:14px;border-top:1px solid var(--border);}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;}
+.cart-total span:last-child{color:var(--primary);}
+.btn-checkout{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:700;cursor:pointer;}
+.btn-checkout:hover{opacity:.9;}
+.mobile-filter-btn{display:none;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 14px;font-size:.88rem;cursor:pointer;align-items:center;gap:6px;}
+@media(max-width:900px){.shop-layout{grid-template-columns:1fr;}.sidebar{display:none;position:fixed;top:0;left:-100%;width:270px;height:100vh;overflow-y:auto;z-index:999;transition:left .3s;border-radius:0;}.sidebar.open{display:block;left:0;}.mobile-filter-btn{display:flex;}}
+@media(max-width:600px){.shop-layout{padding:80px 12px 36px;}.products-grid{grid-template-columns:repeat(2,1fr);}.shop-header{flex-direction:column;align-items:flex-start;}}
+</style>
 </head>
 <body>
-    <!-- Cookie Consent -->
-    <div id="cookieConsent" class="cookie-consent">
-        <div class="cookie-content">
-            <div class="cookie-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
-                    <circle cx="8" cy="10" r="1" fill="currentColor"></circle>
-                    <circle cx="16" cy="10" r="1" fill="currentColor"></circle>
-                    <circle cx="10" cy="15" r="1" fill="currentColor"></circle>
-                    <circle cx="15" cy="14" r="1" fill="currentColor"></circle>
-                </svg>
-            </div>
-            <div class="cookie-text">
-                <h3>Nous respectons votre vie privée</h3>
-                <p>Ce site utilise des cookies pour améliorer votre expérience. <a href="politique-cookies.html">En savoir plus</a></p>
-            </div>
-            <div class="cookie-actions">
-                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accepter tout</button>
-                <button class="cookie-btn cookie-refuse" onclick="refuseCookies()">Refuser</button>
-            </div>
-        </div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">N</div><span>Nexus<span style="color:var(--primary)">Store</span></span></a>
+    <div class="nav-search">
+      <input type="text" id="navSearch" placeholder="Rechercher..." onkeydown="if(event.key==='Enter')applySearch()">
+      <button onclick="applySearch()">🔍</button>
     </div>
-
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo"><a href="index.html">FLUX</a></div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="boutique.html" class="active">Boutique</a></li>
-                <li><a href="nouveautes.html">Nouveautés</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="a-propos.html">À propos</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="search-btn" onclick="toggleSearch()" aria-label="Rechercher">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </button>
-                <button class="cart-btn" id="cartBtn" aria-label="Panier">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
-            </div>
-        </nav>
-        
-        <!-- Search Bar -->
-        <div class="search-bar-full" id="searchBar" style="display: none;">
-            <div class="container" style="max-width: 800px; padding: 2rem 4%;">
-                <div style="position: relative;">
-                    <input type="text" 
-                           id="searchInput" 
-                           placeholder="Rechercher des produits..." 
-                           style="width: 100%; padding: 1.25rem 3rem 1.25rem 1.5rem; font-size: 1.125rem; border: 2px solid var(--gray-300); border-radius: var(--radius-md); font-family: inherit;"
-                           autofocus>
-                    <button onclick="toggleSearch()" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 0.5rem;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Shop Hero -->
-    <section class="shop-hero">
-        <h1>Notre Boutique</h1>
-        <p>Découvrez tous nos produits : mode, électronique, maison, beauté, sport et bien plus. Les meilleurs prix, livrés chez vous.</p>
-    </section>
-
-    <!-- Main Content -->
-    <div class="shop-container">
-        <div class="shop-top">
-            <div class="results-info">
-                <strong id="productCount">0</strong> produits trouvés
-            </div>
-            <div class="shop-controls">
-                <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
-                    <option value="default">Trier par</option>
-                    <option value="name-asc">Nom (A-Z)</option>
-                    <option value="name-desc">Nom (Z-A)</option>
-                    <option value="price-asc">Prix croissant</option>
-                    <option value="price-desc">Prix décroissant</option>
-                    <option value="newest">Plus récents</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="filters-sidebar">
-            <!-- Sidebar Filters -->
-            <aside class="sidebar-filters">
-                <div class="filter-group">
-                    <h3>Catégories</h3>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-all" value="all" checked onchange="applyFilters()">
-                        <label for="cat-all">Tous les produits</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-mode" value="mode" onchange="applyFilters()">
-                        <label for="cat-mode">Mode & Vêtements</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-electronique" value="electronique" onchange="applyFilters()">
-                        <label for="cat-electronique">Électronique</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-maison" value="maison" onchange="applyFilters()">
-                        <label for="cat-maison">Maison & Jardin</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-beaute" value="beaute" onchange="applyFilters()">
-                        <label for="cat-beaute">Beauté & Santé</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-sport" value="sport" onchange="applyFilters()">
-                        <label for="cat-sport">Sport & Loisirs</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-auto" value="auto" onchange="applyFilters()">
-                        <label for="cat-auto">Auto & Moto</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-jouets" value="jouets" onchange="applyFilters()">
-                        <label for="cat-jouets">Jouets & Enfants</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-animaux" value="animaux" onchange="applyFilters()">
-                        <label for="cat-animaux">Animaux</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-accessories" value="accessories" onchange="applyFilters()">
-                        <label for="cat-accessories">Accessoires</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <h3>Prix</h3>
-                    <div class="price-range">
-                        <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0" onchange="applyFilters()">
-                        <span>-</span>
-                        <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0" onchange="applyFilters()">
-                    </div>
-                </div>
-
-                <button class="clear-filters" onclick="clearFilters()">Réinitialiser les filtres</button>
-            </aside>
-
-            <!-- Products Grid -->
-            <section class="products-section">
-                <div id="loadingState" class="loading">Chargement des produits...</div>
-                <div id="productsGrid" class="products-grid" style="display: none;"></div>
-                <div id="noResults" class="no-results" style="display: none;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <h3>Aucun produit trouvé</h3>
-                    <p>Essayez de modifier vos critères de recherche</p>
-                </div>
-            </section>
-        </div>
+    <div class="nav-actions">
+      <a href="vendeur.html" class="nav-link">Vendre</a>
+      <a href="abonnements.html" class="nav-link">Premium</a>
+      <button class="nav-btn" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></button>
+      <button class="nav-btn">👤</button>
     </div>
-
-    <!-- AdSense -->
-    <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5825303311354202"
-             data-ad-slot="SLOT_1"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a><a href="boutique.html">Boutique</a>
+  <a href="vendeur.html">Vendre</a><a href="abonnements.html">Premium</a>
+</div>
+<div class="cart-overlay" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 Panier</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><p style="color:var(--text-muted);text-align:center;padding:40px 0">Votre panier est vide</p></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+    <button class="btn-checkout" onclick="window.location.href='checkout.html'">Commander →</button>
+  </div>
+</div>
+<div class="shop-layout">
+  <aside class="sidebar" id="sidebar">
+    <h3>🎯 Filtres</h3>
+    <div class="filter-group">
+      <label>Catégories</label>
+      <ul class="cat-list" id="catList">
+        <li><a href="#" class="active" onclick="filterCat('all',this);return false">Tout <span id="cAll">24</span></a></li>
+        <li><a href="#" onclick="filterCat('electronique',this);return false">📱 Électronique <span id="cElec">8</span></a></li>
+        <li><a href="#" onclick="filterCat('mode',this);return false">👗 Mode <span id="cMode">3</span></a></li>
+        <li><a href="#" onclick="filterCat('maison',this);return false">🏠 Maison <span id="cMaison">4</span></a></li>
+        <li><a href="#" onclick="filterCat('sport',this);return false">⚽ Sport <span id="cSport">2</span></a></li>
+        <li><a href="#" onclick="filterCat('beaute',this);return false">💄 Beauté <span id="cBeaute">3</span></a></li>
+        <li><a href="#" onclick="filterCat('gaming',this);return false">🎮 Gaming <span id="cGaming">3</span></a></li>
+        <li><a href="#" onclick="filterCat('auto',this);return false">🚗 Auto <span id="cAuto">1</span></a></li>
+        <li><a href="#" onclick="filterCat('livres',this);return false">📚 Livres <span id="cLivres">1</span></a></li>
+      </ul>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>FLUX</h3>
-                    <p>Votre boutique multi-produits. Mode, tech, maison et plus.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Instagram">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Facebook">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Boutique</h4>
-                    <ul>
-                        <li><a href="nouveautes.html">Nouveautés</a></li>
-                        <li><a href="boutique.html">Tous les produits</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Aide</h4>
-                    <ul>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="cgv.html">CGV</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Légal</h4>
-                    <ul>
-                        <li><a href="mentions-legales.html">Mentions légales</a></li>
-                        <li><a href="politique-cookies.html">Cookies</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 FLUX. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cart Modal -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h2>Panier</h2>
-            <button class="close-cart" id="closeCart">×</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart"><p>Votre panier est vide</p></div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cartTotal">0,00 €</span>
-            </div>
-            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
-        </div>
+    <div class="filter-group">
+      <label>Prix (€)</label>
+      <div class="price-range">
+        <input type="number" id="priceMin" placeholder="Min">
+        <input type="number" id="priceMax" placeholder="Max">
+      </div>
     </div>
+    <div class="filter-group">
+      <label>Note minimale</label>
+      <select id="ratingFilter">
+        <option value="0">Toutes notes</option>
+        <option value="4">★★★★ 4+ étoiles</option>
+        <option value="3">★★★ 3+ étoiles</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Disponibilité</label>
+      <select id="stockFilter">
+        <option value="all">Tous</option>
+        <option value="in">En stock</option>
+        <option value="promo">En promotion</option>
+      </select>
+    </div>
+    <button class="btn-apply" onclick="applyFilters()">✓ Appliquer</button>
+    <button class="btn-reset" onclick="resetFilters()">✕ Réinitialiser</button>
+  </aside>
+  <main class="shop-main">
+    <div class="breadcrumb">
+      <a href="index.html">🏠 Accueil</a><span>›</span><span id="breadCat">Boutique</span>
+    </div>
+    <div class="shop-search">
+      <input type="text" id="mainSearch" placeholder="Rechercher dans la boutique..." onkeydown="if(event.key==='Enter')applySearch()">
+      <button onclick="applySearch()">🔍</button>
+    </div>
+    <div class="active-filters" id="activeFilters"></div>
+    <div class="shop-header">
+      <div>
+        <h1 class="shop-title" id="pageTitle">Tous les <span>produits</span></h1>
+        <p class="result-count" id="resultCount">Chargement...</p>
+      </div>
+      <div class="shop-controls">
+        <button class="mobile-filter-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">🎯 Filtres</button>
+        <select class="sort-select" id="sortSel" onchange="doSort()">
+          <option value="def">Pertinence</option>
+          <option value="pa">Prix croissant</option>
+          <option value="pd">Prix décroissant</option>
+          <option value="note">Meilleures notes</option>
+          <option value="new">Nouveautés</option>
+          <option value="sold">Meilleures ventes</option>
+        </select>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gBtn" onclick="setView('g')">⊞</button>
+          <button class="view-btn" id="lBtn" onclick="setView('l')">≡</button>
+        </div>
+      </div>
+    </div>
+    <div class="products-grid" id="prodGrid">
+      <div class="skeleton"></div><div class="skeleton"></div>
+      <div class="skeleton"></div><div class="skeleton"></div>
+      <div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <div class="pagination" id="pgn"></div>
+  </main>
+</div>
+<div class="toast" id="toast"></div><script>
+const PRODS=[
+  {id:'p1',n:'iPhone 15 Pro Max',v:'TechShop Pro',c:'electronique',p:1299,op:1499,r:4.8,rv:2847,b:'hot',e:'📱',s:15420},
+  {id:'p2',n:'Samsung QLED 65"',v:'ElectroPlanet',c:'electronique',p:799,op:1199,r:4.7,rv:1203,b:'sale',e:'📺',s:3201},
+  {id:'p3',n:'MacBook Pro M3',v:'Apple Reseller',c:'electronique',p:2199,op:null,r:4.9,rv:892,b:'new',e:'💻',s:7654},
+  {id:'p4',n:'Nike Air Max 2024',v:'SportZone',c:'mode',p:129,op:159,r:4.6,rv:4521,b:'sale',e:'👟',s:28900},
+  {id:'p5',n:'Canapé Design Moderne',v:'MaisonLux',c:'maison',p:899,op:1299,r:4.5,rv:342,b:null,e:'🛋️',s:1234},
+  {id:'p6',n:'PS5 + Controller',v:'GameWorld',c:'gaming',p:549,op:null,r:4.9,rv:12034,b:'hot',e:'🎮',s:45231},
+  {id:'p7',n:'Parfum Boss Bottled',v:'BeautyParis',c:'beaute',p:89,op:119,r:4.4,rv:2109,b:'sale',e:'🌸',s:9876},
+  {id:'p8',n:'Vélo Électrique 500W',v:'SportMoto',c:'sport',p:1199,op:1499,r:4.7,rv:567,b:null,e:'🚴',s:2341},
+  {id:'p9',n:'Drone DJI Mini 4 Pro',v:'TechShop Pro',c:'electronique',p:759,op:899,r:4.8,rv:3201,b:'sale',e:'🚁',s:8765},
+  {id:'p10',n:'AirPods Pro 2',v:'Apple Reseller',c:'electronique',p:279,op:null,r:4.8,rv:15678,b:'hot',e:'🎧',s:67890},
+  {id:'p11',n:'Robe Soirée Élégante',v:'FashionNexus',c:'mode',p:159,op:229,r:4.5,rv:876,b:'sale',e:'👗',s:4567},
+  {id:'p12',n:'Robot Cuisine 1200W',v:'MaisonLux',c:'maison',p:349,op:499,r:4.6,rv:1432,b:'sale',e:'🍳',s:5678},
+  {id:'p13',n:'Montre Connectée Ultra',v:'TechShop Pro',c:'electronique',p:399,op:null,r:4.7,rv:2345,b:'new',e:'⌚',s:12345},
+  {id:'p14',n:'FIFA 25 PS5',v:'GameWorld',c:'gaming',p:69,op:null,r:4.3,rv:8901,b:'new',e:'⚽',s:34567},
+  {id:'p15',n:'Crème Anti-Âge Luxe',v:'BeautyParis',c:'beaute',p:129,op:179,r:4.6,rv:1234,b:'sale',e:'✨',s:6543},
+  {id:'p16',n:'Tente Camping 4P',v:'SportMoto',c:'sport',p:299,op:399,r:4.5,rv:654,b:'sale',e:'⛺',s:3456},
+  {id:'p17',n:'Accessoires BMW Pack',v:'AutoPremium',c:'auto',p:249,op:null,r:4.4,rv:432,b:'new',e:'🚗',s:2109},
+  {id:'p18',n:'Harry Potter Complet',v:'LibrairieNexus',c:'livres',p:89,op:120,r:4.9,rv:5432,b:'sale',e:'📚',s:23456},
+  {id:'p19',n:'RTX 4090 Gaming GPU',v:'TechShop Pro',c:'gaming',p:1599,op:null,r:4.9,rv:987,b:'hot',e:'🖥️',s:4321},
+  {id:'p20',n:'Aspirateur Robot Pro',v:'MaisonLux',c:'maison',p:499,op:699,r:4.7,rv:2098,b:'sale',e:'🤖',s:8765},
+  {id:'p21',n:'Jordan 4 Retro',v:'SportZone',c:'mode',p:189,op:220,r:4.8,rv:6789,b:'hot',e:'👠',s:34567},
+  {id:'p22',n:'Palette Maquillage Pro',v:'BeautyParis',c:'beaute',p:79,op:null,r:4.5,rv:3456,b:'new',e:'💄',s:12987},
+  {id:'p23',n:'Enceinte Sonos Era 300',v:'ElectroPlanet',c:'electronique',p:449,op:null,r:4.6,rv:1876,b:null,e:'🔊',s:5432},
+  {id:'p24',n:'Tableau Déco Moderne',v:'MaisonLux',c:'maison',p:199,op:279,r:4.4,rv:543,b:'sale',e:'🖼️',s:2876},
+];
+let st={all:[...PRODS],fil:[...PRODS],cat:'all',q:'',page:1,pp:12,view:'g',
+  cart:JSON.parse(localStorage.getItem('nx_cart')||'[]'),
+  wish:JSON.parse(localStorage.getItem('nx_wish')||'[]')};
 
-    <div class="toast" id="toast"></div>
+function render(){
+  const g=document.getElementById('prodGrid');
+  const pg=st.fil.slice((st.page-1)*st.pp, st.page*st.pp);
+  g.innerHTML='';
+  g.className='products-grid'+(st.view==='l'?' list-view':'');
+  if(!pg.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)"><div style="font-size:3rem;margin-bottom:12px">😔</div><h3>Aucun produit trouvé</h3><p>Modifiez vos filtres</p></div>';return;}
+  pg.forEach(p=>{
+    const inW=st.wish.includes(p.id);
+    const d=document.createElement('div');
+    d.className='product-card';
+    d.onclick=()=>location.href='produit.html?id='+p.id;
+    d.innerHTML=(p.b?'<div class="product-badge badge-'+p.b+'">'+({hot:'🔥 Top',sale:'PROMO',new:'NOUVEAU'}[p.b])+'</div>':'')+
+      '<div class="product-img">'+p.e+'</div>'+
+      '<div class="product-wishlist'+(inW?' active':'')+ '" onclick="tw(event,''+p.id+'')">'+(inW?'❤️':'🤍')+'</div>'+
+      '<div class="product-info">'+
+        '<div class="product-vendor">'+p.v+'</div>'+
+        '<div class="product-name">'+p.n+'</div>'+
+        '<div class="product-rating"><span class="stars">'+'★'.repeat(Math.floor(p.r))+'☆'.repeat(5-Math.floor(p.r))+'</span><span style="font-size:.75rem;color:var(--text-muted)"> '+p.r+' ('+p.rv.toLocaleString()+')</span></div>'+
+        '<div class="product-price-row">'+
+          '<div>'+(p.op?'<span class="product-price-old">'+p.op+'€</span>':'')+
+            '<span class="product-price">'+p.p.toLocaleString()+' €</span></div>'+
+          '<button class="btn-cart" onclick="ac(event,''+p.id+'')">+ Panier</button>'+
+        '</div>'+
+      '</div>';
+    g.appendChild(d);
+  });
+  document.getElementById('resultCount').textContent=st.fil.length+' produit'+(st.fil.length>1?'s':'')+' trouvé'+(st.fil.length>1?'s':'');
+  renderPgn();
+}
 
-    <script src="script.js"></script>
-    <script>
-        // Search toggle
-        function toggleSearch() {
-            const searchBar = document.getElementById('searchBar');
-            const isVisible = searchBar.style.display !== 'none';
-            searchBar.style.display = isVisible ? 'none' : 'block';
-            if (!isVisible) {
-                document.getElementById('searchInput').focus();
-            }
-        }
+function renderPgn(){
+  const tot=Math.ceil(st.fil.length/st.pp),p=document.getElementById('pgn');
+  p.innerHTML='';if(tot<=1)return;
+  const prev=el('button','page-btn'); prev.textContent='‹';prev.disabled=st.page<=1;
+  prev.onclick=()=>{st.page--;render();window.scrollTo(0,0);}; p.appendChild(prev);
+  for(let i=1;i<=tot;i++){
+    if(i>6&&i<tot-1){if(i===7){const s=document.createElement('span');s.textContent='...';s.style.color='var(--text-muted)';p.appendChild(s);}continue;}
+    const b=el('button','page-btn'+(i===st.page?' active':''));b.textContent=i;
+    const pg=i;b.onclick=()=>{st.page=pg;render();window.scrollTo(0,0);}; p.appendChild(b);
+  }
+  const next=el('button','page-btn');next.textContent='›';next.disabled=st.page>=tot;
+  next.onclick=()=>{st.page++;render();window.scrollTo(0,0);}; p.appendChild(next);
+}
 
-        // Search input handler
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    searchProducts(e.target.value);
-                });
-            }
-            
-            // Load products
-            loadShopProducts();
-        });
+function el(tag,cls){const e=document.createElement(tag);e.className=cls;return e;}
 
-        // Load products for shop page
-        async function loadShopProducts() {
-            try {
-                const response = await fetch(`${API_BASE}/products`);
-                const data = await response.json();
-                
-                if (data.success && data.products && data.products.length > 0) {
-                    window.allProducts = data.products;
-                } else {
-                    loadDemoProducts();
-                }
-                
-                applyFilters();
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('productsGrid').style.display = 'grid';
-            } catch (error) {
-                loadDemoProducts();
-                applyFilters();
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('productsGrid').style.display = 'grid';
-            }
-        }
+function applyFilters(){
+  let f=[...st.all];
+  if(st.cat!=='all')f=f.filter(p=>p.c===st.cat);
+  if(st.q)f=f.filter(p=>p.n.toLowerCase().includes(st.q)||p.v.toLowerCase().includes(st.q));
+  const mn=parseFloat(document.getElementById('priceMin').value);
+  const mx=parseFloat(document.getElementById('priceMax').value);
+  if(!isNaN(mn)&&mn>0)f=f.filter(p=>p.p>=mn);
+  if(!isNaN(mx)&&mx>0)f=f.filter(p=>p.p<=mx);
+  const rt=parseInt(document.getElementById('ratingFilter').value);
+  if(rt>0)f=f.filter(p=>p.r>=rt);
+  const sk=document.getElementById('stockFilter').value;
+  if(sk==='promo')f=f.filter(p=>p.op);
+  st.fil=f;st.page=1;doSort(false);render();renderTags();
+}
+window.applyFilters=applyFilters;
 
-        // Category keywords mapping
-        const categoryKeywords = {
-            mode: ['t-shirt', 'hoodie', 'sweat', 'shirt', 'jean', 'pantalon', 'robe', 'veste', 'jacket', 'dress', 'clothing', 'vêtement', 'fashion', 'top', 'crop', 'polo', 'chemise', 'manteau', 'coat', 'pull', 'hauts', 'sacs', 'bag'],
-            electronique: ['phone', 'téléphone', 'laptop', 'ordinateur', 'tablet', 'tablette', 'écouteur', 'headphone', 'speaker', 'camera', 'electronic', 'tech', 'usb', 'cable', 'chargeur', 'charger', 'bluetooth', 'smart', 'watch', 'montre', 'led', 'hdmi', 'batterie', 'power bank'],
-            maison: ['maison', 'home', 'garden', 'jardin', 'cuisine', 'kitchen', 'lamp', 'lampe', 'meuble', 'furniture', 'décor', 'decor', 'tapis', 'rug', 'rideau', 'curtain', 'oreiller', 'pillow', 'rangement', 'storage', 'bathroom', 'salle de bain'],
-            beaute: ['beauté', 'beauty', 'maquillage', 'makeup', 'skincare', 'soin', 'parfum', 'perfume', 'cheveux', 'hair', 'crème', 'cream', 'santé', 'health', 'fitness', 'bien-être', 'wellness', 'cosmétique'],
-            sport: ['sport', 'fitness', 'gym', 'yoga', 'running', 'vélo', 'bike', 'camping', 'outdoor', 'randonnée', 'hiking', 'football', 'basketball', 'tennis', 'natation', 'swimming', 'pêche', 'fishing', 'loisir'],
-            auto: ['auto', 'moto', 'voiture', 'car', 'motorcycle', 'véhicule', 'vehicle', 'pneu', 'tire', 'gps', 'dashcam', 'accessoire auto', 'garage', 'parking'],
-            jouets: ['jouet', 'toy', 'enfant', 'kid', 'bébé', 'baby', 'jeu', 'game', 'puzzle', 'peluche', 'plush', 'lego', 'poupée', 'doll', 'éducatif', 'educational'],
-            animaux: ['animal', 'pet', 'chien', 'dog', 'chat', 'cat', 'aquarium', 'fish', 'oiseau', 'bird', 'laisse', 'leash', 'litière', 'litter', 'croquette', 'gamelle'],
-            accessories: ['accessoire', 'accessory', 'casquette', 'cap', 'lunettes', 'sunglasses', 'ceinture', 'belt', 'bijou', 'jewelry', 'montre', 'watch', 'sac', 'bag', 'portefeuille', 'wallet', 'écharpe', 'scarf']
-        };
+function doSort(r=true){
+  const s=document.getElementById('sortSel').value;
+  const d=r?st.fil:[...st.fil];
+  if(s==='pa')d.sort((a,b)=>a.p-b.p);
+  else if(s==='pd')d.sort((a,b)=>b.p-a.p);
+  else if(s==='note')d.sort((a,b)=>b.r-a.r);
+  else if(s==='sold')d.sort((a,b)=>b.s-a.s);
+  else if(s==='new')d.sort((a,b)=>(b.b==='new'?1:0)-(a.b==='new'?1:0));
+  if(r){st.fil=[...d];render();}
+}
+window.doSort=doSort;
 
-        // Apply filters
-        function applyFilters() {
-            let filtered = [...(window.allProducts || state.products)];
+window.applySearch=function(){
+  st.q=(document.getElementById('mainSearch').value||document.getElementById('navSearch').value).toLowerCase();
+  applyFilters();
+};
+window.filterCat=function(c,el){
+  st.cat=c;
+  document.querySelectorAll('.cat-list a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+  const t={all:'Boutique',electronique:'Électronique',mode:'Mode',maison:'Maison & Déco',sport:'Sport',beaute:'Beauté',gaming:'Gaming',auto:'Auto',livres:'Livres'};
+  document.getElementById('breadCat').textContent=t[c]||c;
+  document.getElementById('pageTitle').innerHTML=(t[c]||c).replace(/s(S+)$/,' <span>$1</span>');
+  applyFilters();
+};
+window.resetFilters=function(){
+  st.cat='all';st.q='';
+  document.getElementById('priceMin').value='';
+  document.getElementById('priceMax').value='';
+  document.getElementById('ratingFilter').value='0';
+  document.getElementById('stockFilter').value='all';
+  document.getElementById('mainSearch').value='';
+  document.querySelectorAll('.cat-list a').forEach((a,i)=>a.classList.toggle('active',i===0));
+  st.fil=[...st.all];render();renderTags();
+};
+window.setView=function(v){
+  st.view=v;
+  document.getElementById('gBtn').classList.toggle('active',v==='g');
+  document.getElementById('lBtn').classList.toggle('active',v==='l');
+  render();
+};
 
-            // Category filters
-            const selectedCategories = [];
-            Object.keys(categoryKeywords).forEach(cat => {
-                const el = document.getElementById('cat-' + cat);
-                if (el && el.checked) selectedCategories.push(cat);
-            });
+function renderTags(){
+  const tags=[];
+  if(st.cat!=='all')tags.push({l:'📂 '+st.cat,k:'cat'});
+  if(st.q)tags.push({l:'🔍 "'+st.q+'"',k:'q'});
+  document.getElementById('activeFilters').innerHTML=tags.map(t=>
+    '<div class="filter-tag">'+t.l+'<button onclick="rmTag(''+t.k+'')">✕</button></div>'
+  ).join('');
+}
+window.rmTag=function(k){
+  if(k==='cat'){st.cat='all';document.querySelectorAll('.cat-list a').forEach((a,i)=>a.classList.toggle('active',i===0));}
+  if(k==='q'){st.q='';document.getElementById('mainSearch').value='';}
+  applyFilters();
+};
 
-            if (selectedCategories.length > 0 && !document.getElementById('cat-all').checked) {
-                filtered = filtered.filter(p => {
-                    const name = (p.name || '').toLowerCase();
-                    const category = (p.category || '').toLowerCase();
-                    const combined = name + ' ' + category;
+// CART
+function saveCart(){localStorage.setItem('nx_cart',JSON.stringify(st.cart));}
+window.ac=function(e,id){
+  e.stopPropagation();
+  const p=PRODS.find(x=>x.id===id);if(!p)return;
+  const ex=st.cart.find(x=>x.id===id);
+  if(ex)ex.qty++;
+  else st.cart.push({id,n:p.n,p:p.p,e:p.e,qty:1});
+  saveCart();updateCartUI();
+  toast('✅ '+p.n+' ajouté !');
+};
+function updateCartUI(){
+  const tot=st.cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=tot;
+  const ci=document.getElementById('cartItems');
+  if(!st.cart.length){ci.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p>';document.getElementById('cartTotal').textContent='0,00 €';return;}
+  ci.innerHTML=st.cart.map(i=>'<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' €</div><div class="cart-item-qty"><button class="qty-btn" onclick="uq(''+i.id+'',-1)">−</button><span>'+i.qty+'</span><button class="qty-btn" onclick="uq(''+i.id+'',1)">+</button><button class="cart-item-remove" onclick="rc(''+i.id+'')">🗑</button></div></div></div>').join('');
+  document.getElementById('cartTotal').textContent=st.cart.reduce((s,i)=>s+i.p*i.qty,0).toFixed(2).replace('.',',')+' €';
+}
+window.uq=function(id,d){const i=st.cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)st.cart=st.cart.filter(x=>x.id!==id);saveCart();updateCartUI();};
+window.rc=function(id){st.cart=st.cart.filter(x=>x.id!==id);saveCart();updateCartUI();};
+window.toggleCart=function(){document.getElementById('cartSidebar').classList.toggle('open');};
 
-                    return selectedCategories.some(cat => {
-                        const keywords = categoryKeywords[cat] || [];
-                        return keywords.some(kw => combined.includes(kw));
-                    });
-                });
-            }
+// WISH
+window.tw=function(e,id){
+  e.stopPropagation();
+  if(st.wish.includes(id))st.wish=st.wish.filter(x=>x!==id);
+  else st.wish.push(id);
+  localStorage.setItem('nx_wish',JSON.stringify(st.wish));
+  render();
+};
 
-            // Price filters
-            const minPrice = parseFloat(document.getElementById('priceMin').value) || 0;
-            const maxPrice = parseFloat(document.getElementById('priceMax').value) || Infinity;
-            filtered = filtered.filter(p => {
-                const price = parseFloat(p.price) || 0;
-                return price >= minPrice && price <= maxPrice;
-            });
+// TOAST
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
-            displayShopProducts(filtered);
-        }
+// URL PARAMS
+const up=new URLSearchParams(location.search);
+if(up.get('cat')){const el=document.querySelector('.cat-list a[onclick*="'+up.get('cat')+'"]');if(el)window.filterCat(up.get('cat'),el);}
+if(up.get('q')){document.getElementById('mainSearch').value=up.get('q');st.q=up.get('q');}
 
-        // Sort products
-        function sortProducts(sortBy) {
-            let filtered = [...(window.currentFiltered || [])];
-            
-            switch(sortBy) {
-                case 'name-asc':
-                    filtered.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
-                case 'name-desc':
-                    filtered.sort((a, b) => b.name.localeCompare(a.name));
-                    break;
-                case 'price-asc':
-                    filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-                    break;
-                case 'price-desc':
-                    filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-                    break;
-            }
-            
-            displayShopProducts(filtered);
-        }
+// NAVBAR SCROLL
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
+window.toggleMenu=function(){document.getElementById('mobileMenu').classList.toggle('open');};
 
-        // Display products
-        function displayShopProducts(products) {
-            window.currentFiltered = products;
-            const grid = document.getElementById('productsGrid');
-            const noResults = document.getElementById('noResults');
-            
-            document.getElementById('productCount').textContent = products.length;
-            
-            if (products.length === 0) {
-                grid.style.display = 'none';
-                noResults.style.display = 'block';
-                return;
-            }
-            
-            grid.style.display = 'grid';
-            noResults.style.display = 'none';
-            
-            displayProducts(products, grid);
-        }
-
-        // Clear filters
-        function clearFilters() {
-            document.getElementById('cat-all').checked = true;
-            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(cb => {
-                if (cb.id !== 'cat-all') cb.checked = false;
-            });
-            document.getElementById('priceMin').value = '';
-            document.getElementById('priceMax').value = '';
-            document.getElementById('sortSelect').value = 'default';
-            applyFilters();
-        }
-    </script>
+// INIT
+updateCartUI();applyFilters();
+</script>
 </body>
 </html>
