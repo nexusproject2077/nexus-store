@@ -1,838 +1,422 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Produit | FLUX</title>
-    <meta name="description" content="Détails du produit FLUX - Qualité premium, livraison rapide">
-
-    <!-- Google Consent Mode v2 -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'default', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});
-        window.acceptCookies = function() {
-            gtag('consent', 'update', {'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted', 'analytics_storage': 'granted'});
-            localStorage.setItem('cookieConsent', 'accepted');
-            document.getElementById('cookieConsent').style.display = 'none';
-        };
-        window.refuseCookies = function() {
-            gtag('consent', 'update', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});
-            localStorage.setItem('cookieConsent', 'refused');
-            document.getElementById('cookieConsent').style.display = 'none';
-        };
-        window.addEventListener('DOMContentLoaded', function() {
-            const consent = localStorage.getItem('cookieConsent');
-            if (consent === 'accepted') acceptCookies();
-            else if (consent === 'refused') refuseCookies();
-            else setTimeout(() => document.getElementById('cookieConsent').style.display = 'block', 1000);
-        });
-    </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5825303311354202" crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-
-    <style>
-        /* ===== PRODUCT PAGE LAYOUT ===== */
-        .breadcrumb { max-width: 1400px; margin: 0 auto; padding: 1rem 4%; font-size: 0.875rem; color: var(--gray-500); }
-        .breadcrumb a { color: var(--gray-500); }
-        .breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
-        .breadcrumb .sep { margin: 0 0.5rem; }
-
-        .product-page { max-width: 1400px; margin: 0 auto; padding: 0 4% 3rem; }
-        .product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-
-        /* ===== GALLERY ===== */
-        .product-gallery { position: sticky; top: 100px; }
-        .main-image { width: 100%; aspect-ratio: 1; background: var(--gray-100); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1rem; cursor: zoom-in; position: relative; }
-        .main-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .main-image:hover img { transform: scale(1.05); }
-        .thumbnail-gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
-        .thumbnail { aspect-ratio: 1; background: var(--gray-100); border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
-        .thumbnail:hover, .thumbnail.active { border-color: var(--black); }
-        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* ===== PRODUCT INFO ===== */
-        .product-info h1 { font-family: var(--font-display); font-size: 2.25rem; margin-bottom: 0.75rem; letter-spacing: 1px; line-height: 1.1; }
-
-        /* Rating summary */
-        .rating-summary { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-200); }
-        .rating-stars { display: flex; gap: 2px; }
-        .rating-score { font-weight: 700; font-size: 1rem; color: var(--black); }
-        .rating-count-link { font-size: 0.875rem; color: #0066c0; cursor: pointer; }
-        .rating-count-link:hover { color: var(--accent); text-decoration: underline; }
-
-        /* Price */
-        .product-price-box { margin: 1rem 0 1.5rem; padding: 1.25rem 1.5rem; background: var(--gray-50); border-radius: var(--radius-md); border: 1px solid var(--gray-200); }
-        .price-label { font-size: 0.8125rem; color: var(--gray-500); margin-bottom: 0.25rem; }
-        .product-price { font-size: 2rem; font-weight: 700; color: var(--black); }
-        .product-price .currency { font-size: 1.125rem; vertical-align: super; }
-        .product-price-old { font-size: 1rem; text-decoration: line-through; color: var(--gray-400); margin-left: 0.75rem; }
-        .price-savings { display: inline-block; background: #cc0c39; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); margin-left: 0.75rem; }
-        .price-tax-info { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.5rem; }
-
-        /* Stock & Shipping */
-        .stock-shipping { margin: 1rem 0; }
-        .stock-status { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .stock-status.in-stock { color: #007600; }
-        .stock-status svg { flex-shrink: 0; }
-        .shipping-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--gray-600); }
-        .shipping-info svg { color: var(--gray-500); flex-shrink: 0; }
-
-        /* Options */
-        .option-group { margin: 1.5rem 0; }
-        .option-label { font-weight: 700; font-size: 0.875rem; margin-bottom: 0.75rem; display: block; }
-        .color-options, .size-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .color-option { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; position: relative; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); }
-        .color-option:hover, .color-option.active { border-color: var(--black); transform: scale(1.1); }
-        .color-option.active::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
-        .size-option { padding: 0.625rem 1.25rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; font-size: 0.875rem; transition: all 0.2s; background: var(--white); }
-        .size-option:hover { border-color: var(--black); }
-        .size-option.active { background: var(--black); color: var(--white); border-color: var(--black); }
-
-        /* Quantity & Add to Cart */
-        .buy-section { margin: 1.5rem 0; display: flex; gap: 1rem; align-items: stretch; }
-        .quantity-controls { display: flex; align-items: center; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); overflow: hidden; }
-        .quantity-btn { padding: 0.75rem 1rem; background: var(--gray-50); border: none; cursor: pointer; font-size: 1.125rem; font-weight: 700; transition: background 0.2s; }
-        .quantity-btn:hover { background: var(--gray-200); }
-        .quantity-input { width: 48px; text-align: center; border: none; font-weight: 700; font-size: 1rem; background: white; }
-        .add-to-cart-btn-large { flex: 1; padding: 1rem 2rem; background: var(--black); color: var(--white); border: none; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; cursor: pointer; border-radius: var(--radius-sm); transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
-        .add-to-cart-btn-large:hover { background: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .add-to-cart-btn-large:disabled { background: var(--gray-300); cursor: not-allowed; transform: none; box-shadow: none; }
-        .add-to-cart-btn-large svg { flex-shrink: 0; }
-
-        /* Trust badges */
-        .trust-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; padding: 1.5rem; background: var(--gray-50); border-radius: var(--radius-md); border: 1px solid var(--gray-200); }
-        .trust-badge { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-        .trust-badge svg { width: 28px; height: 28px; color: var(--gray-700); }
-        .trust-badge-title { font-weight: 600; font-size: 0.75rem; color: var(--gray-700); line-height: 1.3; }
-
-        /* ===== TABS SECTION ===== */
-        .product-tabs { max-width: 1400px; margin: 0 auto; padding: 0 4% 3rem; }
-        .tabs-nav { display: flex; border-bottom: 2px solid var(--gray-200); margin-bottom: 2rem; gap: 0; }
-        .tab-btn { padding: 1rem 2rem; background: none; border: none; font-weight: 600; font-size: 0.9375rem; color: var(--gray-500); cursor: pointer; position: relative; transition: color 0.2s; }
-        .tab-btn:hover { color: var(--black); }
-        .tab-btn.active { color: var(--black); }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--black); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* Description tab */
-        .description-content { max-width: 800px; line-height: 1.8; color: var(--gray-700); }
-        .description-content h3 { font-size: 1.25rem; font-weight: 700; color: var(--black); margin: 2rem 0 1rem; }
-        .description-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
-        .description-content li { margin-bottom: 0.5rem; }
-
-        /* Specs tab */
-        .specs-table { width: 100%; max-width: 800px; border-collapse: collapse; }
-        .specs-table tr:nth-child(even) { background: var(--gray-50); }
-        .specs-table td { padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9375rem; }
-        .specs-table td:first-child { font-weight: 600; color: var(--gray-600); width: 40%; }
-
-        /* Reviews tab */
-        .reviews-section { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; }
-        .reviews-summary { position: sticky; top: 100px; }
-        .reviews-average { text-align: center; margin-bottom: 1.5rem; }
-        .reviews-average .score { font-size: 3rem; font-weight: 700; }
-        .reviews-average .out-of { font-size: 1rem; color: var(--gray-500); }
-        .reviews-average .stars-large { display: flex; justify-content: center; gap: 2px; margin: 0.5rem 0; }
-        .reviews-average .total-reviews { font-size: 0.875rem; color: var(--gray-500); }
-        .rating-bars { margin-top: 1rem; }
-        .rating-bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; cursor: pointer; }
-        .rating-bar-row:hover .bar-fill { opacity: 0.8; }
-        .rating-bar-label { font-size: 0.8125rem; font-weight: 600; white-space: nowrap; min-width: 50px; }
-        .bar-track { flex: 1; height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
-        .bar-fill { height: 100%; background: #ff9500; border-radius: 4px; transition: width 0.5s; }
-        .rating-bar-pct { font-size: 0.8125rem; color: var(--gray-500); min-width: 35px; text-align: right; }
-
-        .reviews-list { }
-        .reviews-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .reviews-list-header h3 { font-size: 1.25rem; font-weight: 700; }
-        .reviews-sort { padding: 0.5rem 1rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem; background: white; }
-
-        .review-card { padding: 1.5rem 0; border-bottom: 1px solid var(--gray-200); }
-        .review-card:last-child { border-bottom: none; }
-        .review-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: var(--gray-600); flex-shrink: 0; }
-        .review-author { font-weight: 600; font-size: 0.875rem; }
-        .review-verified { display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: #007600; font-weight: 500; }
-        .review-verified svg { width: 14px; height: 14px; }
-        .review-stars-date { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
-        .review-title { font-weight: 700; }
-        .review-date { font-size: 0.8125rem; color: var(--gray-500); }
-        .review-body { line-height: 1.7; color: var(--gray-700); margin-bottom: 0.75rem; }
-        .review-helpful { display: flex; align-items: center; gap: 1rem; font-size: 0.8125rem; color: var(--gray-500); }
-        .review-helpful-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.75rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); background: white; cursor: pointer; font-size: 0.8125rem; color: var(--gray-600); transition: all 0.2s; }
-        .review-helpful-btn:hover { border-color: var(--black); color: var(--black); }
-        .review-helpful-btn svg { width: 14px; height: 14px; }
-
-        /* Q&A tab */
-        .qa-list { max-width: 800px; }
-        .qa-item { padding: 1.5rem 0; border-bottom: 1px solid var(--gray-200); }
-        .qa-question { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
-        .qa-label { font-weight: 700; color: var(--black); font-size: 1rem; flex-shrink: 0; }
-        .qa-text { font-weight: 600; font-size: 0.9375rem; }
-        .qa-answer { display: flex; gap: 0.75rem; padding-left: 1.5rem; }
-        .qa-answer .qa-label { color: var(--accent); }
-        .qa-answer .qa-text { font-weight: 400; color: var(--gray-700); line-height: 1.6; }
-        .qa-meta { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
-
-        /* ===== PRODUCT CATEGORY (in info) ===== */
-        .product-category { color: var(--gray-500); font-size: 0.8125rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        .error-message { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 1.25rem; border-radius: var(--radius-md); margin: 1rem 0; display: flex; align-items: center; gap: 0.75rem; }
-        .error-message svg { flex-shrink: 0; }
-
-        @media (max-width: 1024px) {
-            .product-layout { grid-template-columns: 1fr; gap: 2rem; }
-            .product-gallery { position: relative; top: 0; }
-            .trust-badges { grid-template-columns: repeat(2, 1fr); }
-            .reviews-section { grid-template-columns: 1fr; }
-            .reviews-summary { position: relative; top: 0; }
-        }
-        @media (max-width: 768px) {
-            .trust-badges { grid-template-columns: 1fr 1fr; }
-            .tabs-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-            .tab-btn { white-space: nowrap; padding: 1rem 1.25rem; font-size: 0.8125rem; }
-            .buy-section { flex-direction: column; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Produit — Nexus Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{--primary:#0ea5e9;--primary-dark:#0284c7;--bg:#0a0a1a;--surface:#111827;--border:#1e293b;--text:#f1f5f9;--text-muted:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--accent:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+.prod-page{max-width:1300px;margin:0 auto;padding:100px 24px 60px;}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;font-size:.82rem;color:var(--text-muted);}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;}.breadcrumb a:hover{color:var(--primary);}
+.prod-main{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:60px;}
+/* GALLERY */
+.gallery{display:flex;flex-direction:column;gap:12px;}
+.gallery-main{background:var(--surface);border:1px solid var(--border);border-radius:16px;height:420px;display:flex;align-items:center;justify-content:center;font-size:8rem;position:relative;overflow:hidden;}
+.gallery-main::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(14,165,233,.05) 0%,transparent 70%);}
+.gallery-thumbs{display:flex;gap:10px;}
+.thumb{width:80px;height:80px;background:var(--surface);border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:pointer;transition:all .2s;}
+.thumb:hover,.thumb.active{border-color:var(--primary);}
+/* PRODUCT INFO */
+.prod-info{}
+.prod-vendor-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.prod-vendor-badge{background:rgba(14,165,233,.1);color:var(--primary);border:1px solid var(--primary);border-radius:20px;padding:3px 12px;font-size:.78rem;font-weight:600;}
+.prod-verified{background:rgba(16,185,129,.1);color:var(--success);border:1px solid var(--success);border-radius:20px;padding:3px 10px;font-size:.72rem;}
+.prod-title{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:12px;line-height:1.3;}
+.prod-rating-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.stars-lg{color:var(--warning);font-size:1.1rem;}
+.rating-num{font-weight:700;font-size:1rem;}
+.rating-cnt{color:var(--text-muted);font-size:.85rem;}
+.sold-badge{background:rgba(245,158,11,.1);color:var(--warning);border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:2px 10px;font-size:.75rem;}
+.price-block{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px;}
+.price-main{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:800;color:var(--primary);margin-bottom:4px;}
+.price-old{font-size:.9rem;color:var(--text-muted);margin-bottom:4px;}
+.price-old s{margin-right:8px;}
+.discount-badge{display:inline-block;background:var(--danger);color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:700;}
+.price-info{font-size:.78rem;color:var(--text-muted);margin-top:8px;}
+.stock-row{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.stock-dot{width:10px;height:10px;border-radius:50%;}
+.stock-in{background:var(--success);}
+.stock-text{font-size:.88rem;color:var(--success);}
+/* VARIANTS */
+.variants{margin-bottom:20px;}
+.variants label{display:block;font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.variant-list{display:flex;flex-wrap:wrap;gap:8px;}
+.variant-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:7px 16px;font-size:.85rem;cursor:pointer;transition:all .2s;}
+.variant-btn:hover,.variant-btn.active{border-color:var(--primary);color:var(--primary);background:rgba(14,165,233,.08);}
+/* QTY */
+.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.qty-row label{font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.qty-ctrl button{background:var(--surface);border:none;color:var(--text);width:40px;height:40px;cursor:pointer;font-size:1.2rem;transition:background .2s;}
+.qty-ctrl button:hover{background:rgba(14,165,233,.1);}
+.qty-ctrl span{width:50px;text-align:center;font-weight:600;font-size:1rem;}
+/* CTA */
+.cta-row{display:flex;gap:12px;margin-bottom:16px;}
+.btn-add-cart{flex:1;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:12px;padding:15px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-add-cart:hover{opacity:.9;transform:translateY(-1px);}
+.btn-buy-now{flex:1;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:12px;padding:15px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-buy-now:hover{opacity:.9;transform:translateY(-1px);}
+.btn-wish{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);border-radius:12px;padding:15px 20px;font-size:1.1rem;cursor:pointer;transition:all .2s;}
+.btn-wish:hover,.btn-wish.active{border-color:var(--danger);color:var(--danger);background:rgba(239,68,68,.08);}
+/* FEATURES */
+.prod-features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px;}
+.feat-item{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.82rem;}
+.feat-icon{font-size:1.1rem;}
+/* SELLER CARD */
+.seller-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:20px;}
+.seller-card h4{font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+.seller-info{display:flex;align-items:center;gap:12px;}
+.seller-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.seller-name{font-weight:600;font-size:.92rem;}
+.seller-meta{font-size:.75rem;color:var(--text-muted);}
+.seller-rating{display:flex;align-items:center;gap:4px;font-size:.78rem;}
+.seller-rating span{color:var(--warning);}
+/* TABS */
+.tabs{margin-bottom:40px;}
+.tab-nav{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto;}
+.tab-btn{background:none;border:none;color:var(--text-muted);padding:12px 20px;font-size:.92rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+/* DESCRIPTION */
+.desc-content p{margin-bottom:12px;line-height:1.7;color:var(--text-muted);}
+.desc-content ul{list-style:none;margin:16px 0;}
+.desc-content ul li{padding:6px 0;padding-left:20px;position:relative;color:var(--text-muted);font-size:.9rem;}
+.desc-content ul li::before{content:'✓';position:absolute;left:0;color:var(--success);}
+.specs-table{width:100%;border-collapse:collapse;}
+.specs-table tr:nth-child(even){background:rgba(255,255,255,.02);}
+.specs-table td{padding:10px 14px;border:1px solid var(--border);font-size:.88rem;}
+.specs-table td:first-child{color:var(--text-muted);width:35%;}
+/* REVIEWS */
+.reviews-summary{display:flex;gap:30px;margin-bottom:30px;flex-wrap:wrap;}
+.rating-big{text-align:center;}
+.rating-big .num{font-family:'Space Grotesk',sans-serif;font-size:4rem;font-weight:800;color:var(--primary);line-height:1;}
+.rating-big .stars{font-size:1.2rem;color:var(--warning);}
+.rating-big .cnt{font-size:.78rem;color:var(--text-muted);}
+.rating-bars{flex:1;}
+.rbar{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.rbar-label{font-size:.8rem;color:var(--text-muted);width:50px;}
+.rbar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.rbar-fill{height:100%;background:var(--warning);border-radius:3px;}
+.rbar-count{font-size:.75rem;color:var(--text-muted);width:30px;}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+.review-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.reviewer{font-weight:600;font-size:.9rem;}
+.review-date{font-size:.75rem;color:var(--text-muted);}
+.review-stars{color:var(--warning);}
+.review-title{font-weight:600;font-size:.88rem;margin-bottom:6px;}
+.review-body{font-size:.85rem;color:var(--text-muted);line-height:1.6;}
+.review-helpful{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.78rem;color:var(--text-muted);}
+.helpful-btn{background:var(--bg);border:1px solid var(--border);color:var(--text-muted);border-radius:6px;padding:3px 10px;font-size:.75rem;cursor:pointer;}
+.helpful-btn:hover{border-color:var(--primary);color:var(--primary);}
+/* RELATED */
+.related{margin-top:60px;}
+.related h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:24px;}
+.related h2 span{color:var(--primary);}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.related-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s;}
+.related-card:hover{border-color:var(--primary);transform:translateY(-3px);}
+.related-img{height:140px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,#1e293b,#0f172a);}
+.related-info{padding:12px;}
+.related-name{font-size:.85rem;font-weight:600;margin-bottom:6px;}
+.related-price{color:var(--primary);font-weight:700;font-size:.95rem;}
+/* TOAST / CART */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:10px;font-size:.88rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.cart-overlay{position:fixed;top:0;right:-420px;width:390px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1000;transition:right .3s;padding:22px;overflow-y:auto;display:flex;flex-direction:column;}
+.cart-overlay.open{right:0;}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.cart-header h3{font-family:'Space Grotesk',sans-serif;}
+.cart-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;}
+.cart-items{flex:1;overflow-y:auto;}
+.cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.cart-item-img{width:54px;height:54px;border-radius:8px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:.82rem;font-weight:600;margin-bottom:3px;}
+.cart-item-price{color:var(--primary);font-weight:700;font-size:.88rem;}
+.cart-item-qty{display:flex;align-items:center;gap:7px;margin-top:5px;}
+.qty-btn2{background:var(--bg);border:1px solid var(--border);color:var(--text);width:22px;height:22px;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cart-item-remove{background:none;border:none;color:var(--text-muted);cursor:pointer;margin-left:auto;}
+.cart-footer{padding-top:14px;border-top:1px solid var(--border);}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;}
+.cart-total-row span:last-child{color:var(--primary);}
+.btn-checkout{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:700;cursor:pointer;}
+@media(max-width:900px){.prod-main{grid-template-columns:1fr;gap:28px;}.prod-features{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.prod-page{padding:80px 12px 40px;}.prod-title{font-size:1.4rem;}.price-main{font-size:1.8rem;}.cta-row{flex-wrap:wrap;}.gallery-main{height:280px;font-size:5rem;}.related-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
 </head>
 <body>
-    <!-- Cookie Consent -->
-    <div id="cookieConsent" class="cookie-consent">
-        <div class="cookie-content">
-            <div class="cookie-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
-                    <circle cx="8" cy="10" r="1" fill="currentColor"></circle>
-                    <circle cx="16" cy="10" r="1" fill="currentColor"></circle>
-                </svg>
-            </div>
-            <div class="cookie-text">
-                <h3>Cookies</h3>
-                <p>Nous utilisons des cookies. <a href="politique-cookies.html">En savoir plus</a></p>
-            </div>
-            <div class="cookie-actions">
-                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accepter</button>
-                <button class="cookie-btn cookie-refuse" onclick="refuseCookies()">Refuser</button>
-            </div>
-        </div>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">N</div><span>Nexus<span style="color:var(--primary)">Store</span></span></a>
+    <div class="nav-search">
+      <input type="text" placeholder="Rechercher..." id="navSearch" onkeydown="if(event.key==='Enter'){window.location.href='boutique.html?q='+this.value}">
+      <button onclick="window.location.href='boutique.html?q='+document.getElementById('navSearch').value">🔍</button>
     </div>
-
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo"><a href="index.html">FLUX</a></div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="boutique.html">Boutique</a></li>
-                <li><a href="nouveautes.html">Nouveautés</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="search-btn" onclick="window.location.href='boutique.html'" aria-label="Rechercher">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </button>
-                <button class="cart-btn" id="cartBtn" aria-label="Panier">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
-                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb" id="breadcrumb">
-        <a href="index.html">Accueil</a><span class="sep">/</span>
-        <a href="boutique.html">Boutique</a><span class="sep">/</span>
-        <span id="breadcrumbProduct">Produit</span>
-    </nav>
-
-    <!-- Product Page -->
-    <div class="product-page">
-        <div id="loadingProduct" class="loading">Chargement du produit...</div>
-        <div id="errorProduct" class="error-message" style="display: none;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-            <span id="errorText"></span>
-        </div>
-
-        <div id="productContent" class="product-layout" style="display: none;">
-            <!-- Product Gallery -->
-            <div class="product-gallery">
-                <div class="main-image" id="mainImage">
-                    <img src="" alt="" id="mainImageImg">
-                </div>
-                <div class="thumbnail-gallery" id="thumbnailGallery"></div>
-            </div>
-
-            <!-- Product Info -->
-            <div class="product-info">
-                <p class="product-category" id="productCategory">Categorie</p>
-                <h1 id="productName">Nom du produit</h1>
-
-                <!-- Rating Summary -->
-                <div class="rating-summary" id="ratingSummary">
-                    <div class="rating-stars" id="ratingStars"></div>
-                    <span class="rating-score" id="ratingScore">4.5</span>
-                    <a class="rating-count-link" id="ratingCountLink" onclick="switchTab('reviews')">0 evaluations</a>
-                </div>
-
-                <!-- Price -->
-                <div class="product-price-box">
-                    <div class="price-label">Prix FLUX</div>
-                    <div>
-                        <span class="product-price" id="productPrice">0,00 &euro;</span>
-                        <span class="product-price-old" id="productPriceOld" style="display: none;"></span>
-                        <span class="price-savings" id="priceSavings" style="display: none;"></span>
-                    </div>
-                    <div class="price-tax-info">TVA incluse. Livraison calculee au panier.</div>
-                </div>
-
-                <!-- Stock & Shipping -->
-                <div class="stock-shipping">
-                    <div class="stock-status in-stock" id="stockStatus">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>En stock</span>
-                    </div>
-                    <div class="shipping-info">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                        <span>Livraison gratuite des 50&#8364; d'achat</span>
-                    </div>
-                </div>
-
-                <!-- Color Selection -->
-                <div class="option-group" id="colorGroup" style="display: none;">
-                    <label class="option-label">Couleur : <span id="selectedColorName" style="font-weight: 400;">-</span></label>
-                    <div class="color-options" id="colorOptions"></div>
-                </div>
-
-                <!-- Size Selection -->
-                <div class="option-group" id="sizeGroup" style="display: none;">
-                    <label class="option-label">Taille : <span id="selectedSizeName" style="font-weight: 400;">-</span></label>
-                    <div class="size-options" id="sizeOptions"></div>
-                </div>
-
-                <!-- Buy Section -->
-                <div class="buy-section">
-                    <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="changeQuantity(-1)">&#8722;</button>
-                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="99" readonly>
-                        <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                    </div>
-                    <button class="add-to-cart-btn-large" id="addToCartBtn" onclick="addProductToCart()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                        Ajouter au panier
-                    </button>
-                </div>
-
-                <!-- Trust Badges -->
-                <div class="trust-badges">
-                    <div class="trust-badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="1" y="3" width="15" height="13"></rect>
-                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                        </svg>
-                        <span class="trust-badge-title">Livraison rapide</span>
-                    </div>
-                    <div class="trust-badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
-                        <span class="trust-badge-title">Paiement securise</span>
-                    </div>
-                    <div class="trust-badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                        </svg>
-                        <span class="trust-badge-title">Retour 30 jours</span>
-                    </div>
-                    <div class="trust-badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                        <span class="trust-badge-title">Qualite garantie</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="nav-actions">
+      <a href="vendeur.html" class="nav-link">Vendre</a>
+      <a href="abonnements.html" class="nav-link">Premium</a>
+      <button class="nav-btn" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></button>
+      <button class="nav-btn">👤</button>
     </div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a><a href="boutique.html">Boutique</a>
+  <a href="vendeur.html">Vendre</a><a href="abonnements.html">Premium</a>
+</div>
+<div class="cart-overlay" id="cartSidebar">
+  <div class="cart-header"><h3>🛒 Panier</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"><p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p></div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+    <button class="btn-checkout" onclick="location.href='checkout.html'">Commander →</button>
+  </div>
+</div>
 
-    <!-- Product Tabs -->
-    <div class="product-tabs" id="productTabs" style="display: none;">
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('description')">Description</button>
-            <button class="tab-btn" onclick="switchTab('specs')">Caracteristiques</button>
-            <button class="tab-btn" onclick="switchTab('reviews')">Avis clients <span id="tabReviewCount"></span></button>
-            <button class="tab-btn" onclick="switchTab('qa')">Questions / Reponses</button>
-        </div>
+<div class="prod-page" id="prodPage">
+  <!-- Contenu chargé par JS -->
+</div>
+<div class="toast" id="toast"></div><script>
+const PRODS=[
+  {id:'p1',n:'iPhone 15 Pro Max',v:'TechShop Pro',vr:4.9,vsold:2340,c:'electronique',p:1299,op:1499,r:4.8,rv:2847,b:'hot',e:'📱',s:15420,
+   desc:'Le smartphone ultime. Puce A17 Pro, appareil photo 48MP, Dynamic Island, autonomie record.',
+   feats:['Puce A17 Pro','Écran Super Retina XDR 6.7"','Appareil photo 48MP','USB-C','Titanium'],
+   specs:{Processeur:'A17 Pro',Stockage:'256GB / 512GB / 1TB',RAM:'8GB',Écran:'6.7" OLED 120Hz',Batterie:'4422mAh',OS:'iOS 17'},
+   sizes:['128GB','256GB','512GB','1TB'],colors:['Noir titanium','Blanc naturel','Bleu'],
+   images:['📱','📸','💻','🔋']},
+  {id:'p2',n:'Samsung QLED 65"',v:'ElectroPlanet',vr:4.8,vsold:1200,c:'electronique',p:799,op:1199,r:4.7,rv:1203,b:'sale',e:'📺',s:3201,
+   desc:'TV QLED 4K avec technologie Quantum HDR 1500. Vision Mode pour des couleurs parfaites.',
+   feats:['4K UHD','QLED 120Hz','HDR1500','Gaming Mode','Smart TV'],
+   specs:{Taille:'65 pouces',Résolution:'4K UHD 3840x2160',Panel:'QLED',Frequence:'120Hz',HDR:'HDR1500',Smart:'Tizen OS'},
+   sizes:['55"','65"','75"','85"'],colors:['Noir'],images:['📺','🎬','🎮','📡']},
+  {id:'p6',n:'PS5 + Controller',v:'GameWorld',vr:4.9,vsold:4500,c:'gaming',p:549,op:null,r:4.9,rv:12034,b:'hot',e:'🎮',s:45231,
+   desc:'La console de dernière génération. SSD ultra-rapide, ray tracing, 4K@120fps.',
+   feats:['SSD 825GB','4K@120fps','Ray Tracing','DualSense','PS VR2 compatible'],
+   specs:{CPU:'AMD Zen 2 8-core',GPU:'AMD RDNA 2 10.3TF',RAM:'16GB GDDR6',SSD:'825GB',Résolution:'4K 120fps',Audio:'Tempest 3D'},
+   sizes:['Standard','Digital'],colors:['Blanc','Noir'],images:['🎮','🕹️','📺','💾']},
+  {id:'p10',n:'AirPods Pro 2',v:'Apple Reseller',vr:4.8,vsold:6700,c:'electronique',p:279,op:null,r:4.8,rv:15678,b:'hot',e:'🎧',s:67890,
+   desc:'Réduction de bruit active de nouvelle génération. Son spatial adaptatif et audio lossless.',
+   feats:['ANC Adaptatif','Audio Spatial','USB-C','IP54','30h autonomie'],
+   specs:{Driver:'H2',ANC:'Oui adaptatif','Audio':'Spatial+lossless',Autonomie:'6h+24h boîtier',Recharge:'USB-C+MagSafe',IP:'IP54'},
+   sizes:null,colors:['Blanc'],images:['🎧','📻','🎵','🔊']},
+];
+const DEFAULT={id:'p1',n:'Produit',v:'Nexus Vendor',vr:4.7,vsold:100,c:'divers',p:99,op:null,r:4.5,rv:100,b:null,e:'📦',s:500,
+  desc:'Produit de qualité premium disponible sur Nexus Store.',
+  feats:['Qualité premium','Livraison rapide','Service client 24/7','Retours gratuits','Garantie 2 ans'],
+  specs:{Marque:'Nexus Brand',Garantie:'2 ans',Retour:'30 jours'},
+  sizes:null,colors:['Standard'],images:['📦','🎁','✨','⭐']};
 
-        <!-- Description Tab -->
-        <div class="tab-content active" id="tab-description">
-            <div class="description-content" id="descriptionContent"></div>
-        </div>
+const REVIEWS=[
+  {name:'Sophie M.',date:'15 mai 2026',stars:5,title:'Parfait, rien à dire !',body:'Livraison ultra rapide, produit exactement comme décrit. Je recommande fortement Nexus Store !',helpful:142},
+  {name:'Thomas K.',date:'8 avril 2026',stars:4,title:'Très bon rapport qualité/prix',body:'Satisfait de mon achat. La qualité est au rendez-vous et le prix était imbattable sur Nexus Store.',helpful:87},
+  {name:'Léa D.',date:'22 mars 2026',stars:5,title:'Incroyable !',body:"J'utilise ce produit depuis 3 semaines maintenant et je suis complètement conquise. Nexus Store, c'est une référence.",helpful:63},
+  {name:'Marc T.',date:'1 mars 2026',stars:5,title:'Au-delà de mes attentes',body:'Qualité exceptionnelle. Le vendeur était très réactif et la livraison en 24h était au rendez-vous. Parfait !',helpful:45},
+  {name:'Chloé B.',date:'14 fév 2026',stars:3,title:'Bien mais quelques réserves',body:'Produit correct mais emballage endommagé à la réception. Le service client a résolu le problème rapidement.',helpful:22},
+];
 
-        <!-- Specs Tab -->
-        <div class="tab-content" id="tab-specs">
-            <table class="specs-table" id="specsTable">
-                <tbody id="specsBody"></tbody>
-            </table>
-        </div>
+let cart=JSON.parse(localStorage.getItem('nx_cart')||'[]');
+let wish=JSON.parse(localStorage.getItem('nx_wish')||'[]');
+let qty=1, selSize=null, selColor=null;
 
-        <!-- Reviews Tab -->
-        <div class="tab-content" id="tab-reviews">
-            <div class="reviews-section">
-                <div class="reviews-summary">
-                    <div class="reviews-average">
-                        <div class="score" id="reviewsAvgScore">4.5</div>
-                        <span class="out-of">sur 5</span>
-                        <div class="stars-large" id="reviewsAvgStars"></div>
-                        <div class="total-reviews" id="reviewsTotalText">0 evaluations</div>
-                    </div>
-                    <div class="rating-bars" id="ratingBars"></div>
-                </div>
-                <div class="reviews-list">
-                    <div class="reviews-list-header">
-                        <h3>Avis les plus recents</h3>
-                        <select class="reviews-sort">
-                            <option>Plus recents</option>
-                            <option>Les mieux notes</option>
-                            <option>Les plus utiles</option>
-                        </select>
-                    </div>
-                    <div id="reviewCards"></div>
-                </div>
-            </div>
-        </div>
+function getProduct(){
+  const id=new URLSearchParams(location.search).get('id');
+  return PRODS.find(p=>p.id===id)||Object.assign({},DEFAULT,{id:id||'p1'});
+}
 
-        <!-- Q&A Tab -->
-        <div class="tab-content" id="tab-qa">
-            <div class="qa-list" id="qaList"></div>
-        </div>
-    </div>
+function renderPage(){
+  const p=getProduct();
+  document.title=p.n+' — Nexus Store';
+  const disc=p.op?Math.round((1-p.p/p.op)*100):null;
+  const inWish=wish.includes(p.id);
+  if(p.sizes)selSize=p.sizes[0];
+  selColor=p.colors[0];
+  
+  document.getElementById('prodPage').innerHTML=
+    '<div class="breadcrumb">'+
+      '<a href="index.html">🏠 Accueil</a><span>›</span>'+
+      '<a href="boutique.html?cat='+p.c+'">'+p.c+'</a><span>›</span>'+
+      '<span style="color:var(--text)">'+p.n+'</span>'+
+    '</div>'+
+    '<div class="prod-main">'+
+      '<div class="gallery">'+
+        '<div class="gallery-main" id="mainImg">'+p.e+'</div>'+
+        '<div class="gallery-thumbs">'+
+          p.images.map((img,i)=>'<div class="thumb'+(i===0?' active':'')+'" onclick="setImg(''+img+'',this)">'+img+'</div>').join('')+
+        '</div>'+
+      '</div>'+
+      '<div class="prod-info">'+
+        '<div class="prod-vendor-row">'+
+          '<span class="prod-vendor-badge">🏪 '+p.v+'</span>'+
+          '<span class="prod-verified">✓ Vendeur vérifié</span>'+
+        '</div>'+
+        '<h1 class="prod-title">'+p.n+'</h1>'+
+        '<div class="prod-rating-row">'+
+          '<span class="stars-lg">'+'★'.repeat(Math.floor(p.r))+'☆'.repeat(5-Math.floor(p.r))+'</span>'+
+          '<span class="rating-num">'+p.r+'</span>'+
+          '<span class="rating-cnt">('+p.rv.toLocaleString()+' avis)</span>'+
+          '<span class="sold-badge">🔥 '+p.s.toLocaleString()+' vendus</span>'+
+        '</div>'+
+        '<div class="price-block">'+
+          '<div class="price-main">'+p.p.toLocaleString()+' €</div>'+
+          (p.op?'<div class="price-old"><s>'+p.op+' €</s> <span class="discount-badge">-'+disc+'%</span></div>':'')+
+          '<div class="price-info">✅ Livraison gratuite • 🔄 Retours 30 jours • 🛡️ Garantie 2 ans</div>'+
+        '</div>'+
+        '<div class="stock-row"><div class="stock-dot stock-in"></div><span class="stock-text">En stock — Expédié sous 24h</span></div>'+
+        (p.sizes?'<div class="variants"><label>Taille / Capacité</label><div class="variant-list" id="sizeList">'+
+          p.sizes.map(s=>'<button class="variant-btn'+(s===selSize?' active':'')+'" onclick="selectSize(''+s+'',this)">'+s+'</button>').join('')+
+        '</div></div>':'')+
+        '<div class="variants"><label>Couleur</label><div class="variant-list" id="colorList">'+
+          p.colors.map(c=>'<button class="variant-btn'+(c===selColor?' active':'')+'" onclick="selectColor(''+c+'',this)">'+c+'</button>').join('')+
+        '</div></div>'+
+        '<div class="qty-row"><label>Quantité</label>'+
+          '<div class="qty-ctrl">'+
+            '<button onclick="changeQty(-1)">−</button>'+
+            '<span id="qtyVal">1</span>'+
+            '<button onclick="changeQty(1)">+</button>'+
+          '</div>'+
+        '</div>'+
+        '<div class="cta-row">'+
+          '<button class="btn-add-cart" onclick="addToCart()">🛒 Ajouter au panier</button>'+
+          '<button class="btn-buy-now" onclick="buyNow()">⚡ Acheter maintenant</button>'+
+          '<button class="btn-wish'+(inWish?' active':'')+'" id="wishBtn" onclick="toggleWish(''+p.id+'')">'+
+            (inWish?'❤️':'🤍')+
+          '</button>'+
+        '</div>'+
+        '<div class="prod-features">'+
+          '<div class="feat-item"><span class="feat-icon">🚚</span> Livraison express 24h</div>'+
+          '<div class="feat-item"><span class="feat-icon">🔄</span> Retour gratuit 30j</div>'+
+          '<div class="feat-item"><span class="feat-icon">🛡️</span> Garantie 2 ans</div>'+
+          '<div class="feat-item"><span class="feat-icon">💳</span> Paiement sécurisé</div>'+
+          '<div class="feat-item"><span class="feat-icon">📦</span> Emballage soigné</div>'+
+          '<div class="feat-item"><span class="feat-icon">🎁</span> Gift wrap disponible</div>'+
+        '</div>'+
+        '<div class="seller-card">'+
+          '<h4>À propos du vendeur</h4>'+
+          '<div class="seller-info">'+
+            '<div class="seller-avatar">🏪</div>'+
+            '<div>'+
+              '<div class="seller-name">'+p.v+'</div>'+
+              '<div class="seller-rating"><span>★★★★★</span> '+p.vr+' • '+p.vsold.toLocaleString()+' ventes</div>'+
+              '<div class="seller-meta">Membre depuis 2023 • Commission Nexus: 10%</div>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="tabs">'+
+      '<div class="tab-nav">'+
+        '<button class="tab-btn active" onclick="showTab('desc',this)">📝 Description</button>'+
+        '<button class="tab-btn" onclick="showTab('specs',this)">⚙️ Caractéristiques</button>'+
+        '<button class="tab-btn" onclick="showTab('reviews',this)">⭐ Avis ('+p.rv.toLocaleString()+')</button>'+
+        '<button class="tab-btn" onclick="showTab('ship',this)">🚚 Livraison</button>'+
+      '</div>'+
+      '<div id="tabDesc" class="tab-pane active">'+
+        '<div class="desc-content">'+
+          '<p>'+p.desc+'</p>'+
+          '<ul>'+p.feats.map(f=>'<li>'+f+'</li>').join('')+'</ul>'+
+          '<p>Profitez de la meilleure expérience shopping sur Nexus Store. Livraison rapide, retours faciles, et service client disponible 24h/24.</p>'+
+        '</div>'+
+      '</div>'+
+      '<div id="tabSpecs" class="tab-pane">'+
+        '<table class="specs-table">'+
+          Object.entries(p.specs).map(([k,v])=>'<tr><td>'+k+'</td><td>'+v+'</td></tr>').join('')+
+          '<tr><td>Commission Nexus</td><td>10% (reversée au vendeur)</td></tr>'+
+          '<tr><td>Disponibilité</td><td>En stock</td></tr>'+
+        '</table>'+
+      '</div>'+
+      '<div id="tabReviews" class="tab-pane">'+
+        '<div class="reviews-summary">'+
+          '<div class="rating-big"><div class="num">'+p.r+'</div><div class="stars">'+'★'.repeat(5)+'</div><div class="cnt">'+p.rv.toLocaleString()+' avis</div></div>'+
+          '<div class="rating-bars">'+
+            [5,4,3,2,1].map(s=>'<div class="rbar"><span class="rbar-label">'+s+' ★</span><div class="rbar-track"><div class="rbar-fill" style="width:'+(s===5?68:s===4?20:s===3?7:s===2?3:2)+'%"></div></div><span class="rbar-count">'+(s===5?Math.round(p.rv*.68):s===4?Math.round(p.rv*.20):s===3?Math.round(p.rv*.07):s===2?Math.round(p.rv*.03):Math.round(p.rv*.02))+'</span></div>').join('')+
+          '</div>'+
+        '</div>'+
+        REVIEWS.map(r=>'<div class="review-card"><div class="review-header"><div><div class="reviewer">'+r.name+'</div><div class="review-stars">'+'★'.repeat(r.stars)+'</div></div><div class="review-date">'+r.date+'</div></div><div class="review-title">'+r.title+'</div><div class="review-body">'+r.body+'</div><div class="review-helpful">Utile ? <button class="helpful-btn">👍 '+r.helpful+'</button></div></div>').join('')+
+      '</div>'+
+      '<div id="tabShip" class="tab-pane">'+
+        '<div class="desc-content">'+
+          '<p><strong>📦 Livraison Standard</strong><br>3-5 jours ouvrés — Gratuite dès 25€</p>'+
+          '<p><strong>⚡ Livraison Express</strong><br>1-2 jours ouvrés — 4,99€</p>'+
+          '<p><strong>🚀 Livraison Nexus Prime</strong><br>Livraison le jour même dans les grandes villes — Gratuite avec Nexus Elite</p>'+
+          '<p><strong>🔄 Politique de retour</strong><br>Retours gratuits sous 30 jours. Remboursement sous 48h après réception.</p>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="related">'+
+      '<h2>Vous aimerez <span>aussi</span></h2>'+
+      '<div class="related-grid">'+
+        PRODS.filter(pr=>pr.id!==p.id).slice(0,4).map(pr=>'<div class="related-card" onclick="location.href='produit.html?id='+pr.id+''"><div class="related-img">'+pr.e+'</div><div class="related-info"><div class="related-name">'+pr.n+'</div><div class="related-price">'+pr.p.toLocaleString()+' €</div></div></div>').join('')+
+      '</div>'+
+    '</div>';
+}
 
-    <!-- Cart Modal -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-header"><h2>Panier</h2><button class="close-cart" id="closeCart">&times;</button></div>
-        <div class="cart-items" id="cartItems"><div class="empty-cart"><p>Panier vide</p></div></div>
-        <div class="cart-footer">
-            <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 &euro;</span></div>
-            <button class="btn btn-primary btn-block" id="checkoutBtn">Commander</button>
-        </div>
-    </div>
+window.setImg=function(emoji,el){
+  document.getElementById('mainImg').textContent=emoji;
+  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+};
+window.showTab=function(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab'+id.charAt(0).toUpperCase()+id.slice(1)).classList.add('active');
+  btn.classList.add('active');
+};
+window.changeQty=function(d){
+  qty=Math.max(1,Math.min(qty+d,99));
+  document.getElementById('qtyVal').textContent=qty;
+};
+window.selectSize=function(s,el){
+  selSize=s;
+  document.querySelectorAll('#sizeList .variant-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+};
+window.selectColor=function(c,el){
+  selColor=c;
+  document.querySelectorAll('#colorList .variant-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+};
+window.addToCart=function(){
+  const p=getProduct();
+  const ex=cart.find(x=>x.id===p.id);
+  if(ex)ex.qty+=qty; else cart.push({id:p.id,n:p.n,p:p.p,e:p.e,qty});
+  localStorage.setItem('nx_cart',JSON.stringify(cart));
+  updateCartUI();
+  toast('✅ '+p.n+' × '+qty+' ajouté !');
+};
+window.buyNow=function(){addToCart();location.href='checkout.html';};
+window.toggleWish=function(id){
+  if(wish.includes(id))wish=wish.filter(x=>x!==id); else wish.push(id);
+  localStorage.setItem('nx_wish',JSON.stringify(wish));
+  const btn=document.getElementById('wishBtn');
+  if(btn){btn.classList.toggle('active',wish.includes(id));btn.textContent=wish.includes(id)?'❤️':'🤍';}
+};
+window.toggleCart=function(){document.getElementById('cartSidebar').classList.toggle('open');};
+window.toggleMenu=function(){document.getElementById('mobileMenu').classList.toggle('open');};
 
-    <div class="toast" id="toast"></div>
+function updateCartUI(){
+  const tot=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=tot;
+  const ci=document.getElementById('cartItems');
+  if(!cart.length){ci.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p>';document.getElementById('cartTotal').textContent='0,00 €';return;}
+  ci.innerHTML=cart.map(i=>'<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' €</div><div class="cart-item-qty"><button class="qty-btn2" onclick="uq(''+i.id+'',-1)">−</button><span>'+i.qty+'</span><button class="qty-btn2" onclick="uq(''+i.id+'',1)">+</button><button class="cart-item-remove" onclick="rc(''+i.id+'')">🗑</button></div></div></div>').join('');
+  document.getElementById('cartTotal').textContent=cart.reduce((s,i)=>s+i.p*i.qty,0).toFixed(2).replace('.',',')+' €';
+}
+window.uq=function(id,d){const i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);localStorage.setItem('nx_cart',JSON.stringify(cart));updateCartUI();};
+window.rc=function(id){cart=cart.filter(x=>x.id!==id);localStorage.setItem('nx_cart',JSON.stringify(cart));updateCartUI();};
 
-    <script src="script.js"></script>
-    <script>
-        let currentProduct = null;
-        let selectedColor = null;
-        let selectedSize = null;
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
-        // ===== SVG HELPERS =====
-        const starFilled = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#ff9500" stroke="#ff9500" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
-        const starEmpty = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
-        const starSmallFilled = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#ff9500" stroke="#ff9500" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
-        const starSmallEmpty = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
-
-        function renderStars(rating, size) {
-            const filled = size === 'small' ? starSmallFilled : starFilled;
-            const empty = size === 'small' ? starSmallEmpty : starEmpty;
-            return Array.from({length: 5}, (_, i) => i < Math.round(rating) ? filled : empty).join('');
-        }
-
-        // ===== DETERMINISTIC RATING GENERATOR =====
-        function generateProductData(name) {
-            let hash = 0;
-            for (let i = 0; i < (name || '').length; i++) {
-                hash = ((hash << 5) - hash) + name.charCodeAt(i);
-                hash |= 0;
-            }
-            hash = Math.abs(hash);
-            const stars = 3.5 + (hash % 16) / 10; // 3.5 - 5.0
-            const count = 12 + (hash % 488); // 12 - 499
-            const distribution = [
-                Math.round(55 + (hash % 20)),
-                Math.round(20 + (hash % 10)),
-                Math.round(10 + (hash % 8)),
-                Math.round(3 + (hash % 5)),
-                Math.round(2 + (hash % 4))
-            ];
-            const total = distribution.reduce((a,b) => a+b, 0);
-            return {
-                stars: Math.round(stars * 10) / 10,
-                count,
-                distribution: distribution.map(d => Math.round(d / total * 100))
-            };
-        }
-
-        // ===== SAMPLE REVIEWS GENERATOR =====
-        function generateReviews(productName, count) {
-            const names = ['Marie L.', 'Thomas D.', 'Sophie M.', 'Lucas B.', 'Emma R.', 'Hugo P.', 'Lea V.', 'Nathan C.', 'Chloe A.', 'Maxime F.'];
-            const positiveComments = [
-                'Excellent produit, conforme a la description. La qualite est au rendez-vous.',
-                'Tres satisfait de mon achat. Livraison rapide et produit bien emballe.',
-                'Superbe qualite ! Je recommande sans hesitation. Le rapport qualite-prix est imbattable.',
-                'Conforme a mes attentes. Bonne finition et materiaux de qualite.',
-                'Parfait ! Exactement ce que je cherchais. Je suis ravi de cet achat.',
-                'Tres bon produit, je suis agréablement surpris par la qualite.',
-                'Commande recue rapidement, produit conforme. Rien a redire.',
-                'Excellent rapport qualite prix. Je recommande vivement.'
-            ];
-            const titles = [
-                'Excellent achat !',
-                'Tres satisfait',
-                'Qualite au top',
-                'Parfait',
-                'Je recommande',
-                'Bon produit',
-                'Super qualite',
-                'Bonne surprise'
-            ];
-
-            let hash = 0;
-            for (let i = 0; i < productName.length; i++) {
-                hash = ((hash << 5) - hash) + productName.charCodeAt(i);
-                hash |= 0;
-            }
-            hash = Math.abs(hash);
-
-            const reviews = [];
-            for (let i = 0; i < Math.min(count, 8); i++) {
-                const seed = (hash + i * 7919) % 10000;
-                const rating = Math.min(5, 3 + (seed % 3));
-                const daysAgo = 1 + (seed % 90);
-                const date = new Date();
-                date.setDate(date.getDate() - daysAgo);
-                reviews.push({
-                    author: names[seed % names.length],
-                    avatar: names[seed % names.length].charAt(0),
-                    rating,
-                    title: titles[seed % titles.length],
-                    body: positiveComments[seed % positiveComments.length],
-                    date: date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
-                    verified: seed % 3 !== 0,
-                    helpful: seed % 20
-                });
-            }
-            return reviews;
-        }
-
-        // ===== Q&A GENERATOR =====
-        function generateQA(productName) {
-            const qas = [
-                { q: 'Est-ce que ce produit est conforme a la description ?', a: 'Oui, le produit est exactement conforme a ce qui est decrit. N\'hesitez pas a nous contacter si vous avez des questions specifiques.', by: 'Equipe FLUX' },
-                { q: 'Quelle est la politique de retour ?', a: 'Vous disposez de 30 jours apres reception pour retourner le produit s\'il ne vous convient pas. Le retour est simple et gratuit.', by: 'Equipe FLUX' },
-                { q: 'Combien de temps dure la livraison ?', a: 'La livraison standard prend entre 5 et 12 jours ouvrables. Vous recevrez un numero de suivi des l\'expedition.', by: 'Equipe FLUX' },
-                { q: 'Le produit est-il garanti ?', a: 'Tous nos produits sont garantis satisfait ou rembourse pendant 30 jours. En cas de defaut, nous procedons a un echange ou remboursement.', by: 'Equipe FLUX' }
-            ];
-            let hash = 0;
-            for (let i = 0; i < productName.length; i++) hash = ((hash << 5) - hash) + productName.charCodeAt(i);
-            hash = Math.abs(hash);
-            const count = 2 + (hash % 3);
-            return qas.slice(0, count);
-        }
-
-        // ===== TAB SWITCHING =====
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.add('active');
-            event.target ? event.target.classList.add('active') :
-                document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
-        }
-
-        // ===== LOAD PRODUCT =====
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id') || urlParams.get('product');
-            if (productId) {
-                loadProduct(productId);
-            } else {
-                showError('Aucun produit specifie');
-            }
-        });
-
-        async function loadProduct(productId) {
-            try {
-                const response = await fetch(`${API_BASE}/products/${productId}`);
-                const data = await response.json();
-                if (data.success && data.product) {
-                    displayProduct(data.product);
-                } else {
-                    loadDemoProduct(productId);
-                }
-            } catch (error) {
-                loadDemoProduct(productId);
-            }
-        }
-
-        function loadDemoProduct(productId) {
-            const demoProducts = state.products || [];
-            const product = demoProducts.find(p => p.id == productId);
-            if (product) {
-                displayProduct(product);
-            } else {
-                showError('Produit introuvable');
-            }
-        }
-
-        function displayProduct(product) {
-            currentProduct = product;
-            document.getElementById('loadingProduct').style.display = 'none';
-            document.getElementById('productContent').style.display = 'grid';
-            document.getElementById('productTabs').style.display = 'block';
-
-            // Breadcrumb
-            document.getElementById('breadcrumbProduct').textContent = product.name;
-
-            // Basic info
-            document.getElementById('pageTitle').textContent = product.name + ' | FLUX';
-            document.getElementById('productName').textContent = product.name;
-            document.getElementById('productCategory').textContent = product.category || 'Produit';
-
-            // Price
-            const price = parseFloat(product.price) || 0;
-            document.getElementById('productPrice').textContent = price.toFixed(2) + ' ' + (product.currency || '\u20AC');
-
-            // Fake comparison price (20-35% higher)
-            const pdata = generateProductData(product.name);
-            const markup = 1.2 + (pdata.count % 16) / 100;
-            const oldPrice = (price * markup).toFixed(2);
-            if (price > 0) {
-                const oldEl = document.getElementById('productPriceOld');
-                oldEl.textContent = oldPrice + ' ' + (product.currency || '\u20AC');
-                oldEl.style.display = 'inline';
-                const savings = Math.round((1 - price / parseFloat(oldPrice)) * 100);
-                if (savings > 0) {
-                    const savingsEl = document.getElementById('priceSavings');
-                    savingsEl.textContent = '-' + savings + '%';
-                    savingsEl.style.display = 'inline-block';
-                }
-            }
-
-            // Rating
-            document.getElementById('ratingStars').innerHTML = renderStars(pdata.stars, 'normal');
-            document.getElementById('ratingScore').textContent = pdata.stars.toFixed(1);
-            document.getElementById('ratingCountLink').textContent = pdata.count + ' evaluations';
-            document.getElementById('tabReviewCount').textContent = '(' + pdata.count + ')';
-
-            // Reviews summary
-            document.getElementById('reviewsAvgScore').textContent = pdata.stars.toFixed(1);
-            document.getElementById('reviewsAvgStars').innerHTML = renderStars(pdata.stars, 'normal');
-            document.getElementById('reviewsTotalText').textContent = pdata.count + ' evaluations clients';
-
-            // Rating bars
-            const barLabels = ['5 etoiles', '4 etoiles', '3 etoiles', '2 etoiles', '1 etoile'];
-            document.getElementById('ratingBars').innerHTML = barLabels.map((label, i) => `
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">${label}</span>
-                    <div class="bar-track"><div class="bar-fill" style="width: ${pdata.distribution[i]}%"></div></div>
-                    <span class="rating-bar-pct">${pdata.distribution[i]}%</span>
-                </div>
-            `).join('');
-
-            // Review cards
-            const reviews = generateReviews(product.name, pdata.count);
-            document.getElementById('reviewCards').innerHTML = reviews.map(r => `
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">${r.avatar}</div>
-                        <span class="review-author">${r.author}</span>
-                        ${r.verified ? `<span class="review-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Achat verifie</span>` : ''}
-                    </div>
-                    <div class="review-stars-date">
-                        <div class="rating-stars">${renderStars(r.rating, 'small')}</div>
-                        <span class="review-title">${r.title}</span>
-                    </div>
-                    <div class="review-date">${r.date}</div>
-                    <p class="review-body">${r.body}</p>
-                    <div class="review-helpful">
-                        <span>${r.helpful} personne(s) ont trouve cet avis utile</span>
-                        <button class="review-helpful-btn" onclick="this.innerHTML='<svg width=\\'14\\' height=\\'14\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'2\\'><polyline points=\\'20 6 9 17 4 12\\'></polyline></svg> Merci'; this.disabled=true;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                            Utile
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-
-            // Q&A
-            const qas = generateQA(product.name);
-            document.getElementById('qaList').innerHTML = qas.map(qa => `
-                <div class="qa-item">
-                    <div class="qa-question">
-                        <span class="qa-label">Q :</span>
-                        <div><div class="qa-text">${qa.q}</div></div>
-                    </div>
-                    <div class="qa-answer">
-                        <span class="qa-label">R :</span>
-                        <div><div class="qa-text">${qa.a}</div><div class="qa-meta">${qa.by}</div></div>
-                    </div>
-                </div>
-            `).join('');
-
-            // Image
-            const img = product.thumbnail || product.image || (product.images && product.images[0]) || '';
-            document.getElementById('mainImageImg').src = img;
-            document.getElementById('mainImageImg').alt = product.name;
-
-            // Thumbnail gallery
-            const allImages = product.images ? [...product.images] : [];
-            if (!allImages.length && product.variants) {
-                product.variants.forEach(v => {
-                    if (v.image && !allImages.includes(v.image)) allImages.push(v.image);
-                });
-            }
-            if (allImages.length > 1) {
-                document.getElementById('thumbnailGallery').innerHTML = allImages.slice(0, 10).map((imgUrl, i) => `
-                    <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="changeMainImage('${imgUrl}', this)">
-                        <img src="${imgUrl}" alt="${product.name} - ${i + 1}">
-                    </div>
-                `).join('');
-            }
-
-            // Description tab
-            const description = product.description || `
-                <h3>Description</h3>
-                <p>${product.name} - Un produit de qualite selectionne par FLUX pour repondre a vos exigences les plus elevees.</p>
-                <h3>Points forts</h3>
-                <ul>
-                    <li>Materiaux de qualite superieure</li>
-                    <li>Design moderne et fonctionnel</li>
-                    <li>Finitions soignees</li>
-                    <li>Satisfait ou rembourse 30 jours</li>
-                </ul>
-            `;
-            document.getElementById('descriptionContent').innerHTML = description;
-
-            // Specs tab
-            const specs = product.specs || {
-                'Marque': 'FLUX',
-                'Reference': product.id || '-',
-                'Categorie': product.category || 'Produit',
-                'Disponibilite': 'En stock',
-                'Livraison': '5-12 jours ouvrables',
-                'Retours': '30 jours, gratuit'
-            };
-            document.getElementById('specsBody').innerHTML = Object.entries(specs).map(([key, value]) => `
-                <tr><td>${key}</td><td>${value}</td></tr>
-            `).join('');
-
-            // Colors
-            if (product.colors || true) {
-                const colors = product.colors || [{name: 'Noir', value: '#000000'}, {name: 'Blanc', value: '#FFFFFF'}, {name: 'Gris', value: '#808080'}];
-                document.getElementById('colorGroup').style.display = 'block';
-                document.getElementById('colorOptions').innerHTML = colors.map((color, i) => `
-                    <div class="color-option ${i === 0 ? 'active' : ''}"
-                         style="background: ${color.value}; ${color.value === '#FFFFFF' ? 'box-shadow: inset 0 0 0 1px #ddd;' : ''}"
-                         onclick="selectColor('${color.name}', '${color.value}', this)"
-                         title="${color.name}"
-                         data-color="${color.name}"></div>
-                `).join('');
-                selectedColor = colors[0].name;
-                document.getElementById('selectedColorName').textContent = colors[0].name;
-            }
-
-            // Sizes
-            const sizes = product.sizes || ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-            document.getElementById('sizeGroup').style.display = 'block';
-            document.getElementById('sizeOptions').innerHTML = sizes.map(size => `
-                <div class="size-option" onclick="selectSize('${size}', this)">${size}</div>
-            `).join('');
-        }
-
-        function changeMainImage(imgUrl, element) {
-            document.getElementById('mainImageImg').src = imgUrl;
-            document.querySelectorAll('.thumbnail').forEach(el => el.classList.remove('active'));
-            if (element) element.classList.add('active');
-        }
-
-        function selectColor(name, value, element) {
-            document.querySelectorAll('.color-option').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            selectedColor = name;
-            document.getElementById('selectedColorName').textContent = name;
-        }
-
-        function selectSize(size, element) {
-            if (element.classList.contains('unavailable')) return;
-            document.querySelectorAll('.size-option').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            selectedSize = size;
-            document.getElementById('selectedSizeName').textContent = size;
-            document.getElementById('addToCartBtn').disabled = false;
-        }
-
-        function changeQuantity(delta) {
-            const input = document.getElementById('quantity');
-            let value = parseInt(input.value) + delta;
-            if (value < 1) value = 1;
-            if (value > 99) value = 99;
-            input.value = value;
-        }
-
-        function addProductToCart() {
-            if (!selectedSize) {
-                showToast('Veuillez choisir une taille');
-                return;
-            }
-
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const cartItem = {
-                id: currentProduct.id,
-                name: currentProduct.name,
-                price: parseFloat(currentProduct.price),
-                currency: currentProduct.currency || '\u20AC',
-                image: currentProduct.thumbnail || currentProduct.image,
-                category: currentProduct.category,
-                color: selectedColor,
-                size: selectedSize,
-                quantity: quantity
-            };
-
-            let cart = JSON.parse(localStorage.getItem('fluxCart')) || [];
-            const existingIndex = cart.findIndex(item =>
-                item.id === cartItem.id &&
-                item.color === cartItem.color &&
-                item.size === cartItem.size
-            );
-
-            if (existingIndex >= 0) {
-                cart[existingIndex].quantity += quantity;
-            } else {
-                cart.push(cartItem);
-            }
-
-            localStorage.setItem('fluxCart', JSON.stringify(cart));
-            updateCartCount();
-            showToast('Produit ajoute au panier');
-        }
-
-        function showError(message) {
-            document.getElementById('loadingProduct').style.display = 'none';
-            document.getElementById('errorText').textContent = message;
-            document.getElementById('errorProduct').style.display = 'flex';
-        }
-    </script>
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
+updateCartUI();
+renderPage();
+</script>
 </body>
 </html>
