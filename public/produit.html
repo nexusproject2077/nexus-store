@@ -61,7 +61,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .btn-add-cart:hover{opacity:.9;transform:translateY(-1px);}
 .btn-buy-now{flex:1;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:12px;padding:15px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
 .btn-buy-now:hover{opacity:.9;transform:translateY(-1px);}
-.btn-wish{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);border-radius:12px;padding:15px 20px;font-size:1.1rem;cursor:pointer;transition:all .2s;}
+          '<button class="btn-wish'+(inWish?' active':'')+'" id="wishBtn">'+ 
 .btn-wish:hover,.btn-wish.active{border-color:var(--danger);color:var(--danger);background:rgba(239,68,68,.08);}
 /* FEATURES */
 .prod-features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px;}
@@ -249,7 +249,10 @@ function renderPage(){
       '<div class="gallery">'+
         '<div class="gallery-main" id="mainImg">'+p.e+'</div>'+
         '<div class="gallery-thumbs">'+
-          function(){var th='';p.images.forEach(function(img,i){th+='<div class="thumb'+(i===0?' active':'')+'" onclick="setImg(\"'+img+'\",this)">'+img+'</div>';});return th;}()+
+          function(){var th='';
+  // Set up wish button handler
+  var wb=document.getElementById("wishBtn");
+  if(wb){wb.onclick=function(){toggleWish(p.id);};}p.images.forEach(function(img,i){th+='<div class="thumb'+(i===0?' active':'')+'" onclick="setImg(\"'+img+'\",this)">'+img+'</div>';});return th;}()+
         '</div>'+
       '</div>'+
       '<div class="prod-info">'+
@@ -286,7 +289,7 @@ function renderPage(){
         '<div class="cta-row">'+
           '<button class="btn-add-cart" onclick="addToCart()">🛒 Ajouter au panier</button>'+
           '<button class="btn-buy-now" onclick="buyNow()">⚡ Acheter maintenant</button>'+
-          '<button class="btn-wish'+(inWish?' active':'')+'" id="wishBtn" onclick="toggleWish(''+p.id+'')">'+
+          '<button class="btn-wish'+(inWish?' active':'')+'" data-pid=\"'+ p.id +'\"" id="wishBtn" onclick="toggleWish(this.dataset.pid))">'+
             (inWish?'❤️':'🤍')+
           '</button>'+
         '</div>'+
