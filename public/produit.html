@@ -249,7 +249,7 @@ function renderPage(){
       '<div class="gallery">'+
         '<div class="gallery-main" id="mainImg">'+p.e+'</div>'+
         '<div class="gallery-thumbs">'+
-          p.images.map((img,i)=>'<div class="thumb'+(i===0?' active':'')+'" onclick="setImg(''+img+'',this)">'+img+'</div>').join('')+
+          function(){var th='';p.images.forEach(function(img,i){th+='<div class="thumb'+(i===0?' active':'')+'" onclick="setImg(\"'+img+'\",this)">'+img+'</div>';});return th;}()+
         '</div>'+
       '</div>'+
       '<div class="prod-info">'+
@@ -271,10 +271,10 @@ function renderPage(){
         '</div>'+
         '<div class="stock-row"><div class="stock-dot stock-in"></div><span class="stock-text">En stock — Expédié sous 24h</span></div>'+
         (p.sizes?'<div class="variants"><label>Taille / Capacité</label><div class="variant-list" id="sizeList">'+
-          p.sizes.map(s=>'<button class="variant-btn'+(s===selSize?' active':'')+'" onclick="selectSize(''+s+'',this)">'+s+'</button>').join('')+
+          function(){var sl='';if(p.sizes)p.sizes.forEach(function(s){sl+='<button class="variant-btn'+(s===selSize?' active':'')+'" onclick="selectSize(\"'+s+'\",this)">'+s+'</button>';});return sl;}()+
         '</div></div>':'')+
         '<div class="variants"><label>Couleur</label><div class="variant-list" id="colorList">'+
-          p.colors.map(c=>'<button class="variant-btn'+(c===selColor?' active':'')+'" onclick="selectColor(''+c+'',this)">'+c+'</button>').join('')+
+          function(){var cl='';p.colors.forEach(function(c){cl+='<button class="variant-btn'+(c===selColor?' active':'')+'" onclick="selectColor(\"'+c+'\",this)">'+c+'</button>';});return cl;}()+
         '</div></div>'+
         '<div class="qty-row"><label>Quantité</label>'+
           '<div class="qty-ctrl">'+
@@ -321,13 +321,13 @@ function renderPage(){
       '<div id="tabDesc" class="tab-pane active">'+
         '<div class="desc-content">'+
           '<p>'+p.desc+'</p>'+
-          '<ul>'+p.feats.map(f=>'<li>'+f+'</li>').join('')+'</ul>'+
+          '<ul>'+function(){var fl='';p.feats.forEach(function(f){fl+='<li>'+f+'</li>';});return fl;}()+'</ul>'+
           '<p>Profitez de la meilleure expérience shopping sur Nexus Store. Livraison rapide, retours faciles, et service client disponible 24h/24.</p>'+
         '</div>'+
       '</div>'+
       '<div id="tabSpecs" class="tab-pane">'+
         '<table class="specs-table">'+
-          Object.entries(p.specs).map(([k,v])=>'<tr><td>'+k+'</td><td>'+v+'</td></tr>').join('')+
+          function(){var sl='';Object.keys(p.specs).forEach(function(k){sl+='<tr><td>'+k+'</td><td>'+p.specs[k]+'</td></tr>';});return sl;}()+
           '<tr><td>Commission Nexus</td><td>10% (reversée au vendeur)</td></tr>'+
           '<tr><td>Disponibilité</td><td>En stock</td></tr>'+
         '</table>'+
@@ -336,10 +336,10 @@ function renderPage(){
         '<div class="reviews-summary">'+
           '<div class="rating-big"><div class="num">'+p.r+'</div><div class="stars">'+'★'.repeat(5)+'</div><div class="cnt">'+p.rv.toLocaleString()+' avis</div></div>'+
           '<div class="rating-bars">'+
-            [5,4,3,2,1].map(s=>'<div class="rbar"><span class="rbar-label">'+s+' ★</span><div class="rbar-track"><div class="rbar-fill" style="width:'+(s===5?68:s===4?20:s===3?7:s===2?3:2)+'%"></div></div><span class="rbar-count">'+(s===5?Math.round(p.rv*.68):s===4?Math.round(p.rv*.20):s===3?Math.round(p.rv*.07):s===2?Math.round(p.rv*.03):Math.round(p.rv*.02))+'</span></div>').join('')+
+            function(){var rb='';[5,4,3,2,1].forEach(function(s){var pct=s===5?68:s===4?20:s===3?7:s===2?3:2;var cnt=Math.round(p.rv*(pct/100));rb+='<div class="rbar"><span class="rbar-label">'+s+' ★</span><div class="rbar-track"><div class="rbar-fill" style="width:'+pct+'%"></div></div><span class="rbar-count">'+cnt+'</span></div>';});return rb;}()+
           '</div>'+
         '</div>'+
-        REVIEWS.map(r=>'<div class="review-card"><div class="review-header"><div><div class="reviewer">'+r.name+'</div><div class="review-stars">'+'★'.repeat(r.stars)+'</div></div><div class="review-date">'+r.date+'</div></div><div class="review-title">'+r.title+'</div><div class="review-body">'+r.body+'</div><div class="review-helpful">Utile ? <button class="helpful-btn">👍 '+r.helpful+'</button></div></div>').join('')+
+        function(){var rv='';REVIEWS.forEach(function(r){var st='★★★★★'.substring(0,r.stars)+'☆☆☆☆☆'.substring(0,5-r.stars);rv+='<div class="review-card"><div class="review-header"><div><div class="reviewer">'+r.name+'</div><div class="review-stars">'+st+'</div></div><div class="review-date">'+r.date+'</div></div><div class="review-title">'+r.title+'</div><div class="review-body">'+r.body+'</div></div>';});return rv;}()+
       '</div>'+
       '<div id="tabShip" class="tab-pane">'+
         '<div class="desc-content">'+
@@ -353,7 +353,7 @@ function renderPage(){
     '<div class="related">'+
       '<h2>Vous aimerez <span>aussi</span></h2>'+
       '<div class="related-grid">'+
-        PRODS.filter(pr=>pr.id!==p.id).slice(0,4).map(pr=>'<div class="related-card" onclick="location.href='produit.html?id='+pr.id+''"><div class="related-img">'+pr.e+'</div><div class="related-info"><div class="related-name">'+pr.n+'</div><div class="related-price">'+pr.p.toLocaleString()+' €</div></div></div>').join('')+
+        function(){var rp='';var rel=PRODS.filter(function(pr){return pr.id!==p.id;}).slice(0,4);rel.forEach(function(pr){rp+='<div class="related-card" onclick="location.href=\'produit.html?id='+pr.id+'\'"><div class="related-img">'+pr.e+'</div><div class="related-info"><div class="related-name">'+pr.n+'</div><div class="related-price">'+pr.p.toLocaleString()+' €</div></div></div>';});return rp;}()+
       '</div>'+
     '</div>';
 }
@@ -393,7 +393,7 @@ window.addToCart=function(){
 };
 window.buyNow=function(){addToCart();location.href='checkout.html';};
 window.toggleWish=function(id){
-  if(wish.includes(id))wish=wish.filter(x=>x!==id); else wish.push(id);
+  if(wish.includes(id))var newW=[];for(var wx=0;wx<wish.length;wx++){if(wish[wx]!==id)newW.push(wish[wx]);}wish=newW;; else wish.push(id);
   localStorage.setItem('nx_wish',JSON.stringify(wish));
   const btn=document.getElementById('wishBtn');
   if(btn){btn.classList.toggle('active',wish.includes(id));btn.textContent=wish.includes(id)?'❤️':'🤍';}
@@ -406,7 +406,7 @@ function updateCartUI(){
   document.getElementById('cartCount').textContent=tot;
   const ci=document.getElementById('cartItems');
   if(!cart.length){ci.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:40px 0">Panier vide</p>';document.getElementById('cartTotal').textContent='0,00 €';return;}
-  ci.innerHTML=cart.map(i=>'<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' €</div><div class="cart-item-qty"><button class="qty-btn2" onclick="uq(''+i.id+'',-1)">−</button><span>'+i.qty+'</span><button class="qty-btn2" onclick="uq(''+i.id+'',1)">+</button><button class="cart-item-remove" onclick="rc(''+i.id+'')">🗑</button></div></div></div>').join('');
+  var ciH='';cart.forEach(function(i){ciH+='<div class="cart-item"><div class="cart-item-img">'+i.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+i.n+'</div><div class="cart-item-price">'+i.p.toFixed(2)+' €</div><div class="cart-item-qty"><button class="qty-btn2" onclick="uq(\"'+i.id+'\",-1)">−</button><span>'+i.qty+'</span><button class="qty-btn2" onclick="uq(\"'+i.id+'\",1)">+</button><button class="cart-item-remove" onclick="rc(\"'+i.id+'\")">🗑</button></div></div></div>';});ci.innerHTML=ciH;;
   document.getElementById('cartTotal').textContent=cart.reduce((s,i)=>s+i.p*i.qty,0).toFixed(2).replace('.',',')+' €';
 }
 window.uq=function(id,d){const i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);localStorage.setItem('nx_cart',JSON.stringify(cart));updateCartUI();};
