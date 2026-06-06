@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devenir Vendeur — Nexus Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.vhero{background:linear-gradient(135deg,var(--bg2),rgba(14,165,233,.08));padding:5rem 0;border-bottom:1px solid var(--border)}
+.vhero h1{font-family:var(--font2);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:1rem}
+.vhero h1 span{color:var(--blue)}
+.vstats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.vstat{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;text-align:center}
+.vstat b{font-family:var(--font2);font-size:1.8rem;font-weight:800;color:var(--blue);display:block}
+.vstat small{font-size:.78rem;color:var(--text3)}
+.step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;position:relative}
+.step-num{width:28px;height:28px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;margin-bottom:1rem}
+.step-card h3{font-family:var(--font2);font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.step-card p{font-size:.84rem;color:var(--text2);line-height:1.6}
+.comm-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius-lg);overflow:hidden}
+.comm-table th{background:var(--card2);padding:12px 16px;text-align:left;font-size:.78rem;font-weight:700;color:var(--text3);text-transform:uppercase}
+.comm-table td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:.875rem}
+.comm-table tr:last-child td{border:none}
+.comm-rate{color:var(--blue);font-weight:700}
+.vplan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.vplan{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem}
+.vplan.featured{border-color:var(--blue);box-shadow:var(--shadow-blue)}
+.vplan h3{font-family:var(--font2);font-weight:700;margin-bottom:.5rem}
+.vplan-price{font-family:var(--font2);font-size:2rem;font-weight:800;margin:.75rem 0}
+.vplan-price small{font-size:.85rem;font-weight:400;color:var(--text3)}
+.vplan ul{list-style:none;margin:.75rem 0 1.5rem}
+.vplan li{padding:7px 0;font-size:.875rem;color:var(--text2);border-bottom:1px solid var(--border)}
+.vplan li:last-child{border:none}
+.vform{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2.5rem;max-width:600px;margin:0 auto}
+.vform select,textarea{width:100%;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);outline:none}
+.vform textarea{resize:vertical}
+@media(max-width:768px){.step-grid,.vplan-grid,.vstats{grid-template-columns:1fr 1fr}.vhero-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.step-grid,.vplan-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-wrap"><span>🏪 Vendez sur Nexus Store - Commission dès 8%</span><div class="topbar-right"><a href="index.html">Retour boutique</a></div></div></div>
+<nav class="nav" id="nav">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo"><div class="logo-icon">N</div><span>nexus<strong>store</strong></span></a>
+    <div style="flex:1"></div>
+    <a href="#register" class="btn-primary">Créer mon compte vendeur</a>
+  </div>
+</nav>
+
+<section class="vhero">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:4rem;align-items:center" class="vhero-grid">
+      <div>
+        <div class="vb-tag">🏪 Espace Vendeurs</div>
+        <h1>Multipliez vos ventes sur <span>Nexus Store</span></h1>
+        <p style="color:var(--text2);margin-bottom:2rem;font-size:1.05rem;line-height:1.7;max-width:500px">50 millions d'acheteurs, des outils pro, des paiements garantis chaque semaine. Commencez gratuitement dès aujourd'hui.</p>
+        <div style="display:flex;gap:1rem;margin-bottom:2.5rem"><a href="#register" class="btn-primary lg">Commencer gratuitement</a><a href="#commissions" class="btn-outline lg">Voir les commissions</a></div>
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div><strong style="color:var(--blue);font-size:1.1rem">✓ 0€</strong><br><small style="color:var(--text3)">Pour s'inscrire</small></div>
+          <div><strong style="color:var(--green);font-size:1.1rem">✓ 24h</strong><br><small style="color:var(--text3)">Pour vendre</small></div>
+          <div><strong style="color:var(--gold);font-size:1.1rem">✓ 7j</strong><br><small style="color:var(--text3)">Délai de paiement</small></div>
+        </div>
+      </div>
+      <div class="vstats">
+        <div class="vstat"><b>15K+</b><small>Vendeurs actifs</small></div>
+        <div class="vstat"><b>50M+</b><small>Acheteurs</small></div>
+        <div class="vstat"><b>2.4M€</b><small>CA ce mois</small></div>
+        <div class="vstat"><b>4.8★</b><small>Note vendeurs</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head centered" style="margin-bottom:3rem"><h2 class="section-title">Commencer en <span>4 étapes</span></h2></div>
+    <div class="step-grid">
+      <div class="step-card"><div class="step-num">1</div><h3>📝 Inscription</h3><p>Créez votre compte vendeur gratuitement. Vérification d'identité en 24h maximum.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3>🏪 Votre boutique</h3><p>Personnalisez votre boutique : logo, description, politique de retour, coordonnées bancaires.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3>📦 Vos produits</h3><p>Publiez vos produits avec photos HD et description. Notre IA optimise votre référencement.</p></div>
+      <div class="step-card"><div class="step-num">4</div><h3>💰 Encaissez</h3><p>Vente → Nexus prélève la commission → Vous recevez le solde chaque semaine automatiquement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="commissions" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-head centered" style="margin-bottom:3rem"><h2 class="section-title">Grille des <span>Commissions</span></h2><p class="section-desc">Taux parmi les plus bas du marché, transparents et sans surprises</p></div>
+    <table class="comm-table">
+      <thead><tr><th>Catégorie</th><th>Commission</th><th>Vente 100€ → Vous recevez</th></tr></thead>
+      <tbody>
+        <tr><td>💻 Tech (smartphones, PC, gaming)</td><td class="comm-rate">8%</td><td><strong>92€</strong></td></tr>
+        <tr><td>🎧 Audio & Accessoires</td><td class="comm-rate">10%</td><td><strong>90€</strong></td></tr>
+        <tr><td>👗 Mode & Vêtements</td><td class="comm-rate">15%</td><td><strong>85€</strong></td></tr>
+        <tr><td>👟 Chaussures</td><td class="comm-rate">12%</td><td><strong>88€</strong></td></tr>
+        <tr><td>🏠 Maison & Déco</td><td class="comm-rate">12%</td><td><strong>88€</strong></td></tr>
+        <tr><td>⚽ Sport & Outdoor</td><td class="comm-rate">10%</td><td><strong>90€</strong></td></tr>
+        <tr><td>💄 Beauté & Santé</td><td class="comm-rate">15%</td><td><strong>85€</strong></td></tr>
+        <tr><td>🚗 Auto & Moto</td><td class="comm-rate">8%</td><td><strong>92€</strong></td></tr>
+        <tr><td>📚 Culture & Jeux</td><td class="comm-rate">8%</td><td><strong>92€</strong></td></tr>
+        <tr><td>🍕 Alimentation</td><td class="comm-rate">10%</td><td><strong>90€</strong></td></tr>
+        <tr style="background:rgba(14,165,233,.04)"><td><strong>💎 Abonnés Plan Pro</strong></td><td class="comm-rate"><strong>-2% sur tout</strong></td><td><strong>Économies supplémentaires</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.78rem;color:var(--text3);margin-top:.75rem;text-align:center">+ Frais Stripe : 1.4% + 0.25€/transaction. Aucun frais caché.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head centered" style="margin-bottom:3rem"><h2 class="section-title">Plans <span>Vendeur</span></h2></div>
+    <div class="vplan-grid">
+      <div class="vplan">
+        <h3>Starter</h3><p style="color:var(--text3);font-size:.85rem">Pour débuter</p>
+        <div class="vplan-price">0€ <small>/mois</small></div>
+        <ul><li>Jusqu'à <strong>50 produits</strong></li><li>Commission standard</li><li>Dashboard basique</li><li>Support email</li></ul>
+        <a href="#register" class="btn-outline full">Commencer</a>
+      </div>
+      <div class="vplan featured">
+        <div class="pc-badge">⭐ POPULAIRE</div>
+        <h3>Pro</h3><p style="color:var(--text3);font-size:.85rem">Pour se développer</p>
+        <div class="vplan-price">29.99€ <small>/mois</small></div>
+        <ul><li>Produits <strong>illimités</strong></li><li>Commission <strong>-2%</strong></li><li>Analytics complets</li><li>Mise en avant catalogue</li><li>Support prioritaire</li></ul>
+        <a href="#register" class="btn-primary full">30j offerts</a>
+      </div>
+      <div class="vplan">
+        <h3>Business</h3><p style="color:var(--text3);font-size:.85rem">Pour les marques</p>
+        <div class="vplan-price">99.99€ <small>/mois</small></div>
+        <ul><li>Tout du plan Pro</li><li>Commission <strong>-4%</strong></li><li>Badge marque officielle</li><li>API + intégrations</li><li>Manager dédié</li></ul>
+        <a href="contact.html" class="btn-outline full">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="register" style="background:var(--bg2)">
+  <div class="container">
+    <div class="vform">
+      <h2 class="section-title" style="text-align:center;margin-bottom:.5rem">Créer mon compte <span>vendeur</span></h2>
+      <p style="text-align:center;color:var(--text2);margin-bottom:2rem;font-size:.9rem">Gratuit · Réponse sous 24h · Aucun engagement</p>
+      <form onsubmit="reg(event)">
+        <div class="form-group"><label>Nom de votre boutique *</label><input type="text" id="vS" placeholder="Ex: Mon Super Shop" required></div>
+        <div class="form-group"><label>Email professionnel *</label><input type="email" id="vE" placeholder="contact@maboutique.fr" required></div>
+        <div class="form-group"><label>Téléphone *</label><input type="tel" id="vP" placeholder="06 12 34 56 78" required></div>
+        <div class="form-group"><label>Catégorie principale</label>
+          <select id="vC"><option>💻 Technologie</option><option>👗 Mode</option><option>🏠 Maison</option><option>⚽ Sport</option><option>💄 Beauté</option><option>🚗 Auto</option><option>📚 Culture</option><option>Autre</option></select>
+        </div>
+        <div class="form-group"><label>Décrivez votre activité</label><textarea id="vM" rows="3" placeholder="Quelques mots sur votre activité..."></textarea></div>
+        <button type="submit" class="btn-primary full">Soumettre ma candidature →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div style="display:flex;justify-content:space-between;align-items:center;padding:2rem 0;border-top:1px solid var(--border);flex-wrap:wrap;gap:1rem">
+  <a href="index.html" class="logo"><div class="logo-icon">N</div><span>nexus<strong>store</strong></span></a>
+  <p style="font-size:.78rem;color:var(--text3)">© 2025 Nexus Store</p>
+  <div style="display:flex;gap:1rem"><a href="cgv.html" style="font-size:.78rem;color:var(--text3)">CGV</a><a href="contact.html" style="font-size:.78rem;color:var(--text3)">Contact</a></div>
+</div></div></footer>
+<div id="toast" class="toast"></div>
+<script>
+function reg(e){e.preventDefault();const t=document.getElementById('toast');t.textContent='✅ Candidature envoyée ! Réponse sous 24h.';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);e.target.reset();}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>80);},{passive:true});
+</script>
+</body></html>
