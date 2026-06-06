@@ -291,7 +291,7 @@ function renderTags(){
   var tags=[],h="";
   if(st.cat!=="all")tags.push({l:"&#128193; "+st.cat,k:"cat"});
   if(st.q)tags.push({l:"&#128269; "+st.q,k:"q"});
-  tags.forEach(function(t){h+='<div class="filter-tag">'+t.l+'<button onclick="rmTag(\\''+t.k+'\\')">&#10005;</button></div>';});
+  tags.forEach(function(t){h+='<div class="filter-tag">'+t.l+'<button data-k="'+t.k+'" onclick="rmTag(this.dataset.k)">&#10005;</button></div>';});
   document.getElementById("activeFilters").innerHTML=h;
 }
 function rmTag(k){if(k==="cat"){st.cat="all";document.querySelectorAll(".cat-list a").forEach(function(a,i){a.classList.toggle("active",i===0);});}if(k==="q"){st.q="";document.getElementById("mainSearch").value="";}applyFilters();}
