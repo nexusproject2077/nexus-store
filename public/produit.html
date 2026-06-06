@@ -316,10 +316,10 @@ function renderPage(){
     '</div>'+
     '<div class="tabs">'+
       '<div class="tab-nav">'+
-        '<button class="tab-btn active" onclick="showTab('desc',this)">📝 Description</button>'+
-        '<button class="tab-btn" onclick="showTab('specs',this)">⚙️ Caractéristiques</button>'+
-        '<button class="tab-btn" onclick="showTab('reviews',this)">⭐ Avis ('+p.rv.toLocaleString()+')</button>'+
-        '<button class="tab-btn" onclick="showTab('ship',this)">🚚 Livraison</button>'+
+        '<button class="tab-btn active" onclick="showTab(this.dataset.tab,this)" data-tab="desc">📝 Description</button>'+
+        '<button class="tab-btn" onclick="showTab(this.dataset.tab,this)" data-tab="specs">⚙️ Caractéristiques</button>'+
+        '<button class="tab-btn" onclick="showTab(this.dataset.tab,this)" data-tab="reviews">⭐ Avis ('+p.rv.toLocaleString()+')</button>'+
+        '<button class="tab-btn" onclick="showTab(this.dataset.tab,this)" data-tab="ship">🚚 Livraison</button>'+
       '</div>'+
       '<div id="tabDesc" class="tab-pane active">'+
         '<div class="desc-content">'+
