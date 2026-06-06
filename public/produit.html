@@ -289,7 +289,7 @@ function renderPage(){
         '<div class="cta-row">'+
           '<button class="btn-add-cart" onclick="addToCart()">🛒 Ajouter au panier</button>'+
           '<button class="btn-buy-now" onclick="buyNow()">⚡ Acheter maintenant</button>'+
-          '<button class="btn-wish'+(inWish?' active':'')+'" data-pid=\"'+ p.id +'\"" id="wishBtn" onclick="toggleWish(this.dataset.pid))">'+
+          '<button class="btn-wish'+(inWish?' active':'')+'" data-pid=\"'+ p.id +'\"" id="wishBtn" onclick="toggleWish(p.id)">'+
             (inWish?'❤️':'🤍')+
           '</button>'+
         '</div>'+
