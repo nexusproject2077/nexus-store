@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commande — Nexus Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{--primary:#0ea5e9;--primary-dark:#0284c7;--bg:#0a0a1a;--surface:#111827;--border:#1e293b;--text:#f1f5f9;--text-muted:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--accent:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+.checkout-page{max-width:1100px;margin:0 auto;padding:100px 24px 60px;}
+.checkout-header{text-align:center;margin-bottom:36px;}
+.checkout-header h1{font-family:'Space Grotesk',sans-serif;font-size:2rem;margin-bottom:8px;}
+.checkout-header h1 span{color:var(--primary);}
+.checkout-header p{color:var(--text-muted);}
+/* STEPS */
+.steps{display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:40px;}
+.step{display:flex;align-items:center;gap:8px;}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--border);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;transition:all .3s;}
+.step.active .step-num{background:var(--primary);color:#fff;}
+.step.done .step-num{background:var(--success);color:#fff;}
+.step-label{font-size:.82rem;color:var(--text-muted);}
+.step.active .step-label{color:var(--text);}
+.step-line{width:60px;height:2px;background:var(--border);margin:0 6px;}
+.step-line.done{background:var(--success);}
+/* LAYOUT */
+.checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:28px;}
+/* FORM */
+.checkout-form{display:flex;flex-direction:column;gap:20px;}
+.form-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;}
+.form-section h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-grid.full{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;}
+.field input,.field select{background:#0a0a1a;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;font-size:.92rem;outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus{border-color:var(--primary);}
+.field input.error{border-color:var(--danger);}
+/* PAYMENT METHODS */
+.payment-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.pay-opt{display:flex;align-items:center;gap:12px;background:#0a0a1a;border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;}
+.pay-opt:hover,.pay-opt.selected{border-color:var(--primary);}
+.pay-opt input[type=radio]{accent-color:var(--primary);}
+.pay-icon{font-size:1.5rem;}
+.pay-info{flex:1;}
+.pay-name{font-weight:600;font-size:.92rem;}
+.pay-desc{font-size:.75rem;color:var(--text-muted);}
+.card-fields{background:#0a0a1a;border:1px solid var(--border);border-radius:10px;padding:16px;display:none;}
+.card-fields.show{display:block;}
+.card-row{display:flex;gap:12px;}
+.secure-badge{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-muted);margin-top:12px;}
+/* ORDER SUMMARY */
+.order-summary{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;height:fit-content;position:sticky;top:90px;}
+.order-summary h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.summary-items{max-height:300px;overflow-y:auto;margin-bottom:16px;}
+.sum-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.sum-item:last-child{border-bottom:none;}
+.sum-emoji{font-size:1.8rem;width:44px;height:44px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sum-info{flex:1;}
+.sum-name{font-size:.85rem;font-weight:600;margin-bottom:2px;}
+.sum-qty{font-size:.75rem;color:var(--text-muted);}
+.sum-price{font-weight:700;color:var(--primary);font-size:.9rem;white-space:nowrap;}
+.summary-lines{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-top:1px solid var(--border);}
+.sum-line{display:flex;justify-content:space-between;font-size:.88rem;color:var(--text-muted);}
+.sum-line.total{color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;padding-top:10px;border-top:1px solid var(--border);margin-top:6px;}
+.sum-line.total span:last-child{color:var(--primary);}
+.sum-discount{color:var(--success);}
+/* PROMO CODE */
+.promo-row{display:flex;gap:8px;margin-bottom:16px;}
+.promo-row input{flex:1;background:#0a0a1a;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 12px;font-size:.88rem;outline:none;}
+.promo-row input:focus{border-color:var(--primary);}
+.btn-promo{background:var(--surface);border:1px solid var(--primary);color:var(--primary);border-radius:8px;padding:9px 16px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-promo:hover{background:rgba(14,165,233,.1);}
+/* TRUST BADGES */
+.trust-badges{display:flex;flex-direction:column;gap:6px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text-muted);}
+/* BTN */
+.btn-place{width:100%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:12px;padding:16px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:6px;}
+.btn-place:hover{opacity:.9;transform:translateY(-1px);}
+.btn-place:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+/* SUCCESS */
+.success-overlay{position:fixed;inset:0;background:var(--bg);display:none;align-items:center;justify-content:center;z-index:9999;}
+.success-overlay.show{display:flex;}
+.success-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:48px;text-align:center;max-width:480px;}
+.success-icon{font-size:4rem;margin-bottom:20px;}
+.success-card h2{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;margin-bottom:12px;}
+.success-card p{color:var(--text-muted);margin-bottom:24px;line-height:1.6;}
+.success-order{background:rgba(16,185,129,.1);border:1px solid var(--success);border-radius:10px;padding:14px;margin-bottom:24px;font-size:.9rem;}
+.success-order span{color:var(--success);font-weight:700;font-size:1.1rem;}
+.btn-home{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:13px 28px;font-size:.95rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;}
+/* EMPTY CART */
+.empty-cart{text-align:center;padding:60px;background:var(--surface);border:1px solid var(--border);border-radius:16px;}
+.empty-cart h2{font-family:'Space Grotesk',sans-serif;margin-bottom:12px;}
+.empty-cart p{color:var(--text-muted);margin-bottom:24px;}
+.btn-shop{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:.95rem;font-weight:700;cursor:pointer;}
+@media(max-width:900px){.checkout-layout{grid-template-columns:1fr;}.order-summary{position:static;}}
+@media(max-width:600px){.checkout-page{padding:80px 12px 40px;}.form-grid{grid-template-columns:1fr;}.steps{gap:0;}.step-label{display:none;}}
+</style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">N</div><span>Nexus<span style="color:var(--primary)">Store</span></span></a>
+    <div class="nav-actions">
+      <a href="boutique.html" class="nav-link">← Boutique</a>
+    </div>
+  </div>
+</nav>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h2>Commande confirmée !</h2>
+    <p>Merci pour votre achat sur <strong>Nexus Store</strong>. Vous recevrez un email de confirmation avec le suivi de votre colis.</p>
+    <div class="success-order">
+      Numéro de commande : <br><span id="orderNum">#NS-2026-00000</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:20px;">Livraison estimée : <strong>2-3 jours ouvrés</strong></p>
+    <a href="index.html" class="btn-home">🏠 Retour à l'accueil</a>
+  </div>
+</div>
+
+<div class="checkout-page">
+  <div class="checkout-header">
+    <h1>Finaliser ma <span>commande</span></h1>
+    <p>Paiement 100% sécurisé — Cryptage SSL 256 bits</p>
+  </div>
+
+  <div class="steps">
+    <div class="step active" id="step1">
+      <div class="step-num">1</div>
+      <span class="step-label">Livraison</span>
+    </div>
+    <div class="step-line" id="line1"></div>
+    <div class="step" id="step2">
+      <div class="step-num">2</div>
+      <span class="step-label">Paiement</span>
+    </div>
+    <div class="step-line" id="line2"></div>
+    <div class="step" id="step3">
+      <div class="step-num">3</div>
+      <span class="step-label">Confirmation</span>
+    </div>
+  </div>
+
+  <div id="emptyCart" class="empty-cart" style="display:none">
+    <div style="font-size:3rem;margin-bottom:16px">🛒</div>
+    <h2>Votre panier est vide</h2>
+    <p>Ajoutez des produits à votre panier pour passer commande.</p>
+    <button class="btn-shop" onclick="location.href='boutique.html'">🛍️ Parcourir la boutique</button>
+  </div>
+
+  <div class="checkout-layout" id="checkoutLayout">
+    <div class="checkout-form">
+      <!-- SECTION 1: LIVRAISON -->
+      <div class="form-section">
+        <h3>📦 Informations de livraison</h3>
+        <div class="form-grid">
+          <div class="field">
+            <label>Prénom *</label>
+            <input type="text" id="firstName" placeholder="Jean">
+          </div>
+          <div class="field">
+            <label>Nom *</label>
+            <input type="text" id="lastName" placeholder="Dupont">
+          </div>
+        </div>
+        <div class="form-grid full" style="margin-top:12px">
+          <div class="field">
+            <label>Email *</label>
+            <input type="email" id="email" placeholder="jean.dupont@email.com">
+          </div>
+        </div>
+        <div class="form-grid full" style="margin-top:12px">
+          <div class="field">
+            <label>Adresse *</label>
+            <input type="text" id="address" placeholder="12 rue de la Paix">
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:12px">
+          <div class="field">
+            <label>Code postal *</label>
+            <input type="text" id="zip" placeholder="75001">
+          </div>
+          <div class="field">
+            <label>Ville *</label>
+            <input type="text" id="city" placeholder="Paris">
+          </div>
+        </div>
+        <div class="form-grid full" style="margin-top:12px">
+          <div class="field">
+            <label>Pays</label>
+            <select id="country">
+              <option>France</option>
+              <option>Belgique</option>
+              <option>Suisse</option>
+              <option>Canada</option>
+              <option>Luxembourg</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: LIVRAISON OPTIONS -->
+      <div class="form-section">
+        <h3>🚚 Mode de livraison</h3>
+        <div class="payment-methods">
+          <label class="pay-opt selected" id="ship1" onclick="selectShip(this,'ship1')">
+            <input type="radio" name="shipping" checked>
+            <div class="pay-icon">📦</div>
+            <div class="pay-info">
+              <div class="pay-name">Livraison Standard — Gratuite</div>
+              <div class="pay-desc">3-5 jours ouvrés</div>
+            </div>
+            <span style="color:var(--success);font-weight:700">Gratuit</span>
+          </label>
+          <label class="pay-opt" id="ship2" onclick="selectShip(this,'ship2')">
+            <input type="radio" name="shipping">
+            <div class="pay-icon">⚡</div>
+            <div class="pay-info">
+              <div class="pay-name">Livraison Express</div>
+              <div class="pay-desc">1-2 jours ouvrés</div>
+            </div>
+            <span style="color:var(--primary);font-weight:700">4,99 €</span>
+          </label>
+          <label class="pay-opt" id="ship3" onclick="selectShip(this,'ship3')">
+            <input type="radio" name="shipping">
+            <div class="pay-icon">🚀</div>
+            <div class="pay-info">
+              <div class="pay-name">Nexus Prime — Jour même</div>
+              <div class="pay-desc">Grandes villes — Avant 20h</div>
+            </div>
+            <span style="color:var(--accent);font-weight:700">9,99 €</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECTION 3: PAIEMENT -->
+      <div class="form-section">
+        <h3>💳 Mode de paiement</h3>
+        <div class="payment-methods" id="payMethods">
+          <label class="pay-opt selected" onclick="selectPay('card',this)">
+            <input type="radio" name="payment" checked>
+            <div class="pay-icon">💳</div>
+            <div class="pay-info">
+              <div class="pay-name">Carte bancaire</div>
+              <div class="pay-desc">Visa, Mastercard, American Express</div>
+            </div>
+          </label>
+          <label class="pay-opt" onclick="selectPay('paypal',this)">
+            <input type="radio" name="payment">
+            <div class="pay-icon">🅿️</div>
+            <div class="pay-info">
+              <div class="pay-name">PayPal</div>
+              <div class="pay-desc">Paiement rapide et sécurisé</div>
+            </div>
+          </label>
+          <label class="pay-opt" onclick="selectPay('apple',this)">
+            <input type="radio" name="payment">
+            <div class="pay-icon">🍎</div>
+            <div class="pay-info">
+              <div class="pay-name">Apple Pay</div>
+              <div class="pay-desc">Paiement en un touch</div>
+            </div>
+          </label>
+          <label class="pay-opt" onclick="selectPay('crypto',this)">
+            <input type="radio" name="payment">
+            <div class="pay-icon">₿</div>
+            <div class="pay-info">
+              <div class="pay-name">Crypto (BTC / ETH)</div>
+              <div class="pay-desc">Bitcoin, Ethereum acceptés</div>
+            </div>
+          </label>
+        </div>
+        <div class="card-fields show" id="cardFields">
+          <div class="field" style="margin-bottom:12px">
+            <label>Numéro de carte</label>
+            <input type="text" id="cardNum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)">
+          </div>
+          <div class="card-row">
+            <div class="field" style="flex:1">
+              <label>Expiration</label>
+              <input type="text" id="cardExp" placeholder="MM/AA" maxlength="5">
+            </div>
+            <div class="field" style="flex:1">
+              <label>CVV</label>
+              <input type="text" id="cardCvv" placeholder="•••" maxlength="4">
+            </div>
+          </div>
+          <div class="secure-badge">
+            🔒 Paiement chiffré SSL 256 bits — Vos données sont protégées
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="order-summary">
+      <h3>🧾 Récapitulatif</h3>
+      <div class="summary-items" id="sumItems"></div>
+      <div class="promo-row">
+        <input type="text" id="promoInput" placeholder="Code promo">
+        <button class="btn-promo" onclick="applyPromo()">Appliquer</button>
+      </div>
+      <div class="summary-lines">
+        <div class="sum-line"><span>Sous-total</span><span id="subtotal">0,00 €</span></div>
+        <div class="sum-line"><span>Livraison</span><span id="shipping">Gratuite</span></div>
+        <div class="sum-line sum-discount" id="discountLine" style="display:none"><span>Réduction promo</span><span id="discountAmt"></span></div>
+        <div class="sum-line total"><span>Total TTC</span><span id="totalAmt">0,00 €</span></div>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-item">🔒 Paiement 100% sécurisé</div>
+        <div class="trust-item">🔄 Retours gratuits 30 jours</div>
+        <div class="trust-item">📞 Support 24h/7j</div>
+        <div class="trust-item">🛡️ Protection acheteur Nexus</div>
+      </div>
+      <button class="btn-place" id="placeBtn" onclick="placeOrder()">
+        🔒 Confirmer la commande
+      </button>
+    </div>
+  </div>
+</div><script>
+let cart=JSON.parse(localStorage.getItem('nx_cart')||'[]');
+let shipCost=0, discountPct=0;
+const PROMOS={NEXUS10:'10',WELCOME20:'20',VIP30:'30'};
+
+function init(){
+  if(!cart.length){
+    document.getElementById('emptyCart').style.display='block';
+    document.getElementById('checkoutLayout').style.display='none';
+    return;
+  }
+  renderSummary();
+  document.getElementById('navbar').classList.toggle('scrolled',false);
+}
+
+function renderSummary(){
+  const items=document.getElementById('sumItems');
+  items.innerHTML=cart.map(i=>
+    '<div class="sum-item">'+
+      '<div class="sum-emoji">'+i.e+'</div>'+
+      '<div class="sum-info">'+
+        '<div class="sum-name">'+i.n+'</div>'+
+        '<div class="sum-qty">Qté: '+i.qty+'</div>'+
+      '</div>'+
+      '<div class="sum-price">'+(i.p*i.qty).toFixed(2).replace('.',',')+' €</div>'+
+    '</div>'
+  ).join('');
+  calcTotal();
+}
+
+function calcTotal(){
+  const sub=cart.reduce((s,i)=>s+i.p*i.qty,0);
+  const disc=sub*(discountPct/100);
+  const total=sub+shipCost-disc;
+  document.getElementById('subtotal').textContent=sub.toFixed(2).replace('.',',')+' €';
+  document.getElementById('shipping').textContent=shipCost===0?'<span style="color:var(--success)">Gratuite</span>':shipCost.toFixed(2).replace('.',',')+' €';
+  document.getElementById('totalAmt').textContent=total.toFixed(2).replace('.',',')+' €';
+  if(discountPct>0){
+    document.getElementById('discountLine').style.display='flex';
+    document.getElementById('discountAmt').textContent='-'+disc.toFixed(2).replace('.',',')+' €';
+  }
+}
+
+window.selectShip=function(el,id){
+  document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  shipCost=id==='ship1'?0:id==='ship2'?4.99:9.99;
+  calcTotal();
+};
+
+window.selectPay=function(method,el){
+  document.querySelectorAll('#payMethods .pay-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('cardFields').classList.toggle('show',method==='card');
+};
+
+window.formatCard=function(input){
+  let v=input.value.replace(/D/g,'').substring(0,16);
+  input.value=v.replace(/(d{4})(?=d)/g,'$1 ');
+};
+
+window.applyPromo=function(){
+  const code=document.getElementById('promoInput').value.trim().toUpperCase();
+  if(PROMOS[code]){
+    discountPct=parseInt(PROMOS[code]);
+    showToast('✅ Code promo appliqué: -'+discountPct+'% !');
+    calcTotal();
+  } else {
+    showToast('❌ Code promo invalide');
+  }
+};
+
+window.placeOrder=function(){
+  const fields=['firstName','lastName','email','address','zip','city'];
+  let valid=true;
+  fields.forEach(f=>{
+    const el=document.getElementById(f);
+    if(!el.value.trim()){el.classList.add('error');valid=false;}
+    else el.classList.remove('error');
+  });
+  if(!valid){showToast('⚠️ Veuillez remplir tous les champs obligatoires');return;}
+  
+  const btn=document.getElementById('placeBtn');
+  btn.disabled=true;
+  btn.textContent='⏳ Traitement en cours...';
+  
+  setTimeout(()=>{
+    const num='#NS-'+new Date().getFullYear()+'-'+Math.random().toString(36).substring(2,8).toUpperCase();
+    document.getElementById('orderNum').textContent=num;
+    localStorage.removeItem('nx_cart');
+    cart=[];
+    document.getElementById('successOverlay').classList.add('show');
+    animateSuccess();
+  },2000);
+};
+
+function animateSuccess(){
+  let step=0;
+  const steps=[
+    ()=>{document.getElementById('step1').classList.add('done');document.getElementById('line1').classList.add('done');},
+    ()=>{document.getElementById('step2').classList.add('done','active');document.getElementById('line2').classList.add('done');},
+    ()=>{document.getElementById('step3').classList.add('done','active');}
+  ];
+  const timer=setInterval(()=>{
+    if(step<steps.length){steps[step]();step++;}
+    else clearInterval(timer);
+  },400);
+}
+
+function showToast(m){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:10px;font-size:.88rem;z-index:9999;transition:all .3s;';document.body.appendChild(t);}
+  t.textContent=m;t.style.opacity='1';t.style.transform='translateY(0)';
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(80px)';},3000);
+}
+
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>20));
+init();
+</script>
+</body>
+</html>
