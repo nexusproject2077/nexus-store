@@ -3,1008 +3,1017 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS 2077 — La Boutique du Futur</title>
-<meta name="description" content="NEXUS 2077 - La boutique e-commerce la plus avancee au monde. Tech, Mode, Maison, Sport, Beaute. Livraison express, IA shopping.">
+<meta name="description" content="Nexus Store - La marketplace #1 en France. Achetez et vendez des millions de produits Tech, Mode, Maison, Sport. Livraison express, retours gratuits, paiement sécurisé.">
+<meta name="keywords" content="nexus store, marketplace, boutique en ligne, tech, mode, maison, sport">
+<meta name="theme-color" content="#0a0a1a">
+<meta property="og:title" content="Nexus Store — La Marketplace du Futur">
+<meta property="og:description" content="Des millions de produits, des milliers de vendeurs, une seule plateforme.">
+<title>Nexus Store — La Marketplace du Futur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230ea5e9'/><text y='.9em' font-size='70' x='15'>N</text></svg>">
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loader" class="loader-screen">
-  <div class="loader-content">
-    <div class="loader-logo">NEXUS<span>2077</span></div>
-    <div class="loader-bar"><div class="loader-fill"></div></div>
-    <p class="loader-text">INITIALISATION DU SYSTEME...</p>
+<!-- LOADER -->
+<div id="loader" class="loader">
+  <div class="loader-box">
+    <div class="loader-logo"><span>N</span>exus Store</div>
+    <div class="loader-ring"></div>
   </div>
 </div>
 
-<!-- PARTICLE CANVAS -->
-<canvas id="particles" class="particles-bg"></canvas>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <span>⚡ LIVRAISON GRATUITE des 50€ · Code NEXUS20 = -20% · Support 24/7 IA</span>
-    <div class="topbar-links">
-      <a href="a-propos.html">À Propos</a>
-      <a href="contact.html">Contact</a>
+<!-- TOPBAR -->
+<div class="topbar" id="topbar">
+  <div class="topbar-wrap">
+    <div class="topbar-left">
+      <span>🚚 Livraison gratuite dès 49€</span>
+      <span class="sep">|</span>
+      <span>🎁 Code <strong>NEXUS10</strong> = -10% sur votre 1ère commande</span>
+    </div>
+    <div class="topbar-right">
+      <a href="a-propos.html">À propos</a>
+      <a href="vendeur.html">Devenir vendeur</a>
       <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 </div>
 
 <!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">
-      <span class="logo-n">N</span>EXUS<span class="logo-year">2077</span>
+<nav class="nav" id="nav">
+  <div class="nav-wrap">
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <div class="logo-icon">N</div>
+      <span>nexus<strong>store</strong></span>
     </a>
-    <div class="nav-search">
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" placeholder="Rechercher parmi 10M+ produits..." autocomplete="off">
-        <button class="search-btn" onclick="doSearch()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        <div id="searchDropdown" class="search-dropdown"></div>
+
+    <!-- Search -->
+    <div class="nav-search" id="navSearch">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Rechercher parmi des millions de produits..." autocomplete="off" aria-label="Recherche">
+        <button class="search-clear" id="searchClear" style="display:none" onclick="clearSearch()">✕</button>
       </div>
+      <div class="search-results" id="searchResults"></div>
     </div>
-    <div class="nav-actions">
-      <button class="nav-btn" onclick="toggleWishlist()" title="Favoris">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span class="badge" id="wishlistBadge">0</span>
+
+    <!-- Nav Right -->
+    <div class="nav-right">
+      <!-- User -->
+      <div class="nav-user" id="navUser">
+        <button class="nav-icon-btn" id="userBtn" onclick="handleAuth()" aria-label="Compte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="userLabel">Connexion</span>
+        </button>
+      </div>
+      <!-- Favorites -->
+      <button class="nav-icon-btn" onclick="openPanel('wishlist')" aria-label="Favoris">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="nav-badge" id="wBadge">0</span>
       </button>
-      <button class="nav-btn" onclick="toggleCart()" title="Panier">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span class="badge" id="cartBadge">0</span>
+      <!-- Cart -->
+      <button class="nav-icon-btn cart-btn" onclick="openPanel('cart')" aria-label="Panier">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="nav-badge" id="cBadge">0</span>
       </button>
-      <button class="nav-btn" onclick="toggleUserMenu()" title="Compte">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </button>
-      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-  <!-- Mobile Menu -->
+
+  <!-- Category bar -->
+  <div class="cat-bar">
+    <div class="cat-bar-wrap">
+      <a href="boutique.html?cat=tech" class="cat-link">💻 Tech</a>
+      <a href="boutique.html?cat=mode" class="cat-link">👗 Mode</a>
+      <a href="boutique.html?cat=maison" class="cat-link">🏠 Maison</a>
+      <a href="boutique.html?cat=sport" class="cat-link">⚽ Sport</a>
+      <a href="boutique.html?cat=beaute" class="cat-link">💄 Beauté</a>
+      <a href="boutique.html?cat=auto" class="cat-link">🚗 Auto</a>
+      <a href="boutique.html?cat=culture" class="cat-link">📚 Culture</a>
+      <a href="boutique.html?cat=alimentation" class="cat-link">🍕 Alimentation</a>
+      <a href="boutique.html?cat=jouets" class="cat-link">🧸 Jouets</a>
+      <a href="boutique.html?cat=jardin" class="cat-link">🌿 Jardin</a>
+      <a href="vendeur.html" class="cat-link cat-vendor">🏪 Vendre sur Nexus</a>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="boutique.html">Boutique</a>
-    <a href="collections.html">Collections</a>
-    <a href="nouveautes.html">Nouveautés</a>
-    <a href="blog.html">Blog</a>
-    <a href="contact.html">Contact</a>
+    <a href="boutique.html">🛍️ Boutique</a>
+    <a href="boutique.html?cat=tech">💻 Technologie</a>
+    <a href="boutique.html?cat=mode">👗 Mode</a>
+    <a href="boutique.html?cat=maison">🏠 Maison</a>
+    <a href="vendeur.html">🏪 Devenir vendeur</a>
+    <a href="abonnements.html">⭐ Nexus Premium</a>
+    <a href="blog.html">📝 Blog</a>
+    <a href="contact.html">📞 Contact</a>
+    <div class="mobile-auth">
+      <button onclick="handleAuth()" class="btn-primary full">Se connecter</button>
+    </div>
   </div>
 </nav>
 
-<!-- HERO SECTION -->
-<section class="hero" id="home">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-glow glow1"></div>
-    <div class="hero-glow glow2"></div>
-    <div class="hero-glow glow3"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      NOUVEAU · SAISON 2077
+<!-- HERO SLIDER -->
+<section class="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="--bg:#0ea5e9">
+      <div class="hero-content">
+        <div class="hero-tag">⚡ OFFRE FLASH · -40% sur la Tech</div>
+        <h1>Des Millions de Produits.<br><span>Un seul endroit.</span></h1>
+        <p>Découvrez notre marketplace avec des milliers de vendeurs vérifiés, des prix imbattables et une livraison express partout en France.</p>
+        <div class="hero-actions">
+          <a href="boutique.html" class="btn-primary lg">Explorer la boutique</a>
+          <a href="vendeur.html" class="btn-outline lg">Vendre sur Nexus</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item"><span>4.9★</span><small>2.4M avis</small></div>
+          <div class="trust-sep"></div>
+          <div class="trust-item"><span>50M+</span><small>Clients</small></div>
+          <div class="trust-sep"></div>
+          <div class="trust-item"><span>10M+</span><small>Produits</small></div>
+          <div class="trust-sep"></div>
+          <div class="trust-item"><span>48h</span><small>Livraison max</small></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hcard hcard-main">
+            <span class="hcard-emoji">📱</span>
+            <div class="hcard-info">
+              <strong>iPhone 16 Pro Max</strong>
+              <span class="hcard-price">1 299€</span>
+              <span class="hcard-old">1 599€</span>
+            </div>
+            <button class="hcard-add" onclick="quickAddToCart({id:'h1',name:'iPhone 16 Pro Max',price:1299,emoji:'📱',cat:'tech'})">+</button>
+          </div>
+          <div class="hcard hcard-secondary">
+            <span class="hcard-emoji">💻</span>
+            <div class="hcard-info">
+              <strong>MacBook Pro M4</strong>
+              <span class="hcard-price">2 499€</span>
+            </div>
+          </div>
+          <div class="floating-pill pill1">✅ Vendeur vérifié</div>
+          <div class="floating-pill pill2">🚚 Livraison 24h</div>
+          <div class="floating-pill pill3">🔒 Paiement sécurisé</div>
+        </div>
+      </div>
     </div>
-    <h1 class="hero-title">
-      L'AVENIR DU<br>
-      <span class="glitch" data-text="SHOPPING">SHOPPING</span><br>
-      <span class="hero-sub">EST ICI</span>
-    </h1>
-    <p class="hero-desc">
-      Plus de <strong>10 millions de produits</strong> dans toutes les catégories.<br>
-      IA de recommandation · Livraison 2h express · Retours gratuits 365j
-    </p>
-    <div class="hero-btns">
-      <a href="boutique.html" class="btn-primary">
-        <span>EXPLORER LA BOUTIQUE</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+  <div class="hero-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</section>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <div class="promo-strip-wrap">
+    <div class="ps-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span><strong>Livraison gratuite</strong> dès 49€</span></div>
+    <div class="ps-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18l-2 13H5L3 3z"/><path d="m3 3 2 13H5"/></svg><span><strong>Retours gratuits</strong> 30 jours</span></div>
+    <div class="ps-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span><strong>Paiement sécurisé</strong> SSL 256-bit</span></div>
+    <div class="ps-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span><strong>Support 24/7</strong> réponse rapide</span></div>
+    <div class="ps-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span><strong>Programme fidélité</strong> points & récompenses</span></div>
+  </div>
+</div>
+
+<!-- FLASH DEALS -->
+<section class="section flash-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-title-row">
+        <h2 class="section-title">⚡ Ventes Flash</h2>
+        <div class="countdown-box">
+          <span>Fin dans :</span>
+          <div class="countdown">
+            <div class="cd-unit"><span id="cdH">00</span><small>h</small></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><span id="cdM">00</span><small>m</small></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><span id="cdS">00</span><small>s</small></div>
+          </div>
+        </div>
+      </div>
+      <a href="boutique.html?flash=1" class="see-all">Tout voir →</a>
+    </div>
+    <div class="products-row" id="flashDeals"></div>
+  </div>
+</section>
+
+<!-- CATEGORIES GRID -->
+<section class="section categories-section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Nos Univers</h2>
+      <a href="boutique.html" class="see-all">Explorer →</a>
+    </div>
+    <div class="cat-grid">
+      <a href="boutique.html?cat=tech" class="cat-card" style="--cc:#0ea5e9">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">💻</span>
+        <h3>Technologie</h3>
+        <p>2.4M produits</p>
       </a>
-      <a href="#categories" class="btn-secondary">Voir les catégories</a>
+      <a href="boutique.html?cat=mode" class="cat-card" style="--cc:#f43f5e">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">👗</span>
+        <h3>Mode</h3>
+        <p>1.8M produits</p>
+      </a>
+      <a href="boutique.html?cat=maison" class="cat-card" style="--cc:#10b981">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">🏠</span>
+        <h3>Maison & Déco</h3>
+        <p>900K produits</p>
+      </a>
+      <a href="boutique.html?cat=sport" class="cat-card" style="--cc:#f97316">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">⚽</span>
+        <h3>Sport</h3>
+        <p>600K produits</p>
+      </a>
+      <a href="boutique.html?cat=beaute" class="cat-card" style="--cc:#a855f7">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">💄</span>
+        <h3>Beauté</h3>
+        <p>400K produits</p>
+      </a>
+      <a href="boutique.html?cat=auto" class="cat-card" style="--cc:#64748b">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">🚗</span>
+        <h3>Auto & Moto</h3>
+        <p>300K produits</p>
+      </a>
+      <a href="boutique.html?cat=culture" class="cat-card" style="--cc:#eab308">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">📚</span>
+        <h3>Culture</h3>
+        <p>500K produits</p>
+      </a>
+      <a href="boutique.html?cat=alimentation" class="cat-card" style="--cc:#22c55e">
+        <div class="cat-bg"></div>
+        <span class="cat-ico">🍕</span>
+        <h3>Alimentation</h3>
+        <p>200K produits</p>
+      </a>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num" data-target="10">0</span><span>M+</span><p>Produits</p></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num" data-target="50">0</span><span>M+</span><p>Clients</p></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num" data-target="195">0</span><span></span><p>Pays</p></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num" data-target="99">0</span><span>%</span><p>Satisfaction</p></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-card floating">
-      <div class="hcard-header">
-        <span class="hcard-tag">IA RECOMMANDE</span>
-        <span class="hcard-price">299€</span>
-      </div>
-      <div class="hcard-img">🎮</div>
-      <div class="hcard-info">
-        <h4>Console Gaming Pro X</h4>
-        <div class="hcard-stars">★★★★★ <span>(2847)</span></div>
-        <button class="hcard-btn" onclick="quickAdd({id:'hero1',name:'Console Gaming Pro X',price:299,emoji:'🎮'})">Ajouter au panier</button>
-      </div>
-    </div>
-    <div class="hero-floating-badges">
-      <div class="fb fb1">🚀 Livraison 2h</div>
-      <div class="fb fb2">🛡️ Garanti 3 ans</div>
-      <div class="fb fb3">🤖 IA Shopping</div>
-    </div>
-  </div>
-</section>
-
-<!-- PROMO BANNER -->
-<section class="promo-banner">
-  <div class="promo-inner">
-    <div class="promo-item">
-      <span class="promo-icon">🚚</span>
-      <div><strong>Livraison Gratuite</strong><p>Dès 50€ d'achat</p></div>
-    </div>
-    <div class="promo-item">
-      <span class="promo-icon">↩️</span>
-      <div><strong>Retours 365 jours</strong><p>Sans questions</p></div>
-    </div>
-    <div class="promo-item">
-      <span class="promo-icon">🔒</span>
-      <div><strong>Paiement Sécurisé</strong><p>Cryptage SSL 256-bit</p></div>
-    </div>
-    <div class="promo-item">
-      <span class="promo-icon">🤖</span>
-      <div><strong>Support IA 24/7</strong><p>Réponse en 30s</p></div>
-    </div>
-    <div class="promo-item">
-      <span class="promo-icon">⭐</span>
-      <div><strong>Programme Rewards</strong><p>Gagnez des points à chaque achat</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CATEGORIES -->
-<section class="categories" id="categories">
-  <div class="section-header">
-    <h2 class="section-title">NOS <span>UNIVERS</span></h2>
-    <p class="section-sub">Explorez chaque catégorie propulsée par notre IA de recommandation</p>
-  </div>
-  <div class="cat-grid">
-    <a href="boutique.html?cat=tech" class="cat-card cat-tech">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">💻</span>
-      <h3>Technologie</h3>
-      <p>Smartphones, PC, Gaming, Audio</p>
-      <span class="cat-count">2.4M produits</span>
-    </a>
-    <a href="boutique.html?cat=mode" class="cat-card cat-mode">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">👗</span>
-      <h3>Mode</h3>
-      <p>Vêtements, Chaussures, Accessoires</p>
-      <span class="cat-count">1.8M produits</span>
-    </a>
-    <a href="boutique.html?cat=maison" class="cat-card cat-maison">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">🏠</span>
-      <h3>Maison & Déco</h3>
-      <p>Mobilier, Cuisine, Jardin</p>
-      <span class="cat-count">900K produits</span>
-    </a>
-    <a href="boutique.html?cat=sport" class="cat-card cat-sport">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">⚽</span>
-      <h3>Sport</h3>
-      <p>Fitness, Outdoor, Natation</p>
-      <span class="cat-count">600K produits</span>
-    </a>
-    <a href="boutique.html?cat=beaute" class="cat-card cat-beaute">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">💄</span>
-      <h3>Beauté</h3>
-      <p>Soin, Makeup, Parfum</p>
-      <span class="cat-count">400K produits</span>
-    </a>
-    <a href="boutique.html?cat=auto" class="cat-card cat-auto">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">🚗</span>
-      <h3>Auto & Moto</h3>
-      <p>Accessoires, Entretien, GPS</p>
-      <span class="cat-count">300K produits</span>
-    </a>
-    <a href="boutique.html?cat=livres" class="cat-card cat-livres">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">📚</span>
-      <h3>Culture</h3>
-      <p>Livres, Jeux, Films, Musique</p>
-      <span class="cat-count">500K produits</span>
-    </a>
-    <a href="boutique.html?cat=alimentation" class="cat-card cat-food">
-      <div class="cat-glow"></div>
-      <span class="cat-emoji">🍕</span>
-      <h3>Alimentation</h3>
-      <p>Bio, Gourmet, Boissons</p>
-      <span class="cat-count">200K produits</span>
-    </a>
   </div>
 </section>
 
 <!-- FEATURED PRODUCTS -->
-<section class="featured" id="featured">
-  <div class="section-header">
-    <h2 class="section-title">PRODUITS <span>VEDETTES</span></h2>
-    <p class="section-sub">Sélectionnés par notre IA selon les tendances mondiales</p>
-    <div class="filter-tabs">
-      <button class="ftab active" onclick="filterProducts('all',this)">Tout</button>
-      <button class="ftab" onclick="filterProducts('tech',this)">Tech</button>
-      <button class="ftab" onclick="filterProducts('mode',this)">Mode</button>
-      <button class="ftab" onclick="filterProducts('maison',this)">Maison</button>
-      <button class="ftab" onclick="filterProducts('sport',this)">Sport</button>
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Produits Tendance</h2>
+      <div class="filter-pills" id="filterPills">
+        <button class="pill active" data-cat="all">Tout</button>
+        <button class="pill" data-cat="tech">Tech</button>
+        <button class="pill" data-cat="mode">Mode</button>
+        <button class="pill" data-cat="maison">Maison</button>
+        <button class="pill" data-cat="sport">Sport</button>
+      </div>
+      <a href="boutique.html" class="see-all">Tout voir →</a>
     </div>
-  </div>
-  <div class="products-grid" id="productsGrid">
-    <!-- Produits générés par JS -->
-  </div>
-  <div class="load-more-wrap">
-    <button class="btn-load-more" onclick="window.location.href='boutique.html'">
-      VOIR TOUS LES PRODUITS
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
+    <div class="products-grid" id="productsGrid"></div>
   </div>
 </section>
 
-<!-- AI RECOMMANDATIONS -->
-<section class="ai-section">
-  <div class="ai-container">
-    <div class="ai-content">
-      <div class="ai-badge">🤖 NEXUS AI</div>
-      <h2>Shopping<br><span>Intelligent</span></h2>
-      <p>Notre IA analyse vos goûts, votre budget et les tendances pour vous recommander les produits parfaits. Comme avoir un conseiller personnel disponible 24h/24.</p>
-      <ul class="ai-features">
-        <li><span>✓</span> Recommandations personnalisées en temps réel</li>
-        <li><span>✓</span> Comparaison automatique des prix</li>
-        <li><span>✓</span> Alertes de baisse de prix</li>
-        <li><span>✓</span> Style matching basé sur vos achats</li>
-        <li><span>✓</span> Prédiction des ruptures de stock</li>
-      </ul>
-      <button class="btn-primary" onclick="showAIChat()">ACTIVER L'IA SHOPPING</button>
-    </div>
-    <div class="ai-visual">
-      <div class="ai-chat-demo">
-        <div class="chat-header">🤖 NEXUS AI Assistant</div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg bot">Bonjour ! Je suis votre assistant NEXUS AI. Comment puis-je vous aider aujourd'hui ?</div>
-        </div>
-        <div class="chat-input-row">
-          <input type="text" id="aiInput" placeholder="Ex: smartphone moins de 500€..." onkeypress="if(event.key==='Enter')sendAI()">
-          <button onclick="sendAI()">➤</button>
+<!-- SELL ON NEXUS - MONETISATION BANNER -->
+<section class="vendor-banner">
+  <div class="container">
+    <div class="vb-content">
+      <div class="vb-text">
+        <div class="vb-tag">🏪 Marketplace</div>
+        <h2>Vendez sur <span>Nexus Store</span></h2>
+        <p>Rejoignez +15 000 vendeurs professionnels. Accédez à des millions d'acheteurs, des outils de gestion avancés et des paiements sécurisés automatiques.</p>
+        <ul class="vb-features">
+          <li>✅ Commission de seulement <strong>8-15%</strong> selon la catégorie</li>
+          <li>✅ Paiement automatique chaque semaine</li>
+          <li>✅ Tableau de bord analytique complet</li>
+          <li>✅ Support dédié aux vendeurs</li>
+          <li>✅ Outils marketing et promotions</li>
+        </ul>
+        <div class="vb-actions">
+          <a href="vendeur.html" class="btn-primary lg">Démarrer gratuitement</a>
+          <a href="abonnements.html" class="btn-outline lg">Voir les plans vendeur</a>
         </div>
       </div>
+      <div class="vb-stats">
+        <div class="vb-stat">
+          <span>15 000+</span>
+          <p>Vendeurs actifs</p>
+        </div>
+        <div class="vb-stat">
+          <span>2.4M€</span>
+          <p>Vendus ce mois</p>
+        </div>
+        <div class="vb-stat">
+          <span>4.8★</span>
+          <p>Note vendeurs</p>
+        </div>
+        <div class="vb-stat">
+          <span>24h</span>
+          <p>Délai paiement</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FLASH DEALS -->
-<section class="flash-deals">
-  <div class="section-header">
-    <h2 class="section-title">VENTES <span>FLASH</span></h2>
-    <div class="countdown" id="countdown">
-      <div class="cdown-unit"><span id="ch">00</span><p>H</p></div>
-      <div class="cdown-sep">:</div>
-      <div class="cdown-unit"><span id="cm">00</span><p>M</p></div>
-      <div class="cdown-sep">:</div>
-      <div class="cdown-unit"><span id="cs">00</span><p>S</p></div>
+<!-- PREMIUM SUBSCRIPTION -->
+<section class="section premium-section">
+  <div class="container">
+    <div class="section-head centered">
+      <h2 class="section-title">Nexus <span class="gold">Premium</span></h2>
+      <p class="section-desc">Profitez d'avantages exclusifs et économisez encore plus</p>
     </div>
-  </div>
-  <div class="flash-grid" id="flashGrid"></div>
-</section>
-
-<!-- REWARDS PROGRAM -->
-<section class="rewards-section">
-  <div class="rewards-container">
-    <div class="rewards-header">
-      <h2>Programme <span>NEXUS REWARDS</span></h2>
-      <p>Gagnez des points à chaque achat et déverrouillez des avantages exclusifs</p>
+    <div class="premium-cards">
+      <div class="premium-card">
+        <div class="pc-header">
+          <h3>Gratuit</h3>
+          <div class="pc-price"><span>0€</span><small>/mois</small></div>
+        </div>
+        <ul class="pc-features">
+          <li>✓ Accès à tous les produits</li>
+          <li>✓ Panier & favoris</li>
+          <li>✓ Livraison standard</li>
+          <li class="no">✗ Livraison express gratuite</li>
+          <li class="no">✗ Cashback 5%</li>
+          <li class="no">✗ Ventes privées</li>
+          <li class="no">✗ Support prioritaire</li>
+        </ul>
+        <button class="btn-outline full" onclick="handleAuth()">Commencer</button>
+      </div>
+      <div class="premium-card featured">
+        <div class="pc-badge">⭐ POPULAIRE</div>
+        <div class="pc-header">
+          <h3>Nexus Plus</h3>
+          <div class="pc-price"><span>9.99€</span><small>/mois</small></div>
+          <small class="pc-save">Économisez 47€/an avec l'annuel</small>
+        </div>
+        <ul class="pc-features">
+          <li>✓ Tout du plan Gratuit</li>
+          <li>✓ <strong>Livraison express gratuite</strong></li>
+          <li>✓ <strong>Cashback 5%</strong> sur chaque achat</li>
+          <li>✓ Accès ventes privées</li>
+          <li>✓ Support prioritaire 24/7</li>
+          <li>✓ Prix spéciaux membres</li>
+          <li class="no">✗ Cashback 10%</li>
+        </ul>
+        <button class="btn-primary full" onclick="subscribePremium('plus')">S'abonner à 9.99€/mois</button>
+      </div>
+      <div class="premium-card elite">
+        <div class="pc-badge elite-badge">💎 ELITE</div>
+        <div class="pc-header">
+          <h3>Nexus Elite</h3>
+          <div class="pc-price"><span>24.99€</span><small>/mois</small></div>
+          <small class="pc-save">Économisez 100€/an avec l'annuel</small>
+        </div>
+        <ul class="pc-features">
+          <li>✓ Tout du plan Plus</li>
+          <li>✓ <strong>Cashback 10%</strong> sur tout</li>
+          <li>✓ Livraison 2h en ville</li>
+          <li>✓ Conseiller shopping dédié</li>
+          <li>✓ Accès Beta nouveaux produits</li>
+          <li>✓ Cadeaux exclusifs</li>
+          <li>✓ Carte virtuelle Nexus</li>
+        </ul>
+        <button class="btn-elite full" onclick="subscribePremium('elite')">Devenir Elite</button>
+      </div>
     </div>
-    <div class="rewards-tiers">
-      <div class="tier tier-bronze">
-        <div class="tier-icon">🥉</div>
-        <h3>BRONZE</h3>
-        <p>0 - 999 pts</p>
-        <ul><li>2% cashback</li><li>Livraison prioritaire</li><li>Accès ventes privées</li></ul>
-      </div>
-      <div class="tier tier-silver">
-        <div class="tier-icon">🥈</div>
-        <h3>SILVER</h3>
-        <p>1000 - 4999 pts</p>
-        <ul><li>5% cashback</li><li>Livraison express gratuite</li><li>Support dédié</li></ul>
-      </div>
-      <div class="tier tier-gold">
-        <div class="tier-icon">🥇</div>
-        <h3>GOLD</h3>
-        <p>5000 - 19999 pts</p>
-        <ul><li>10% cashback</li><li>Livraison 2h gratuite</li><li>Accès beta produits</li></ul>
-      </div>
-      <div class="tier tier-nexus">
-        <div class="tier-icon">💎</div>
-        <h3>NEXUS ELITE</h3>
-        <p>20000+ pts</p>
-        <ul><li>20% cashback</li><li>Conseiller dédié</li><li>Cadeaux exclusifs</li></ul>
-      </div>
-    </div>
-    <button class="btn-primary" onclick="window.location.href='a-propos.html'">REJOINDRE NEXUS REWARDS</button>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="section-header">
-    <h2 class="section-title">ILS NOUS <span>FONT CONFIANCE</span></h2>
-    <div class="rating-global">⭐⭐⭐⭐⭐ <strong>4.9/5</strong> basé sur 2.4M avis</div>
+<section class="section testi-section">
+  <div class="container">
+    <div class="section-head centered">
+      <h2 class="section-title">Ce que disent nos clients</h2>
+      <div class="global-rating">⭐⭐⭐⭐⭐ <strong>4.9/5</strong> — 2.4 millions d'avis vérifiés</div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Nexus Store a complètement changé ma façon de faire du shopping. Les prix sont imbattables et la livraison est ultra rapide !"</p>
+        <div class="testi-author">
+          <div class="testi-ava">ML</div>
+          <div><strong>Marie L.</strong><small>Cliente Premium · Paris</small></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"En tant que vendeur, j'ai multiplié mon CA par 3 en 6 mois grâce à Nexus. Les outils sont excellents et les commissions très raisonnables."</p>
+        <div class="testi-author">
+          <div class="testi-ava">TK</div>
+          <div><strong>Thomas K.</strong><small>Vendeur vérifié · Lyon</small></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Le cashback Nexus Elite m'a fait économiser plus de 800€ cette année. L'investissement dans l'abonnement est vite rentabilisé !"</p>
+        <div class="testi-author">
+          <div class="testi-ava">SM</div>
+          <div><strong>Sophie M.</strong><small>Membre Elite · Bordeaux</small></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Le service client est exceptionnel. Problème résolu en moins de 2h, remboursement immédiat. Nexus mérite vraiment 5 étoiles !"</p>
+        <div class="testi-author">
+          <div class="testi-ava">KB</div>
+          <div><strong>Karim B.</strong><small>Client · Marseille</small></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="testimonials-slider" id="testimonialSlider">
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"NEXUS a complètement révolutionné ma façon de faire mes achats. L'IA trouve exactement ce que je cherche avant même que je le sache!"</p>
-      <div class="testi-author"><span class="testi-avatar">👤</span><div><strong>Marie L.</strong><small>Cliente depuis 2024</small></div></div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Livraison en 1h30, produit parfait, service client ultra réactif. Comment faisais-je avant NEXUS 2077 ?"</p>
-      <div class="testi-author"><span class="testi-avatar">👤</span><div><strong>Thomas K.</strong><small>Membre GOLD</small></div></div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Le programme Rewards est incroyable ! J'ai économisé plus de 500€ cette année grâce aux points accumulés."</p>
-      <div class="testi-author"><span class="testi-avatar">👤</span><div><strong>Sophie M.</strong><small>Membre NEXUS ELITE</small></div></div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Interface futuriste, navigation fluide, et des prix imbattables. NEXUS, c'est le futur du shopping, maintenant !"</p>
-      <div class="testi-author"><span class="testi-avatar">👤</span><div><strong>Karim B.</strong><small>Cliente depuis 2023</small></div></div>
-    </div>
-  </div>
-  <div class="slider-dots" id="sliderDots"></div>
 </section>
 
-<!-- BRANDS -->
-<section class="brands">
-  <div class="section-header">
-    <h2 class="section-title">NOS <span>PARTENAIRES</span></h2>
-  </div>
-  <div class="brands-scroll">
-    <div class="brands-track">
-      <span>Apple</span><span>Samsung</span><span>Sony</span><span>Nike</span>
-      <span>Adidas</span><span>LG</span><span>Microsoft</span><span>Dyson</span>
-      <span>Philips</span><span>IKEA</span><span>Zara</span><span>L'Oréal</span>
-      <span>Apple</span><span>Samsung</span><span>Sony</span><span>Nike</span>
-      <span>Adidas</span><span>LG</span><span>Microsoft</span><span>Dyson</span>
+<!-- APP BANNER -->
+<section class="app-banner">
+  <div class="container">
+    <div class="app-content">
+      <div class="app-text">
+        <h2>Téléchargez l'app <span>Nexus Store</span></h2>
+        <p>Achetez, vendez et gérez vos commandes depuis votre smartphone. Notifications en temps réel, paiement en 1 tap.</p>
+        <div class="app-badges">
+          <a href="#" class="app-badge"><span>📱</span><div><small>Disponible sur</small><strong>App Store</strong></div></a>
+          <a href="#" class="app-badge"><span>🤖</span><div><small>Disponible sur</small><strong>Google Play</strong></div></a>
+        </div>
+      </div>
+      <div class="app-mockup">📲</div>
     </div>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
-<section class="newsletter">
-  <div class="newsletter-container">
-    <div class="nl-glow"></div>
-    <h2>Rejoignez <span>50 Millions</span> de membres</h2>
-    <p>Recevez nos offres exclusives, les ventes flash et les nouveautés en avant-première</p>
-    <form class="nl-form" onsubmit="subscribeNewsletter(event)">
-      <input type="email" id="nlEmail" placeholder="Votre email..." required>
-      <button type="submit" class="btn-primary">REJOINDRE</button>
-    </form>
-    <small>Pas de spam. Désinscription en 1 clic.</small>
+<section class="section newsletter-section">
+  <div class="container">
+    <div class="nl-box">
+      <div class="nl-text">
+        <h2>Restez dans la boucle</h2>
+        <p>Recevez les meilleures offres, les ventes flash et les nouveautés en avant-première</p>
+      </div>
+      <form class="nl-form" onsubmit="subscribeNL(event)">
+        <input type="email" id="nlEmail" placeholder="Votre adresse email..." required>
+        <button type="submit" class="btn-primary">S'inscrire</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="footer-logo">N<span>EXUS</span><em>2077</em></div>
-      <p>La boutique e-commerce la plus avancée au monde. Technologie, Mode, Maison et bien plus — tout ce dont vous avez besoin, livré en un éclair.</p>
-      <div class="social-links">
-        <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
-        <a href="#" class="social-btn" title="Instagram">📷</a>
-        <a href="#" class="social-btn" title="Facebook">f</a>
-        <a href="#" class="social-btn" title="TikTok">♪</a>
-        <a href="#" class="social-btn" title="YouTube">▶</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <div class="logo-icon">N</div>
+          <span>nexus<strong>store</strong></span>
+        </a>
+        <p>La marketplace de confiance pour acheter et vendre en ligne. Des millions de produits, des milliers de vendeurs vérifiés.</p>
+        <div class="socials">
+          <a href="#" class="social" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social" aria-label="Instagram">📸</a>
+          <a href="#" class="social" aria-label="Facebook">f</a>
+          <a href="#" class="social" aria-label="TikTok">♪</a>
+          <a href="#" class="social" aria-label="YouTube">▶</a>
+        </div>
       </div>
-    </div>
-    <div class="footer-links">
       <div class="footer-col">
-        <h4>BOUTIQUE</h4>
+        <h4>Acheter</h4>
         <a href="boutique.html">Tous les produits</a>
-        <a href="nouveautes.html">Nouveautés</a>
-        <a href="collections.html">Collections</a>
-        <a href="boutique.html?cat=promo">Promotions</a>
-        <a href="boutique.html?cat=flash">Ventes Flash</a>
+        <a href="boutique.html?flash=1">Ventes flash</a>
+        <a href="boutique.html?sort=new">Nouveautés</a>
+        <a href="boutique.html?sort=top">Meilleures ventes</a>
+        <a href="abonnements.html">Nexus Premium</a>
       </div>
       <div class="footer-col">
-        <h4>COMPTE</h4>
-        <a href="#">Mon compte</a>
-        <a href="#">Mes commandes</a>
-        <a href="#">NEXUS Rewards</a>
-        <a href="#">Ma liste de souhaits</a>
-        <a href="#">Parrainage</a>
+        <h4>Vendre</h4>
+        <a href="vendeur.html">Devenir vendeur</a>
+        <a href="abonnements.html#vendeur">Plans vendeur</a>
+        <a href="blog.html">Guide du vendeur</a>
+        <a href="contact.html">Support vendeurs</a>
       </div>
       <div class="footer-col">
-        <h4>AIDE</h4>
+        <h4>Aide</h4>
         <a href="faq.html">FAQ</a>
         <a href="livraison.html">Livraison</a>
-        <a href="retours.html">Retours</a>
-        <a href="contact.html">Contact</a>
+        <a href="retours.html">Retours & remboursements</a>
         <a href="guide-tailles.html">Guide des tailles</a>
+        <a href="contact.html">Nous contacter</a>
       </div>
       <div class="footer-col">
-        <h4>LEGAL</h4>
+        <h4>Nexus</h4>
+        <a href="a-propos.html">À propos</a>
+        <a href="blog.html">Blog</a>
         <a href="cgv.html">CGV</a>
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="politique-confidentialite.html">Confidentialité</a>
         <a href="politique-cookies.html">Cookies</a>
-        <a href="a-propos.html">À Propos</a>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2077 NEXUS Corp. Tous droits réservés. Le futur du shopping, aujourd'hui.</p>
-    <div class="payment-icons">
-      <span title="Visa">VISA</span>
-      <span title="Mastercard">MC</span>
-      <span title="PayPal">PP</span>
-      <span title="Apple Pay">Apple Pay</span>
-      <span title="Google Pay">G Pay</span>
-      <span title="Crypto">₿</span>
+    <div class="footer-bottom">
+      <p>© 2025 Nexus Store. Tous droits réservés. Commission marketplace : 8-15% par vente.</p>
+      <div class="payment-methods">
+        <span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Apple Pay</span><span>Google Pay</span><span>Stripe</span>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- CART SIDEBAR -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-header">
-    <h3>MON PANIER <span id="cartCount">0</span></h3>
-    <button onclick="toggleCart()" class="cart-close">✕</button>
+<!-- CART PANEL -->
+<div class="panel-overlay" id="panelOverlay" onclick="closeAllPanels()"></div>
+<div class="side-panel" id="cartPanel">
+  <div class="panel-header">
+    <h3>Mon Panier <span id="cartCountDisplay">0</span> article(s)</h3>
+    <button class="panel-close" onclick="closeAllPanels()">✕</button>
   </div>
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty" id="cartEmpty">
+  <div class="panel-body" id="cartBody">
+    <div class="panel-empty" id="cartEmpty">
       <span>🛒</span>
       <p>Votre panier est vide</p>
-      <a href="boutique.html" class="btn-primary" onclick="toggleCart()">EXPLORER LA BOUTIQUE</a>
+      <a href="boutique.html" class="btn-primary" onclick="closeAllPanels()">Découvrir nos produits</a>
     </div>
   </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-total-row"><span>Sous-total</span><span id="cartSubtotal">0€</span></div>
-    <div class="cart-total-row"><span>Livraison</span><span class="green">GRATUITE</span></div>
-    <div class="cart-total-row total"><span>TOTAL</span><span id="cartTotal">0€</span></div>
-    <button class="btn-primary full-width" onclick="checkout()">PASSER LA COMMANDE</button>
-    <button class="btn-secondary full-width" onclick="toggleCart()">Continuer mes achats</button>
+  <div class="panel-footer" id="cartFooter" style="display:none">
+    <div class="cart-summary">
+      <div class="cs-row"><span>Sous-total</span><span id="cartSubtotal">0,00€</span></div>
+      <div class="cs-row"><span>Livraison</span><span class="green">Gratuite</span></div>
+      <div class="cs-row total"><span>Total TTC</span><span id="cartTotal">0,00€</span></div>
+    </div>
+    <a href="checkout.html" class="btn-primary full">Commander — <span id="cartTotalBtn">0€</span></a>
+    <button class="btn-ghost full" onclick="closeAllPanels()">Continuer mes achats</button>
   </div>
 </div>
 
-<!-- WISHLIST SIDEBAR -->
-<div class="cart-overlay" id="wishlistOverlay" onclick="toggleWishlist()"></div>
-<div class="cart-sidebar" id="wishlistSidebar">
-  <div class="cart-header">
-    <h3>MES FAVORIS <span id="wishlistCount">0</span></h3>
-    <button onclick="toggleWishlist()" class="cart-close">✕</button>
+<!-- WISHLIST PANEL -->
+<div class="side-panel" id="wishlistPanel">
+  <div class="panel-header">
+    <h3>Mes Favoris <span id="wCountDisplay">0</span></h3>
+    <button class="panel-close" onclick="closeAllPanels()">✕</button>
   </div>
-  <div class="cart-items" id="wishlistItems">
-    <div class="cart-empty">
-      <span>💝</span>
+  <div class="panel-body" id="wishBody">
+    <div class="panel-empty">
+      <span>❤️</span>
       <p>Aucun favori pour l'instant</p>
+      <a href="boutique.html" class="btn-primary" onclick="closeAllPanels()">Explorer la boutique</a>
     </div>
   </div>
 </div>
 
-<!-- AI CHAT MODAL -->
-<div class="modal-overlay" id="aiModal" style="display:none">
-  <div class="ai-modal">
-    <div class="ai-modal-header">
-      <span>🤖 NEXUS AI Assistant</span>
-      <button onclick="document.getElementById('aiModal').style.display='none'">✕</button>
+<!-- AUTH MODAL -->
+<div class="modal-bg" id="authModal" style="display:none">
+  <div class="modal" id="authBox">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    <div class="modal-logo"><div class="logo-icon sm">N</div><span>nexus<strong>store</strong></span></div>
+    <h2 id="authTitle">Connexion</h2>
+    <p id="authDesc">Connectez-vous pour accéder à votre compte Nexus Store</p>
+    <button class="btn-google" onclick="signInGoogle()">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continuer avec Google
+    </button>
+    <div class="auth-divider"><span>ou</span></div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="authEmail" placeholder="votre@email.com">
     </div>
-    <div class="ai-modal-body" id="aiModalBody">
-      <div class="chat-msg bot">Bonjour ! Je suis NEXUS AI. Dites-moi ce que vous cherchez et je trouve les meilleures offres pour vous !</div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" id="authPassword" placeholder="••••••••">
     </div>
-    <div class="ai-modal-input">
-      <input type="text" id="aiModalInput" placeholder="Cherchez un produit..." onkeypress="if(event.key==='Enter')sendAIModal()">
-      <button onclick="sendAIModal()">Envoyer</button>
-    </div>
+    <button class="btn-primary full" id="authSubmit" onclick="submitAuth()">Se connecter</button>
+    <p class="auth-switch">Pas de compte ? <a href="#" onclick="toggleAuthMode()">S'inscrire</a></p>
   </div>
 </div>
 
 <!-- TOAST -->
 <div id="toast" class="toast"></div>
 
-<!-- SCROLL TO TOP -->
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
 
-<script>
-// ============================================
-// NEXUS 2077 - MAIN JAVASCRIPT
-// ============================================
+<!-- FIREBASE + SCRIPTS -->
+<script type="module">
+// ============================================================
+// NEXUS STORE — Firebase + App Logic
+// ============================================================
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, getDocs, addDoc, doc, getDoc, query, where, orderBy, limit, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-// DATA - Produits
-const PRODUCTS = [
-  {id:1,name:'iPhone 16 Pro Max',price:1299,oldPrice:1499,cat:'tech',emoji:'📱',rating:4.9,reviews:12847,badge:'BESTSELLER'},
-  {id:2,name:'MacBook Pro M4',price:2499,oldPrice:2799,cat:'tech',emoji:'💻',rating:4.8,reviews:8234,badge:'NOUVEAU'},
-  {id:3,name:'Sony WH-1000XM6',price:349,oldPrice:449,cat:'tech',emoji:'🎧',rating:4.9,reviews:23456,badge:'-22%'},
-  {id:4,name:'Nike Air Max 2077',price:189,oldPrice:229,cat:'mode',emoji:'👟',rating:4.7,reviews:5671,badge:'EXCLU'},
-  {id:5,name:'PS5 Pro Edition',price:699,oldPrice:799,cat:'tech',emoji:'🎮',rating:4.9,reviews:34521,badge:'HOT'},
-  {id:6,name:'Samsung 8K OLED 85"',price:3999,oldPrice:5499,cat:'tech',emoji:'📺',rating:4.8,reviews:2341,badge:'-27%'},
-  {id:7,name:'Veste Futuriste Neon',price:149,oldPrice:199,cat:'mode',emoji:'🧥',rating:4.6,reviews:1234,badge:'NOUVEAU'},
-  {id:8,name:'Robot Cuiseur IA Chef',price:299,oldPrice:399,cat:'maison',emoji:'🍳',rating:4.7,reviews:8901,badge:'-25%'},
-  {id:9,name:'Tapis Yoga Premium',price:79,oldPrice:99,cat:'sport',emoji:'🧘',rating:4.8,reviews:4567,badge:'ECO'},
-  {id:10,name:'Drone 8K Pro',price:899,oldPrice:1199,cat:'tech',emoji:'🚁',rating:4.7,reviews:3210,badge:'-25%'},
-  {id:11,name:'Sac Cuir Vegan',price:199,oldPrice:259,cat:'mode',emoji:'👜',rating:4.5,reviews:2890,badge:'VEGAN'},
-  {id:12,name:'Lampe Holographique',price:129,oldPrice:179,cat:'maison',emoji:'💡',rating:4.6,reviews:1567,badge:'FUTUR'},
-];
+// Firebase Config — REMPLACEZ avec votre config Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDEMO_REPLACE_WITH_YOUR_KEY",
+  authDomain: "nexus-store-demo.firebaseapp.com",
+  projectId: "nexus-store-demo",
+  storageBucket: "nexus-store-demo.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
+};
 
-const FLASH_DEALS = [
-  {id:13,name:'AirPods Pro 3',price:199,oldPrice:329,cat:'tech',emoji:'🎵',rating:4.9,reviews:45231,badge:'FLASH -40%',discount:40},
-  {id:14,name:'Smart Watch Ultra X',price:149,oldPrice:349,cat:'tech',emoji:'⌚',rating:4.8,reviews:12300,badge:'FLASH -57%',discount:57},
-  {id:15,name:'Camera 360° 8K',price:249,oldPrice:499,cat:'tech',emoji:'📷',rating:4.7,reviews:3400,badge:'FLASH -50%',discount:50},
-  {id:16,name:'Casque VR Nexus Pro',price:399,oldPrice:799,cat:'tech',emoji:'🥽',rating:4.8,reviews:7800,badge:'FLASH -50%',discount:50},
-];
+let app, db, auth, currentUser = null;
+let authMode = 'login';
 
-// CART STATE
-let cart = JSON.parse(localStorage.getItem('nexusCart') || '[]');
-let wishlist = JSON.parse(localStorage.getItem('nexusWishlist') || '[]');
-let currentFilter = 'all';
-let currentSlide = 0;
-
-// ============================================
-// LOADER
-// ============================================
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    if(loader) { loader.style.opacity='0'; setTimeout(()=>loader.style.display='none', 500); }
-  }, 1800);
-  initParticles();
-  renderProducts();
-  renderFlashDeals();
-  updateCartUI();
-  updateWishlistUI();
-  initCountdown();
-  animateStats();
-  initTestimonials();
-});
-
-// ============================================
-// PARTICLES
-// ============================================
-function initParticles() {
-  const canvas = document.getElementById('particles');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const particles = [];
-  for(let i=0;i<80;i++) {
-    particles.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      vx: (Math.random()-0.5)*0.5,
-      vy: (Math.random()-0.5)*0.5,
-      r: Math.random()*2+0.5,
-      a: Math.random()*0.5+0.1
-    });
-  }
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p => {
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width) p.vx*=-1;
-      if(p.y<0||p.y>canvas.height) p.vy*=-1;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = 'rgba(0,245,255,'+p.a+')';
-      ctx.fill();
-    });
-    // Lines between nearby particles
-    particles.forEach((p,i) => {
-      particles.slice(i+1).forEach(q => {
-        const d = Math.hypot(p.x-q.x,p.y-q.y);
-        if(d<100) {
-          ctx.beginPath();
-          ctx.strokeStyle = 'rgba(0,245,255,'+(0.1*(1-d/100))+')';
-          ctx.lineWidth=0.5;
-          ctx.moveTo(p.x,p.y);
-          ctx.lineTo(q.x,q.y);
-          ctx.stroke();
-        }
-      });
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-  window.addEventListener('resize', () => { canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+try {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    updateUserUI(user);
+    if(user) loadUserCart();
+  });
+} catch(e) {
+  console.log('Firebase non configuré, mode démo actif');
 }
 
-// ============================================
+// ============================================================
+// PRODUCTS DATA (Demo — remplacé par Firestore en production)
+// ============================================================
+const DEMO_PRODUCTS = [
+  {id:'p1',name:'iPhone 16 Pro Max',price:1299,oldPrice:1599,cat:'tech',emoji:'📱',rating:4.9,reviews:12847,badge:'HOT',seller:'Apple Store FR',commission:0.08},
+  {id:'p2',name:'MacBook Pro M4',price:2499,oldPrice:2799,cat:'tech',emoji:'💻',rating:4.8,reviews:8234,badge:'NOUVEAU',seller:'TechWorld',commission:0.08},
+  {id:'p3',name:'Sony WH-1000XM6',price:349,oldPrice:449,cat:'tech',emoji:'🎧',rating:4.9,reviews:23456,badge:'-22%',seller:'AudioPro',commission:0.10},
+  {id:'p4',name:'Nike Air Max 270',price:129,oldPrice:160,cat:'mode',emoji:'👟',rating:4.7,reviews:5671,badge:'EXCLU',seller:'Nike Official',commission:0.12},
+  {id:'p5',name:'PS5 Pro Edition',price:699,oldPrice:799,cat:'tech',emoji:'🎮',rating:4.9,reviews:34521,badge:'STOCK LIMITÉ',seller:'Sony Store',commission:0.08},
+  {id:'p6',name:'Samsung 65" OLED 4K',price:1299,oldPrice:1899,cat:'tech',emoji:'📺',rating:4.8,reviews:4231,badge:'-32%',seller:'SamsungFR',commission:0.08},
+  {id:'p7',name:'Veste Zara Automne',price:89,oldPrice:120,cat:'mode',emoji:'🧥',rating:4.6,reviews:1234,badge:'NOUVEAU',seller:'Zara France',commission:0.15},
+  {id:'p8',name:'Robot Cuiseur Thermomix',price:1399,oldPrice:1499,cat:'maison',emoji:'🍳',rating:4.8,reviews:9801,badge:'TOP VENTE',seller:'Vorwerk',commission:0.10},
+  {id:'p9',name:'Vélo Électrique Decathlon',price:899,oldPrice:1199,cat:'sport',emoji:'🚴',rating:4.7,reviews:3456,badge:'-25%',seller:'Decathlon',commission:0.10},
+  {id:'p10',name:'Drone DJI Mini 4',price:599,oldPrice:749,cat:'tech',emoji:'🚁',rating:4.8,reviews:2897,badge:'-20%',seller:'DJI Official',commission:0.10},
+  {id:'p11',name:'Parfum Chanel N°5',price:149,oldPrice:180,cat:'beaute',emoji:'🌸',rating:4.9,reviews:15678,badge:'CLASSIQUE',seller:'Chanel Paris',commission:0.15},
+  {id:'p12',name:'Canapé Design 3 Places',price:799,oldPrice:1099,cat:'maison',emoji:'🛋️',rating:4.5,reviews:2134,badge:'-27%',seller:'MaisonPlus',commission:0.12},
+];
+
+const FLASH_PRODUCTS = [
+  {id:'f1',name:'AirPods Pro 3',price:199,oldPrice:329,cat:'tech',emoji:'🎵',rating:4.9,reviews:45231,badge:'FLASH -40%',seller:'Apple Store FR',commission:0.08},
+  {id:'f2',name:'Apple Watch Series 10',price:349,oldPrice:499,cat:'tech',emoji:'⌚',rating:4.8,reviews:12300,badge:'FLASH -30%',seller:'Apple Store FR',commission:0.08},
+  {id:'f3',name:'GoPro Hero 13',price:299,oldPrice:449,cat:'tech',emoji:'📷',rating:4.7,reviews:5600,badge:'FLASH -33%',seller:'GoPro Official',commission:0.10},
+  {id:'f4',name:'Casque Meta Quest 3',price:399,oldPrice:599,cat:'tech',emoji:'🥽',rating:4.7,reviews:8900,badge:'FLASH -33%',seller:'MetaStore',commission:0.10},
+];
+
+// ============================================================
 // RENDER PRODUCTS
-// ============================================
-function renderProducts(filter='all') {
-  const grid = document.getElementById('productsGrid');
-  if(!grid) return;
-  const filtered = filter==='all' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===filter);
-  grid.innerHTML = filtered.map(p => productCard(p)).join('');
-}
-
-function productCard(p) {
-  const inWish = wishlist.some(w=>w.id===p.id);
-  const discount = p.oldPrice ? Math.round((1-p.price/p.oldPrice)*100) : 0;
+// ============================================================
+function productCard(p, flash=false) {
+  const disc = p.oldPrice ? Math.round((1-p.price/p.oldPrice)*100) : 0;
   return `<div class="product-card" data-cat="${p.cat}">
-    ${p.badge ? `<span class="prod-badge">${p.badge}</span>` : ''}
-    <button class="wish-btn ${inWish?'active':''}" onclick="toggleWishItem(${JSON.stringify(p).replace(/"/g,'&quot;')})">♥</button>
-    <div class="prod-img">${p.emoji}</div>
-    <div class="prod-info">
-      <h4 class="prod-name">${p.name}</h4>
-      <div class="prod-rating">
-        ${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}
-        <span>(${p.reviews.toLocaleString()})</span>
+    ${p.badge?`<span class="pc-badge">${p.badge}</span>`:''}
+    <button class="pc-wish" onclick='toggleWish(${JSON.stringify(p).replace(/'/g,"\\'")})'
+      aria-label="Favori">♥</button>
+    ${flash?`<div class="pc-flash-bar"><div class="pc-flash-progress" style="width:${Math.floor(Math.random()*30+50)}%"></div></div>`:''}
+    <div class="pc-img">${p.emoji}</div>
+    <div class="pc-body">
+      <p class="pc-seller">🏪 ${p.seller}</p>
+      <h4 class="pc-name">${p.name}</h4>
+      <div class="pc-rating">${'★'.repeat(Math.floor(p.rating))}<span>(${p.reviews.toLocaleString('fr-FR')})</span></div>
+      <div class="pc-price-row">
+        <span class="pc-price">${p.price.toLocaleString('fr-FR')}€</span>
+        ${p.oldPrice?`<span class="pc-old">${p.oldPrice}€</span><span class="pc-disc">-${disc}%</span>`:''}
       </div>
-      <div class="prod-price">
-        <span class="price-current">${p.price}€</span>
-        ${p.oldPrice ? `<span class="price-old">${p.oldPrice}€</span><span class="price-off">-${discount}%</span>` : ''}
-      </div>
-      <button class="btn-add-cart" onclick="addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')})">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        AJOUTER
+      <button class="btn-add-cart" onclick='addToCart(${JSON.stringify(p).replace(/'/g,"\\'")})'> 
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Ajouter au panier
       </button>
     </div>
   </div>`;
 }
 
-function filterProducts(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderProducts(cat);
-}
-
-// ============================================
-// FLASH DEALS
-// ============================================
-function renderFlashDeals() {
-  const grid = document.getElementById('flashGrid');
+function renderProducts(cat='all') {
+  const grid = document.getElementById('productsGrid');
   if(!grid) return;
-  grid.innerHTML = FLASH_DEALS.map(p => `<div class="flash-card">
-    <span class="flash-badge">${p.badge}</span>
-    <div class="flash-emoji">${p.emoji}</div>
-    <h4>${p.name}</h4>
-    <div class="flash-prices">
-      <span class="price-current">${p.price}€</span>
-      <span class="price-old">${p.oldPrice}€</span>
-    </div>
-    <div class="flash-bar"><div class="flash-progress" style="width:${Math.random()*40+50}%"></div></div>
-    <small>Stock limité !</small>
-    <button class="btn-add-cart" onclick="addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')})">AJOUTER AU PANIER</button>
-  </div>`).join('');
+  const list = cat==='all' ? DEMO_PRODUCTS : DEMO_PRODUCTS.filter(p=>p.cat===cat);
+  grid.innerHTML = list.map(p=>productCard(p)).join('');
 }
 
-// ============================================
+function renderFlash() {
+  const el = document.getElementById('flashDeals');
+  if(!el) return;
+  el.innerHTML = FLASH_PRODUCTS.map(p=>productCard(p,true)).join('');
+}
+
+// Filter pills
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts();
+  renderFlash();
+  initCountdown();
+  initSearch();
+  initScrollEffects();
+  loadCartFromStorage();
+  loadWishlistFromStorage();
+
+  document.querySelectorAll('#filterPills .pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#filterPills .pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(btn.dataset.cat);
+    });
+  });
+
+  // Loader
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    if(loader) { loader.classList.add('hide'); setTimeout(()=>loader.remove(),500); }
+  }, 1200);
+});
+
+// ============================================================
 // CART
-// ============================================
+// ============================================================
+let cart = [];
+
 function addToCart(product) {
-  const existing = cart.find(i=>i.id===product.id);
-  if(existing) { existing.qty++; }
-  else { cart.push({...product, qty:1}); }
-  localStorage.setItem('nexusCart', JSON.stringify(cart));
+  const idx = cart.findIndex(i=>i.id===product.id);
+  if(idx>=0) cart[idx].qty++;
+  else cart.push({...product, qty:1});
+  saveCart();
   updateCartUI();
-  showToast('✅ ' + product.name + ' ajouté au panier !');
-  if(!document.getElementById('cartSidebar').classList.contains('open')) { toggleCart(); }
+  showToast(`✅ ${product.name} ajouté au panier !`);
+  openPanel('cart');
 }
 
-function quickAdd(product) { addToCart(product); }
+function quickAddToCart(product) { addToCart(product); }
 
 function removeFromCart(id) {
   cart = cart.filter(i=>i.id!==id);
-  localStorage.setItem('nexusCart', JSON.stringify(cart));
-  updateCartUI();
+  saveCart(); updateCartUI();
 }
 
-function updateQty(id, delta) {
+function changeQty(id, delta) {
   const item = cart.find(i=>i.id===id);
-  if(item) {
-    item.qty += delta;
-    if(item.qty<=0) removeFromCart(id);
-    else { localStorage.setItem('nexusCart', JSON.stringify(cart)); updateCartUI(); }
-  }
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) removeFromCart(id);
+  else { saveCart(); updateCartUI(); }
+}
+
+function saveCart() { localStorage.setItem('nexus_cart', JSON.stringify(cart)); }
+function loadCartFromStorage() {
+  cart = JSON.parse(localStorage.getItem('nexus_cart')||'[]');
+  updateCartUI();
 }
 
 function updateCartUI() {
   const total = cart.reduce((s,i)=>s+i.qty,0);
   const amount = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const badge = document.getElementById('cartBadge');
-  const count = document.getElementById('cartCount');
-  const subtotal = document.getElementById('cartSubtotal');
-  const cartTotal = document.getElementById('cartTotal');
+  const fmt = n=>n.toFixed(2).replace('.',',')+'€';
+  ['cBadge','cartCountDisplay'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=total;});
+  ['cartSubtotal','cartTotal','cartTotalBtn'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(amount);});
+  const body = document.getElementById('cartBody');
   const footer = document.getElementById('cartFooter');
   const empty = document.getElementById('cartEmpty');
-  const items = document.getElementById('cartItems');
-  if(badge) badge.textContent = total;
-  if(count) count.textContent = total;
-  if(subtotal) subtotal.textContent = amount.toFixed(2) + '€';
-  if(cartTotal) cartTotal.textContent = amount.toFixed(2) + '€';
-  if(footer) footer.style.display = cart.length ? 'block' : 'none';
-  if(empty) empty.style.display = cart.length ? 'none' : 'flex';
-  if(items) {
-    const existingItems = items.querySelectorAll('.cart-product-item');
-    existingItems.forEach(el=>el.remove());
-    cart.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'cart-product-item';
-      div.innerHTML = `<span class="citem-emoji">${item.emoji||'📦'}</span>
-        <div class="citem-info"><p>${item.name}</p><span>${item.price}€</span></div>
-        <div class="citem-qty">
-          <button onclick="updateQty(${item.id},-1)">−</button>
-          <span>${item.qty}</span>
-          <button onclick="updateQty(${item.id},1)">+</button>
-        </div>
-        <button class="citem-remove" onclick="removeFromCart(${item.id})">✕</button>`;
-      items.appendChild(div);
-    });
-  }
+  if(!body) return;
+  if(footer) footer.style.display = cart.length?'block':'none';
+  if(empty) empty.style.display = cart.length?'none':'flex';
+  const items = body.querySelectorAll('.cart-item');
+  items.forEach(el=>el.remove());
+  cart.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='cart-item';
+    div.innerHTML=`<div class="ci-img">${item.emoji||'📦'}</div>
+    <div class="ci-info">
+      <p class="ci-name">${item.name}</p>
+      <p class="ci-seller">🏪 ${item.seller||'Nexus Store'}</p>
+      <p class="ci-price">${item.price}€</p>
+    </div>
+    <div class="ci-controls">
+      <button onclick="changeQty('${item.id}',-1)">−</button>
+      <span>${item.qty}</span>
+      <button onclick="changeQty('${item.id}',1)">+</button>
+    </div>
+    <button class="ci-remove" onclick="removeFromCart('${item.id}')">🗑️</button>`;
+    body.appendChild(div);
+  });
 }
 
-function toggleCart() {
-  const sidebar = document.getElementById('cartSidebar');
-  const overlay = document.getElementById('cartOverlay');
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
-  if(document.getElementById('wishlistSidebar').classList.contains('open')) toggleWishlist();
-}
-
-function checkout() {
-  window.location.href = 'checkout.html';
-}
-
-// ============================================
+// ============================================================
 // WISHLIST
-// ============================================
-function toggleWishItem(product) {
+// ============================================================
+let wishlist = [];
+
+function toggleWish(product) {
   const idx = wishlist.findIndex(w=>w.id===product.id);
-  if(idx>=0) {
-    wishlist.splice(idx,1);
-    showToast('💔 Retiré des favoris');
-  } else {
-    wishlist.push(product);
-    showToast('❤️ Ajouté aux favoris !');
-  }
-  localStorage.setItem('nexusWishlist', JSON.stringify(wishlist));
+  if(idx>=0) { wishlist.splice(idx,1); showToast('💔 Retiré des favoris'); }
+  else { wishlist.push(product); showToast('❤️ Ajouté aux favoris !'); }
+  saveWishlist(); updateWishlistUI();
+  // Update button state
+  document.querySelectorAll('.pc-wish').forEach(btn=>{
+    const p = btn.closest('.product-card');
+    if(p) { /* update style */ }
+  });
+}
+
+function saveWishlist() { localStorage.setItem('nexus_wish', JSON.stringify(wishlist)); }
+function loadWishlistFromStorage() {
+  wishlist = JSON.parse(localStorage.getItem('nexus_wish')||'[]');
   updateWishlistUI();
-  renderProducts(currentFilter);
 }
 
 function updateWishlistUI() {
-  const badge = document.getElementById('wishlistBadge');
-  const count = document.getElementById('wishlistCount');
+  const badge = document.getElementById('wBadge');
+  const count = document.getElementById('wCountDisplay');
   if(badge) badge.textContent = wishlist.length;
   if(count) count.textContent = wishlist.length;
-  const items = document.getElementById('wishlistItems');
-  if(items) {
-    items.innerHTML = wishlist.length ? wishlist.map(w=>`
-      <div class="cart-product-item">
-        <span class="citem-emoji">${w.emoji||'📦'}</span>
-        <div class="citem-info"><p>${w.name}</p><span>${w.price}€</span></div>
-        <button class="btn-add-cart" onclick="addToCart(${JSON.stringify(w).replace(/"/g,'&quot;')})">Ajouter</button>
-        <button class="citem-remove" onclick="toggleWishItem(${JSON.stringify(w).replace(/"/g,'&quot;')})">✕</button>
-      </div>`).join('') :
-      '<div class="cart-empty"><span>💝</span><p>Aucun favori</p></div>';
-  }
+  const body = document.getElementById('wishBody');
+  if(!body) return;
+  body.innerHTML = wishlist.length ? wishlist.map(w=>`
+    <div class="cart-item">
+      <div class="ci-img">${w.emoji||'📦'}</div>
+      <div class="ci-info"><p class="ci-name">${w.name}</p><p class="ci-price">${w.price}€</p></div>
+      <button class="btn-add-cart sm" onclick='addToCart(${JSON.stringify(w).replace(/'/g,"\\'")})'>Ajouter</button>
+      <button class="ci-remove" onclick='toggleWish(${JSON.stringify(w).replace(/'/g,"\\'")})'>🗑️</button>
+    </div>`).join('') :
+    '<div class="panel-empty"><span>❤️</span><p>Aucun favori</p></div>';
 }
 
-function toggleWishlist() {
-  const sidebar = document.getElementById('wishlistSidebar');
-  const overlay = document.getElementById('wishlistOverlay');
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
-  if(document.getElementById('cartSidebar').classList.contains('open')) toggleCart();
+// ============================================================
+// PANELS
+// ============================================================
+function openPanel(name) {
+  closeAllPanels();
+  document.getElementById(name+'Panel').classList.add('open');
+  document.getElementById('panelOverlay').classList.add('active');
 }
 
-// ============================================
+function closeAllPanels() {
+  document.querySelectorAll('.side-panel').forEach(p=>p.classList.remove('open'));
+  const ov = document.getElementById('panelOverlay');
+  if(ov) ov.classList.remove('active');
+}
+
+// ============================================================
 // SEARCH
-// ============================================
-const allProducts = [...PRODUCTS, ...FLASH_DEALS];
-
-document.addEventListener('DOMContentLoaded', () => {
-  const searchInput = document.getElementById('searchInput');
-  if(searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      const dd = document.getElementById('searchDropdown');
-      if(!dd) return;
-      if(q.length < 2) { dd.style.display='none'; return; }
-      const results = allProducts.filter(p=>p.name.toLowerCase().includes(q)).slice(0,5);
-      if(results.length===0) { dd.style.display='none'; return; }
-      dd.innerHTML = results.map(p=>`<div class="dd-item" onclick="quickAdd(${JSON.stringify(p).replace(/"/g,'&quot;')})">
-        <span>${p.emoji}</span>
-        <div><strong>${p.name}</strong><small>${p.price}€</small></div>
-        <button class="dd-add">+</button>
-      </div>`).join('');
-      dd.style.display='block';
-    });
-    document.addEventListener('click', e => {
-      if(!e.target.closest('.search-wrapper')) {
-        const dd = document.getElementById('searchDropdown');
-        if(dd) dd.style.display='none';
-      }
-    });
-  }
-});
-
-function doSearch() {
-  const q = document.getElementById('searchInput').value;
-  if(q.trim()) window.location.href = 'boutique.html?q=' + encodeURIComponent(q);
+// ============================================================
+function initSearch() {
+  const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+  const clear = document.getElementById('searchClear');
+  if(!input) return;
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    if(clear) clear.style.display = q?'flex':'none';
+    if(q.length<2) { results.style.display='none'; return; }
+    const found = DEMO_PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)||p.cat.includes(q)).slice(0,6);
+    if(!found.length) { results.style.display='none'; return; }
+    results.innerHTML = found.map(p=>`<div class="sr-item" onclick='addToCart(${JSON.stringify(p).replace(/'/g,"\\'")})'>
+      <span class="sr-ico">${p.emoji}</span>
+      <div class="sr-info"><strong>${p.name}</strong><small>🏪 ${p.seller}</small></div>
+      <span class="sr-price">${p.price}€</span>
+    </div>`).join('') + `<a href="boutique.html?q=${encodeURIComponent(q)}" class="sr-more">Voir tous les résultats →</a>`;
+    results.style.display='block';
+  });
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('.nav-search')) results.style.display='none';
+  });
+  input.addEventListener('keydown', e=>{
+    if(e.key==='Enter') window.location.href='boutique.html?q='+encodeURIComponent(input.value);
+  });
 }
 
-// ============================================
-// AI CHAT
-// ============================================
-const aiReplies = [
-  (q) => `Super choix ! Voici ce que j'ai trouvé pour "${q}" :`,
-  (q) => `Analyse en cours... J'ai ${Math.floor(Math.random()*500)+50} résultats pour "${q}" !`,
-  (q) => `Parfait ! Selon mes algorithmes, voici les meilleures options pour "${q}" :`,
-];
-
-function sendAI() {
-  const input = document.getElementById('aiInput');
-  const messages = document.getElementById('chatMessages');
-  if(!input||!messages||!input.value.trim()) return;
-  const q = input.value.trim();
-  messages.innerHTML += `<div class="chat-msg user">${q}</div>`;
-  input.value = '';
-  setTimeout(() => {
-    const reply = aiReplies[Math.floor(Math.random()*aiReplies.length)](q);
-    const matching = allProducts.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.cat.includes(q.toLowerCase())).slice(0,2);
-    let html = `<div class="chat-msg bot">${reply}`;
-    if(matching.length) html += matching.map(p=>`<div class="ai-product-chip" onclick="addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')})">${p.emoji} ${p.name} — ${p.price}€</div>`).join('');
-    html += '</div>';
-    messages.innerHTML += html;
-    messages.scrollTop = messages.scrollHeight;
-  }, 600);
-  messages.scrollTop = messages.scrollHeight;
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+  const clear = document.getElementById('searchClear');
+  if(input) input.value='';
+  if(results) results.style.display='none';
+  if(clear) clear.style.display='none';
 }
 
-function showAIChat() {
-  document.getElementById('aiModal').style.display='flex';
+// ============================================================
+// AUTH
+// ============================================================
+function handleAuth() {
+  if(currentUser) { showUserMenu(); }
+  else { document.getElementById('authModal').style.display='flex'; }
 }
 
-function sendAIModal() {
-  const input = document.getElementById('aiModalInput');
-  const body = document.getElementById('aiModalBody');
-  if(!input||!input.value.trim()) return;
-  const q = input.value.trim();
-  body.innerHTML += `<div class="chat-msg user">${q}</div>`;
-  input.value='';
-  setTimeout(() => {
-    const reply = aiReplies[Math.floor(Math.random()*aiReplies.length)](q);
-    const matching = allProducts.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.cat.includes(q.toLowerCase())).slice(0,3);
-    let html = `<div class="chat-msg bot">${reply}`;
-    if(matching.length) html += matching.map(p=>`<div class="ai-product-chip" onclick="addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')})">${p.emoji} ${p.name} — ${p.price}€</div>`).join('');
-    else html += `<div class="ai-product-chip" onclick="window.location.href='boutique.html'">🔍 Voir tous les résultats</div>`;
-    html += '</div>';
-    body.innerHTML += html;
-    body.scrollTop = body.scrollHeight;
-  }, 700);
+function toggleAuthMode() {
+  authMode = authMode==='login'?'register':'login';
+  document.getElementById('authTitle').textContent = authMode==='login'?'Connexion':'Créer un compte';
+  document.getElementById('authDesc').textContent = authMode==='login'?'Connectez-vous à votre compte Nexus Store':'Rejoignez des millions de membres';
+  document.getElementById('authSubmit').textContent = authMode==='login'?'Se connecter':'Créer mon compte';
+  document.querySelector('.auth-switch a').textContent = authMode==='login'?'S\'inscrire':'Se connecter';
 }
 
-// ============================================
-// NAVBAR SCROLL
-// ============================================
-window.addEventListener('scroll', () => {
-  const navbar = document.getElementById('navbar');
-  const scrollTop = document.getElementById('scrollTop');
-  if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 80);
-  if(scrollTop) scrollTop.classList.toggle('visible', window.scrollY > 400);
-});
-
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const ham = document.getElementById('hamburger');
-  if(menu) menu.classList.toggle('open');
-  if(ham) ham.classList.toggle('open');
+async function signInGoogle() {
+  if(!auth) { showToast('⚠️ Firebase non configuré - Mode démo'); return; }
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+    closeModal('authModal');
+    showToast('✅ Connexion réussie !');
+  } catch(e) { showToast('❌ Erreur: '+e.message); }
 }
 
-function toggleUserMenu() {
-  showToast('👤 Connectez-vous pour accéder à votre compte');
+async function submitAuth() {
+  const email = document.getElementById('authEmail').value;
+  const pass = document.getElementById('authPassword').value;
+  if(!auth) { showToast('⚠️ Firebase non configuré - Mode démo'); closeModal('authModal'); return; }
+  try {
+    if(authMode==='login') await signInWithEmailAndPassword(auth, email, pass);
+    else await createUserWithEmailAndPassword(auth, email, pass);
+    closeModal('authModal');
+    showToast('✅ Bienvenue sur Nexus Store !');
+  } catch(e) { showToast('❌ '+e.message); }
 }
 
-// ============================================
+function updateUserUI(user) {
+  const label = document.getElementById('userLabel');
+  if(label) label.textContent = user ? (user.displayName||user.email).split(' ')[0] : 'Connexion';
+}
+
+function showUserMenu() {
+  showToast('👤 Menu utilisateur — En développement');
+}
+
+function closeModal(id) { document.getElementById(id).style.display='none'; }
+
+function loadUserCart() { /* Sync cart with Firebase for logged in users */ }
+
+// ============================================================
 // COUNTDOWN
-// ============================================
+// ============================================================
 function initCountdown() {
-  const target = new Date();
-  target.setHours(23,59,59,0);
-  function update() {
-    const now = new Date();
-    const diff = target - now;
-    if(diff<=0) { target.setDate(target.getDate()+1); return; }
-    const h = Math.floor(diff/3600000);
-    const m = Math.floor((diff%3600000)/60000);
-    const s = Math.floor((diff%60000)/1000);
-    const pad = n=>String(n).padStart(2,'0');
-    const ch=document.getElementById('ch'), cm=document.getElementById('cm'), cs=document.getElementById('cs');
-    if(ch) ch.textContent=pad(h);
-    if(cm) cm.textContent=pad(m);
-    if(cs) cs.textContent=pad(s);
-  }
-  update();
-  setInterval(update, 1000);
+  const end = new Date(); end.setHours(23,59,59,0);
+  const tick = () => {
+    const diff = end - new Date();
+    if(diff<=0) { end.setDate(end.getDate()+1); return; }
+    const h=Math.floor(diff/3600000), m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
+    const p=n=>String(n).padStart(2,'0');
+    ['cdH','cdM','cdS'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=p([h,m,s][i]);});
+  };
+  tick(); setInterval(tick,1000);
 }
 
-// ============================================
-// STATS ANIMATION
-// ============================================
-function animateStats() {
-  const nums = document.querySelectorAll('.stat-num');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting) {
-        const target = parseInt(e.target.dataset.target);
-        let current = 0;
-        const step = target / 60;
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          e.target.textContent = Math.floor(current);
-          if(current >= target) clearInterval(timer);
-        }, 16);
-        observer.unobserve(e.target);
-      }
-    });
-  });
-  nums.forEach(n => observer.observe(n));
+// ============================================================
+// SCROLL EFFECTS
+// ============================================================
+function initScrollEffects() {
+  window.addEventListener('scroll', ()=>{
+    const nav = document.getElementById('nav');
+    const st = document.getElementById('scrollTop');
+    if(nav) nav.classList.toggle('scrolled', scrollY>80);
+    if(st) st.classList.toggle('visible', scrollY>400);
+  }, {passive:true});
 }
 
-// ============================================
-// TESTIMONIALS SLIDER
-// ============================================
-function initTestimonials() {
-  const slider = document.getElementById('testimonialSlider');
-  const dotsContainer = document.getElementById('sliderDots');
-  if(!slider) return;
-  const cards = slider.querySelectorAll('.testi-card');
-  if(!cards.length) return;
-  cards.forEach((_,i) => {
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (i===0?' active':'');
-    dot.onclick = () => goToSlide(i);
-    dotsContainer.appendChild(dot);
-  });
-  let current = 0;
-  function goToSlide(n) {
-    current = n;
-    slider.scrollTo({left: cards[n].offsetLeft - slider.offsetLeft, behavior:'smooth'});
-    document.querySelectorAll('#sliderDots .dot').forEach((d,i)=>d.classList.toggle('active',i===n));
-  }
-  setInterval(() => goToSlide((current+1)%cards.length), 4000);
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
 }
 
-// ============================================
+// ============================================================
 // NEWSLETTER
-// ============================================
-function subscribeNewsletter(e) {
+// ============================================================
+function subscribeNL(e) {
   e.preventDefault();
   const email = document.getElementById('nlEmail').value;
-  showToast('🎉 Bienvenue dans la famille NEXUS, ' + email + ' !');
+  if(db) {
+    addDoc(collection(db,'newsletter'), {email, date: serverTimestamp()})
+      .then(()=>showToast('🎉 Merci ! Vous êtes abonné(e) à la newsletter Nexus !'))
+      .catch(()=>showToast('🎉 Merci pour votre inscription !'));
+  } else { showToast('🎉 Merci ! Vous êtes abonné(e) à la newsletter Nexus !'); }
   document.getElementById('nlEmail').value='';
 }
 
-// ============================================
-// TOAST
-// ============================================
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  if(!toast) return;
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+// ============================================================
+// PREMIUM SUBSCRIPTIONS
+// ============================================================
+function subscribePremium(plan) {
+  if(!currentUser) { document.getElementById('authModal').style.display='flex'; return; }
+  window.location.href = 'abonnements.html?plan='+plan;
 }
 
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, dur=3000) {
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+
+// ============================================================
+// EXPOSE GLOBALS
+// ============================================================
+window.addToCart=addToCart; window.quickAddToCart=quickAddToCart;
+window.removeFromCart=removeFromCart; window.changeQty=changeQty;
+window.toggleWish=toggleWish; window.openPanel=openPanel;
+window.closeAllPanels=closeAllPanels; window.handleAuth=handleAuth;
+window.signInGoogle=signInGoogle; window.submitAuth=submitAuth;
+window.closeModal=closeModal; window.toggleAuthMode=toggleAuthMode;
+window.toggleMenu=toggleMenu; window.clearSearch=clearSearch;
+window.subscribeNL=subscribeNL; window.subscribePremium=subscribePremium;
+window.showToast=showToast;
 </script>
 </body>
 </html>
