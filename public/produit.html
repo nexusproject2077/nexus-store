@@ -396,10 +396,11 @@ window.addToCart=function(){
 };
 window.buyNow=function(){addToCart();location.href='checkout.html';};
 window.toggleWish=function(id){
-  if(wish.includes(id))var newW=[];for(var wx=0;wx<wish.length;wx++){if(wish[wx]!==id)newW.push(wish[wx]);}wish=newW;; else wish.push(id);
+  var idx=wish.indexOf(id);
+  if(idx>=0)wish.splice(idx,1); else wish.push(id);
   localStorage.setItem('nx_wish',JSON.stringify(wish));
-  const btn=document.getElementById('wishBtn');
-  if(btn){btn.classList.toggle('active',wish.includes(id));btn.textContent=wish.includes(id)?'❤️':'🤍';}
+  var btn=document.getElementById('wishBtn');
+  if(btn){btn.classList.toggle('active',wish.indexOf(id)>=0);btn.textContent=wish.indexOf(id)>=0?'\u2764\uFE0F':'\uD83E\uDD0D';}
 };
 window.toggleCart=function(){document.getElementById('cartSidebar').classList.toggle('open');};
 window.toggleMenu=function(){document.getElementById('mobileMenu').classList.toggle('open');};
